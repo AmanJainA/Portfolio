@@ -247,9 +247,13 @@ export default function PortfolioApp() {
                 >
                   <div className="p-profile-mascot-inner">
                     <img src={p.profile_image_url} alt={p.full_name || 'Profile'} />
-                    <span className="p-mascot-eye-glow mascot-eye-left" />
-                    <span className="p-mascot-eye-glow mascot-eye-right" />
-                    <span className="p-mascot-wave">Hello 👋</span>
+                    <span className="p-mascot-eye mascot-eye-left" aria-hidden="true">
+                      <span className="p-mascot-pupil" />
+                    </span>
+                    <span className="p-mascot-eye mascot-eye-right" aria-hidden="true">
+                      <span className="p-mascot-pupil" />
+                    </span>
+                    <span className="p-mascot-wave" aria-hidden="true">Hello 👋</span>
                   </div>
                   <div className="p-profile-badge"><span />Available for opportunities</div>
                 </div>
