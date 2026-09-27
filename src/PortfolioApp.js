@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'motion/react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { motion } from 'motion/react';
 import PortfolioHero from './components/ui/portfolio-hero';
 import { db } from './supabase';
 import './PortfolioApp.css';
@@ -15,43 +15,6 @@ function setFavicon(url) {
     document.head.appendChild(link);
   }
   link.href = url;
-}
-
-function AboutTechCard({ progress, index, name, level, icon }) {
-  const total = 11;
-  const start = 0.08 + index * 0.035;
-  const end = Math.min(start + 0.22, 0.82);
-
-  const opacity = useTransform(progress, [start, end], [0.15, 1]);
-  const scale = useTransform(progress, [start, end], [0.48, 1]);
-  const y = useTransform(progress, [start, end], [index % 2 ? 120 : -120, 0]);
-  const x = useTransform(progress, [start, end], [index % 3 === 0 ? -170 : index % 3 === 1 ? 170 : 0, 0]);
-  const z = useTransform(progress, [start, end], [-320, 0]);
-  const rotateX = useTransform(progress, [start, end], [index % 2 ? 70 : -70, 0]);
-  const rotateY = useTransform(progress, [start, end], [index % 2 ? -38 : 38, 0]);
-  const blur = useTransform(progress, [start, end], ['7px', '0px']);
-
-  return (
-    <motion.div
-      className="p-about-tech-card"
-      style={{ opacity, scale, x, y, z, rotateX, rotateY, filter: blur }}
-      whileHover={{
-        y: -14,
-        scale: 1.06,
-        rotateX: -6,
-        rotateY: index % 2 ? 8 : -8,
-        z: 45,
-      }}
-      transition={{ type: 'spring', stiffness: 180, damping: 18 }}
-      data-tech-index={index}
-      data-tech-total={total}
-    >
-      <span className="p-about-tech-index">{String(index + 1).padStart(2, '0')}</span>
-      <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
-      <strong>{name}</strong>
-      <small>{level}</small>
-    </motion.div>
-  );
 }
 
 function Section({ id, title, eyebrow, children }) {
@@ -75,13 +38,6 @@ export default function PortfolioApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('portfolio_theme') || 'dark');
   const [activeSection, setActiveSection] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
-  const aboutSceneRef = useRef(null);
-  const { scrollYProgress: rawAboutProgress } = useScroll({
-    target: aboutSceneRef,
-    offset: ['start 82%', 'end 18%'],
-  });
-  const aboutProgress = useSpring(rawAboutProgress, { stiffness: 90, damping: 24, mass: 0.18 });
-  const { scrollYProgress: pageProgress } = useScroll();
 
   const enterPortfolio = () => {
     setShowSplash(false);
@@ -225,7 +181,6 @@ export default function PortfolioApp() {
 
   return (
     <div className="portfolio-modern">
-      <motion.div className="p-page-progress" style={{ scaleX: pageProgress }} aria-hidden="true" />
       {showSplash && (
         <div className="portfolio-splash-layer">
           <PortfolioHero
@@ -302,25 +257,21 @@ export default function PortfolioApp() {
         </section>
 
         <Section id="about" title="About Me" eyebrow="01 / PROFILE">
-          <div className="p-about-scrollscene" ref={aboutSceneRef}>
+          <div className="p-about-scrollscene">
             <div className="p-about-scroll-sticky">
               <motion.div
                 className="p-glass p-about-immersive"
-                initial={{ opacity: 0, scale: .985 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.12 }}
-                transition={{ duration: .65, ease: 'easeOut' }}
+                initial={{ opacity: 0, scale: .96, rotateX: 5 }}
+                whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: .7 }}
               >
                 <div className="p-about-copy">
-                  <div className="p-about-meta-row">
-                    <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
-                    <span className="p-about-scroll-status"><i /> LIVE SCENE</span>
-                  </div>
+                  <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
                   <p>{p.about_text}</p>
                 </div>
                 <div className="p-about-tech-field" aria-label="Technical skills">
                   <div className="p-about-tech-glow" />
-                  <div className="p-about-tech-gridline" />
                   {[
                     ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg'],
                     ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg'],
@@ -334,7 +285,19 @@ export default function PortfolioApp() {
                     ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg'],
                     ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg'],
                   ].map(([name, level, icon], i) => (
-                    <AboutTechCard key={name} progress={aboutProgress} index={i} name={name} level={level} icon={icon} />
+                    <motion.div
+                      className="p-about-tech-card"
+                      key={name}
+                      initial={{ opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
+                      whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
+                      viewport={{ once: true, amount: 0.18 }}
+                      transition={{ delay: i * .11, duration: .8, type: 'spring', stiffness: 90, damping: 14 }}
+                      whileHover={{ y: -16, scale: 1.08, rotateX: -8, rotateY: i % 2 ? 9 : -9, z: 45 }}
+                    >
+                      <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
+                      <strong>{name}</strong>
+                      <small>{level}</small>
+                    </motion.div>
                   ))}
                 </div>
               </motion.div>
