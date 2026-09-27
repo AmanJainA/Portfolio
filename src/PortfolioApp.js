@@ -34,6 +34,46 @@ export default function PortfolioApp() {
   const [data, setData] = useState(emptyData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [theme, setTheme] = useState(() => localStorage.getItem('portfolio_theme') || 'dark');
+  const [activeSection, setActiveSection] = useState('home');
+
+  const menuItems = [
+    ['home', 'Home', 'fa-house'],
+    ['about', 'About', 'fa-user'],
+    ['skills', 'Skills', 'fa-code'],
+    ['projects', 'Projects', 'fa-briefcase'],
+    ['resume', 'Resume', 'fa-file-lines'],
+    ['contact', 'Contact', 'fa-envelope'],
+  ];
+
+  const toggleTheme = () => {
+    setTheme((current) => {
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('portfolio_theme', next);
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    document.documentElement.dataset.portfolioTheme = theme;
+    document.body.classList.toggle('portfolio-light-mode', theme === 'light');
+    return () => document.body.classList.remove('portfolio-light-mode');
+  }, [theme]);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const point = window.scrollY + 130;
+      let current = 'home';
+      menuItems.forEach(([id]) => {
+        const el = document.getElementById(id);
+        if (el && el.offsetTop <= point) current = id;
+      });
+      setActiveSection(current);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   const load = async () => {
     setLoading(true);
@@ -103,13 +143,19 @@ export default function PortfolioApp() {
     <div className="portfolio-modern">
       <header className="p-header">
         <div className="p-container p-header-inner">
-          <a className="p-brand" href="#home">{p.username || p.full_name || 'Portfolio'}</a>
-          <nav className="p-nav">
-            {['home','about','skills','projects','resume','contact'].map((item) => <a key={item} href={`#${item}`}>{item === 'resume' ? 'Resume' : item[0].toUpperCase() + item.slice(1)}</a>)}
+          <a className="p-brand" href="#home"><span className="p-brand-mark"><i className="fa-solid fa-code" /></span><span>{p.username || p.full_name || 'Portfolio'}</span></a>
+          <nav className="p-nav" aria-label="Primary navigation">
+            {menuItems.map(([id, label]) => <a key={id} className={activeSection === id ? 'active' : ''} href={`#${id}`}>{label}</a>)}
           </nav>
-          <a className="p-header-cta" href="#contact">Let’s Talk <i className="fa-solid fa-arrow-up-right-from-square" /></a>
+          <div className="p-header-actions">
+            <button className="p-theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}><i className={theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'} /></button>
+            <a className="p-header-cta" href="#contact">Let’s Talk <i className="fa-solid fa-arrow-up-right-from-square" /></a>
+          </div>
         </div>
       </header>
+      <nav className="p-mobile-nav" aria-label="Mobile navigation">
+        {menuItems.map(([id, label, icon]) => <a key={id} className={activeSection === id ? 'active' : ''} href={`#${id}`}><i className={`fa-solid ${icon}`} /><span>{label}</span></a>)}
+      </nav>
 
       <main>
         <section id="home" className="p-hero">
