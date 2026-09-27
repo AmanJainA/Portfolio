@@ -1170,3 +1170,103 @@ body:has(.portfolio-splash-layer) {
   .p-theme-toggle { width: 47px; height: 28px; border: 0; background: transparent; padding: 0; }
   .p-theme-toggle:hover { border: 0; background: transparent; }
 }
+
+
+/* Final light-theme contrast pass: every white text element on portfolio surfaces
+   becomes readable dark text immediately when light mode is active. */
+[data-portfolio-theme="light"] .portfolio-modern :where(
+  .p-header,
+  .p-header *,
+  .p-nav a,
+  .p-mobile-nav a,
+  .p-brand,
+  .p-title,
+  .p-eyebrow,
+  .p-hero h1,
+  .p-hero h3,
+  .p-hero p,
+  .p-section h1,
+  .p-section h2,
+  .p-section h3,
+  .p-section h4,
+  .p-section h5,
+  .p-section h6,
+  .p-section p,
+  .p-section span,
+  .p-section strong,
+  .p-section b,
+  .p-section label,
+  .p-project-body,
+  .p-project-body h3,
+  .p-project-body p,
+  .p-skill-box,
+  .p-skill-box h3,
+  .p-skill-box p,
+  .p-skill-panel,
+  .p-skill-panel h3,
+  .p-column-title,
+  .p-timeline-card,
+  .p-timeline-card h3,
+  .p-timeline-card p,
+  .p-contact-copy,
+  .p-contact-copy h3,
+  .p-contact-copy p,
+  .p-footer,
+  .p-footer span,
+  .p-about-copy,
+  .p-about-copy p,
+  .p-about-tech-card,
+  .p-about-tech-card strong,
+  .p-about-tech-card small
+) {
+  color: #111827;
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-eyebrow,
+[data-portfolio-theme="light"] .portfolio-modern .p-about-scroll-label {
+  color: var(--p-accent, #2563eb);
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-nav a,
+[data-portfolio-theme="light"] .portfolio-modern .p-mobile-nav a,
+[data-portfolio-theme="light"] .portfolio-modern .p-header-actions,
+[data-portfolio-theme="light"] .portfolio-modern .p-brand {
+  color: #111827;
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-nav a.active,
+[data-portfolio-theme="light"] .portfolio-modern .p-mobile-nav a.active {
+  color: var(--p-accent, #2563eb);
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-secondary-btn {
+  color: #111827;
+  border-color: rgba(17,24,39,.16);
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-socials a,
+[data-portfolio-theme="light"] .portfolio-modern .p-project-image > a,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-links a,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-links i {
+  color: #111827;
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-theme-toggle {
+  color: #111827;
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-theme-toggle-track {
+  background: rgba(17,24,39,.08);
+  border-color: #111827;
+}
+
+[data-portfolio-theme="light"] .portfolio-modern .p-theme-toggle-knob {
+  background: #111827;
+  color: #fff;
+}
+
+/* Theme control always updates visually with React state — no page refresh required. */
+.p-theme-toggle-track,
+.p-theme-toggle-knob {
+  will-change: transform, background, color;
+}
