@@ -753,3 +753,61 @@ body:has(.portfolio-splash-layer) {
     transform: scaleY(.8);
   }
 }
+
+
+/* Soft animated aura around the Aman Jain lettering. */
+.portfolio-splash-name::after {
+  right: -34px;
+  width: 3px;
+  filter: blur(.2px);
+  box-shadow:
+    0 0 10px rgba(195,228,29,.72),
+    0 0 28px rgba(195,228,29,.42),
+    0 0 60px rgba(195,228,29,.22);
+}
+
+.portfolio-splash-name::before {
+  left: -34px;
+  width: 3px;
+  box-shadow:
+    0 0 10px rgba(195,228,29,.72),
+    0 0 28px rgba(195,228,29,.42),
+    0 0 60px rgba(195,228,29,.22);
+}
+
+.portfolio-splash-word {
+  text-shadow:
+    0 0 4px rgba(195,228,29,.45),
+    0 0 14px rgba(195,228,29,.28),
+    0 0 32px rgba(195,228,29,.16);
+  animation: portfolio-name-aura 2.8s ease-in-out infinite;
+}
+
+@keyframes portfolio-name-aura {
+  0%, 100% {
+    text-shadow:
+      0 0 4px rgba(195,228,29,.35),
+      0 0 12px rgba(195,228,29,.20),
+      0 0 26px rgba(195,228,29,.10);
+  }
+  50% {
+    text-shadow:
+      0 0 7px rgba(195,228,29,.72),
+      0 0 20px rgba(195,228,29,.42),
+      0 0 42px rgba(195,228,29,.22);
+  }
+}
+
+@media (max-width: 650px) {
+  .portfolio-splash-name::before { left: -20px; }
+  .portfolio-splash-name::after { right: -20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-splash-word {
+    animation: none;
+    text-shadow:
+      0 0 5px rgba(195,228,29,.45),
+      0 0 16px rgba(195,228,29,.24);
+  }
+}
