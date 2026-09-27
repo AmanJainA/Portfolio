@@ -121,12 +121,13 @@
   --p-card:rgba(255,255,255,.88);
   --p-text:#162033;
   --p-muted:#61708a;
-  --p-accent:#2563eb;
-  --p-accent2:#7c3aed;
+  /* Keep the same signature accent palette in light mode */
+  --p-accent:#67e8f9;
+  --p-accent2:#8b5cf6;
   --p-border:rgba(22,32,51,.12);
   background:
-    radial-gradient(circle at 80% 0%,rgba(37,99,235,.10),transparent 28%),
-    radial-gradient(circle at 10% 20%,rgba(124,58,237,.08),transparent 30%),
+    radial-gradient(circle at 80% 0%,rgba(103,232,249,.16),transparent 28%),
+    radial-gradient(circle at 10% 20%,rgba(139,92,246,.14),transparent 30%),
     var(--p-bg);
   color:var(--p-text);
 }
@@ -151,7 +152,7 @@
 [data-portfolio-theme="light"] .p-about-copy>p,
 [data-portfolio-theme="light"] .p-timeline-card b { color:#354765; }
 [data-portfolio-theme="light"] .p-hero h1 span {
-  background:linear-gradient(90deg,#2563eb,#7c3aed);
+  background:linear-gradient(90deg,var(--p-accent),var(--p-accent2));
   background-clip:text; -webkit-background-clip:text;
 }
 [data-portfolio-theme="light"] .p-glass,
@@ -169,7 +170,7 @@
   background:rgba(255,255,255,.9); color:#162033;
 }
 [data-portfolio-theme="light"] .p-tech-row span {
-  background:rgba(37,99,235,.08); color:#315fae;
+  background:rgba(103,232,249,.10); color:#31506a;
 }
 [data-portfolio-theme="light"] .p-contact-form input,
 [data-portfolio-theme="light"] .p-contact-form textarea {
