@@ -19,7 +19,7 @@ function AdminPage() {
   const [user,setUser] = useState(JSON.parse(localStorage.getItem('portfolio_admin_user') || 'null'));
   const [login,setLogin] = useState({email:'',password:''});
   const [data,setData] = useState(null);
-  const [active,setActive] = useState('profile');
+  const [active,setActive] = useState('dashboard');
   const [editing,setEditing] = useState(null);
   const [form,setForm] = useState({});
   const [busy,setBusy] = useState(false);
