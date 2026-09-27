@@ -72,11 +72,16 @@ function AdminPage() {
   };
   const activeConfig=resources.find(r=>r.key===active);
   const items=active==='profile'?[profile]:data?.[active]||[];
-  const filteredItems=useMemo(()=>{
-    if(!search.trim() || active==='profile' || active==='dashboard' || active==='contact') return items;
-    const q=search.toLowerCase();
-    return items.filter(item=>Object.values(item||{}).some(value=>Array.isArray(value)?value.join(' ').toLowerCase().includes(q):String(value??'').toLowerCase().includes(q)));
-  },[items,search,active]);
+  const filteredItems=(!search.trim() || active==='profile' || active==='dashboard' || active==='contact')
+    ? items
+    : items.filter(item=>{
+        const q=search.toLowerCase();
+        return Object.values(item||{}).some(value =>
+          Array.isArray(value)
+            ? value.join(' ').toLowerCase().includes(q)
+            : String(value??'').toLowerCase().includes(q)
+        );
+      });
 
   const startEdit=(item,config)=>{setEditing(item?.id||'new');setForm(item?{...item}:empty(config.fields));};
   const normalize=(config,payload)=>{
