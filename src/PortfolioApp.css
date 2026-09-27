@@ -1267,3 +1267,321 @@ body:has(.portfolio-splash-layer) {
 [data-portfolio-theme="light"] .portfolio-splash-scroll:hover {
   color: #000;
 }
+
+
+/* ===== Skills / project filters / centered journey timeline ===== */
+.p-about-tech-card {
+  --tech-color: #67e8f9;
+  border-color: color-mix(in srgb, var(--tech-color) 24%, var(--p-border));
+  box-shadow: 0 18px 55px rgba(0,0,0,.14), 0 0 28px color-mix(in srgb, var(--tech-color) 13%, transparent);
+}
+.p-about-tech-icon {
+  border: 1px solid color-mix(in srgb, var(--tech-color) 35%, transparent);
+  background: color-mix(in srgb, var(--tech-color) 10%, transparent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--tech-color) 18%, transparent);
+}
+.p-about-tech-icon img {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--tech-color) 42%, transparent));
+}
+.p-about-tech-card strong {
+  color: var(--tech-color);
+}
+.p-about-tech-card small {
+  color: color-mix(in srgb, var(--tech-color) 72%, var(--p-muted));
+}
+.p-skill-panel {
+  overflow: hidden;
+}
+.p-progress {
+  position: relative;
+}
+.p-progress>div b {
+  min-width: 42px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.p-track span {
+  transform-origin: left center;
+}
+.p-ring {
+  --pct: 0deg;
+  will-change: background;
+}
+.p-ring strong {
+  font-variant-numeric: tabular-nums;
+}
+
+.p-project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin: -12px 0 30px;
+}
+.p-project-filters button {
+  border: 1px solid var(--p-border);
+  background: rgba(255,255,255,.035);
+  color: var(--p-muted);
+  border-radius: 999px;
+  padding: 9px 18px;
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: color .22s ease, background .22s ease, border-color .22s ease, transform .22s ease, box-shadow .22s ease;
+}
+.p-project-filters button:hover {
+  color: var(--p-text);
+  border-color: var(--p-accent);
+  transform: translateY(-2px);
+}
+.p-project-filters button.active {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg,var(--p-accent2),#4f46e5);
+  box-shadow: 0 10px 28px rgba(79,70,229,.24);
+}
+.p-project-image>a.p-project-link {
+  left: 50%;
+  top: 50%;
+  right: auto;
+  transform: translate(-50%,-50%) scale(.86);
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(7,17,31,.72);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transition: opacity .25s ease, transform .25s ease, background .25s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,.28);
+}
+.p-project:hover .p-project-image>a.p-project-link,
+.p-project-image>a.p-project-link:focus-visible {
+  opacity: 1;
+  transform: translate(-50%,-50%) scale(1);
+}
+.p-project-image>a.p-project-link:hover {
+  background: linear-gradient(135deg,var(--p-accent2),#4f46e5);
+}
+.p-project-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: var(--p-accent);
+  background:
+    radial-gradient(circle at center, rgba(103,232,249,.12), transparent 45%),
+    rgba(255,255,255,.025);
+  font-size: 2.2rem;
+}
+.p-project-empty {
+  text-align: center;
+  color: var(--p-muted);
+  padding: 30px 0;
+}
+
+/* Single centered timeline: education left, experience right. */
+.p-journey-timeline {
+  position: relative;
+  width: min(1100px,100%);
+  margin: 10px auto 0;
+}
+.p-journey-head,
+.p-journey-row {
+  display: grid;
+  grid-template-columns: minmax(0,1fr) 46px minmax(0,1fr);
+  gap: 0;
+}
+.p-journey-head {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+}
+.p-journey-head h3 {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: .12em;
+  font-size: .78rem;
+  color: var(--p-accent);
+}
+.p-journey-head h3:first-child {
+  text-align: right;
+  padding-right: 28px;
+}
+.p-journey-head h3:last-child {
+  text-align: left;
+  padding-left: 28px;
+}
+.p-journey-head span {
+  display: block;
+}
+.p-journey-line {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg,transparent,var(--p-accent),var(--p-accent2),transparent);
+  opacity: .75;
+  box-shadow: 0 0 16px rgba(103,232,249,.18);
+}
+.p-journey-row {
+  position: relative;
+  min-height: 185px;
+  align-items: center;
+}
+.p-journey-side {
+  position: relative;
+  z-index: 2;
+}
+.p-journey-education {
+  padding-right: 28px;
+}
+.p-journey-experience {
+  padding-left: 28px;
+}
+.p-journey-card {
+  position: relative;
+  padding: 22px 24px;
+  border: 1px solid var(--p-border);
+  border-radius: 20px;
+  background: var(--p-card);
+  box-shadow: 0 18px 55px rgba(0,0,0,.12);
+  backdrop-filter: blur(14px);
+}
+.p-journey-card::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg,var(--p-accent),transparent);
+}
+.p-journey-card-left::after {
+  right: -28px;
+}
+.p-journey-card-right::after {
+  left: -28px;
+  transform: scaleX(-1);
+}
+.p-journey-card>span {
+  color: var(--p-accent);
+  font-size: .72rem;
+  letter-spacing: .05em;
+}
+.p-journey-card h3 {
+  margin: 8px 0 5px;
+  font-size: 1.02rem;
+}
+.p-journey-card b {
+  color: #c7d5e8;
+  font-size: .82rem;
+}
+.p-journey-card p {
+  color: var(--p-muted);
+  font-size: .8rem;
+  line-height: 1.55;
+  margin: 6px 0 0;
+}
+.p-journey-dot {
+  width: 14px;
+  height: 14px;
+  justify-self: center;
+  border-radius: 50%;
+  background: var(--p-bg);
+  border: 3px solid var(--p-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb,var(--p-accent) 12%,transparent), 0 0 22px color-mix(in srgb,var(--p-accent) 38%,transparent);
+  z-index: 3;
+}
+[data-portfolio-theme="light"] .p-journey-card b {
+  color: #354765;
+}
+[data-portfolio-theme="light"] .p-project-filters button {
+  background: rgba(22,32,51,.035);
+}
+[data-portfolio-theme="light"] .p-project-filters button.active {
+  color: #fff;
+}
+[data-portfolio-theme="light"] .p-project-image>a.p-project-link {
+  background: rgba(255,255,255,.82);
+  color: #162033;
+}
+[data-portfolio-theme="light"] .p-project-placeholder {
+  background: radial-gradient(circle at center,rgba(37,99,235,.10),transparent 45%),rgba(22,32,51,.025);
+}
+
+@media (max-width: 800px) {
+  .p-journey-head,
+  .p-journey-row {
+    grid-template-columns: 26px minmax(0,1fr);
+  }
+  .p-journey-head {
+    margin-left: 26px;
+    margin-bottom: 12px;
+  }
+  .p-journey-head h3:first-child {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: left;
+    padding: 0;
+  }
+  .p-journey-head span,
+  .p-journey-head h3:last-child {
+    display: none;
+  }
+  .p-journey-line {
+    left: 13px;
+    transform: translateX(-50%);
+  }
+  .p-journey-row {
+    min-height: 0;
+    padding: 8px 0 18px;
+  }
+  .p-journey-side {
+    grid-column: 2;
+  }
+  .p-journey-education,
+  .p-journey-experience {
+    padding: 0 0 0 18px;
+  }
+  .p-journey-education {
+    margin-bottom: 14px;
+  }
+  .p-journey-dot {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: start;
+    margin-top: 28px;
+  }
+  .p-journey-card::after {
+    left: -18px;
+    right: auto;
+    top: 28px;
+    transform: none;
+  }
+  .p-journey-card-left::after,
+  .p-journey-card-right::after {
+    left: -18px;
+    right: auto;
+    transform: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .p-project-filters {
+    gap: 7px;
+    margin-top: -8px;
+  }
+  .p-project-filters button {
+    padding: 8px 14px;
+    font-size: .72rem;
+  }
+  .p-project-image>a.p-project-link {
+    opacity: 1;
+    transform: translate(-50%,-50%) scale(.92);
+  }
+  .p-journey-card {
+    padding: 18px;
+  }
+}
