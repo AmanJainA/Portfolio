@@ -1172,3 +1172,99 @@ body:has(.portfolio-splash-layer) {
   .p-theme-toggle:hover { border: 0; background: transparent; }
 }
 
+
+
+/* =========================================================
+   LIGHT MODE — keep the exact same accent/visual colours.
+   Only the text switches from white/light text to black.
+   ========================================================= */
+[data-portfolio-theme="light"] .portfolio-modern {
+  --p-text: #000;
+  --p-muted: #000;
+}
+
+/* All normal content text becomes black in light mode.
+   Accent colours, gradients, borders and backgrounds stay unchanged. */
+[data-portfolio-theme="light"] .portfolio-modern h1,
+[data-portfolio-theme="light"] .portfolio-modern h2,
+[data-portfolio-theme="light"] .portfolio-modern h3,
+[data-portfolio-theme="light"] .portfolio-modern h4,
+[data-portfolio-theme="light"] .portfolio-modern h5,
+[data-portfolio-theme="light"] .portfolio-modern h6,
+[data-portfolio-theme="light"] .portfolio-modern p,
+[data-portfolio-theme="light"] .portfolio-modern strong,
+[data-portfolio-theme="light"] .portfolio-modern b,
+[data-portfolio-theme="light"] .portfolio-modern label,
+[data-portfolio-theme="light"] .portfolio-modern input,
+[data-portfolio-theme="light"] .portfolio-modern textarea,
+[data-portfolio-theme="light"] .portfolio-modern .p-title,
+[data-portfolio-theme="light"] .portfolio-modern .p-project-body,
+[data-portfolio-theme="light"] .portfolio-modern .p-skill-box,
+[data-portfolio-theme="light"] .portfolio-modern .p-skill-panel,
+[data-portfolio-theme="light"] .portfolio-modern .p-column-title,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-copy,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-copy h3,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-copy p,
+[data-portfolio-theme="light"] .portfolio-modern .p-about-copy > p,
+[data-portfolio-theme="light"] .portfolio-modern .p-about-tech-card strong,
+[data-portfolio-theme="light"] .portfolio-modern .p-about-tech-card small,
+[data-portfolio-theme="light"] .portfolio-modern .p-timeline-card b,
+[data-portfolio-theme="light"] .portfolio-modern .p-timeline-card p,
+[data-portfolio-theme="light"] .portfolio-modern .p-meta-grid span,
+[data-portfolio-theme="light"] .portfolio-modern .p-language small,
+[data-portfolio-theme="light"] .portfolio-modern .p-ring-wrap > span,
+[data-portfolio-theme="light"] .portfolio-modern .p-footer {
+  color: #000;
+}
+
+/* Navigation and controls: text is black, active/accent colours remain untouched. */
+[data-portfolio-theme="light"] .portfolio-modern .p-brand,
+[data-portfolio-theme="light"] .portfolio-modern .p-nav a,
+[data-portfolio-theme="light"] .portfolio-modern .p-header-cta,
+[data-portfolio-theme="light"] .portfolio-modern .p-theme-toggle,
+[data-portfolio-theme="light"] .portfolio-modern .p-mobile-nav a,
+[data-portfolio-theme="light"] .portfolio-modern .p-secondary-btn,
+[data-portfolio-theme="light"] .portfolio-modern .p-socials a,
+[data-portfolio-theme="light"] .portfolio-modern .p-project-image > a,
+[data-portfolio-theme="light"] .portfolio-modern .p-profile-badge,
+[data-portfolio-theme="light"] .portfolio-modern .p-mascot-wave {
+  color: #000;
+}
+
+/* Keep placeholder text black too. */
+[data-portfolio-theme="light"] .portfolio-modern input::placeholder,
+[data-portfolio-theme="light"] .portfolio-modern textarea::placeholder {
+  color: #000;
+  opacity: .65;
+}
+
+/* Do not change the accent colours of active navigation/icons/buttons. */
+[data-portfolio-theme="light"] .portfolio-modern .p-eyebrow,
+[data-portfolio-theme="light"] .portfolio-modern .p-about-scroll-label,
+[data-portfolio-theme="light"] .portfolio-modern .p-language i,
+[data-portfolio-theme="light"] .portfolio-modern .p-skill-box > i,
+[data-portfolio-theme="light"] .portfolio-modern .p-progress b,
+[data-portfolio-theme="light"] .portfolio-modern .p-project-no,
+[data-portfolio-theme="light"] .portfolio-modern .p-timeline-card > span,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-links i,
+[data-portfolio-theme="light"] .portfolio-modern .p-mobile-nav a.active,
+[data-portfolio-theme="light"] .portfolio-modern .p-mobile-nav a.active i {
+  color: var(--p-accent);
+}
+
+/* Primary CTA keeps its original white label because it is a coloured button. */
+[data-portfolio-theme="light"] .portfolio-modern .p-primary-btn {
+  color: #fff;
+}
+
+/* Theme switch knob remains readable; only normal portfolio text changes. */
+[data-portfolio-theme="light"] .portfolio-modern .p-theme-toggle-knob {
+  color: #fff;
+}
+
+/* Splash follows the same rule: its normal white text becomes black in light mode.
+   The signature/scroll controls keep the same accent-independent treatment. */
+[data-portfolio-theme="light"] .portfolio-splash-signature,
+[data-portfolio-theme="light"] .portfolio-splash-scroll:hover {
+  color: #000;
+}
