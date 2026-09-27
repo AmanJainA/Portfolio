@@ -409,6 +409,9 @@ export default function PortfolioApp() {
 
         <Section id="resume" title="Education & Work Experience" eyebrow="04 / JOURNEY">
           <div className="p-journey-timeline">
+            <div className="p-journey-head">
+              <h3>Education</h3><span /><h3>Work Experience</h3>
+            </div>
             <div className="p-journey-line" aria-hidden="true" />
             {Array.from({ length: Math.max(data.education.length, data.experience.length) }).map((_, i) => {
               const education = data.education[i];
