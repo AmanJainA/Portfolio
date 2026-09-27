@@ -506,3 +506,149 @@ body.portfolio-light-mode {
   background: #f5f7fb;
   color: #162033;
 }
+
+
+/* ===== Dynamic splash hero ===== */
+.portfolio-splash {
+  min-height: 100vh;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  color: #fff;
+  isolation: isolate;
+}
+.portfolio-splash-center {
+  width: 100%;
+  padding: 0 20px;
+}
+.portfolio-splash-name {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.portfolio-splash-word {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: clamp(6.3rem, 16vw, 13.1rem);
+  line-height: .75;
+  letter-spacing: -.085em;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #c3e41d;
+  white-space: nowrap;
+}
+.portfolio-splash-photo {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: clamp(90px, 10vw, 129px);
+  height: clamp(152px, 17vw, 218px);
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 25px 70px rgba(0,0,0,.55);
+  transition: transform .3s ease;
+}
+.portfolio-splash-photo:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+.portfolio-splash-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.portfolio-splash-signature {
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+  font-size: 2.4rem;
+  color: #fff;
+}
+.portfolio-splash-tagline {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(72px, 9vh, 120px);
+  transform: translateX(-50%);
+  width: min(92%, 720px);
+  text-align: center;
+}
+.portfolio-splash-tagline-text {
+  display: inline-flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0;
+  color: #737373;
+  font-family: 'Antic', sans-serif;
+  font-size: clamp(15px, 2vw, 22px);
+  line-height: 1.4;
+  transition: color .3s ease;
+}
+.portfolio-splash-tagline-text:hover {
+  color: #fff;
+}
+.portfolio-splash-scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 25px;
+  transform: translateX(-50%);
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #737373;
+  cursor: pointer;
+}
+.portfolio-splash-scroll svg {
+  width: 28px;
+  height: 28px;
+  transition: color .25s ease, transform .25s ease;
+}
+.portfolio-splash-scroll:hover {
+  color: #fff;
+}
+.portfolio-splash-scroll:hover svg {
+  transform: translateY(3px);
+}
+[data-portfolio-theme="light"] .portfolio-splash {
+  background: #fafafa;
+  color: #111;
+}
+[data-portfolio-theme="light"] .portfolio-splash-signature {
+  color: #111;
+}
+[data-portfolio-theme="light"] .portfolio-splash-tagline-text {
+  color: #737373;
+}
+[data-portfolio-theme="light"] .portfolio-splash-tagline-text:hover,
+[data-portfolio-theme="light"] .portfolio-splash-scroll:hover {
+  color: #111;
+}
+@media (max-width: 650px) {
+  .portfolio-splash-word {
+    font-size: clamp(4.6rem, 22vw, 7.8rem);
+    letter-spacing: -.075em;
+  }
+  .portfolio-splash-photo {
+    width: 82px;
+    height: 138px;
+  }
+}
