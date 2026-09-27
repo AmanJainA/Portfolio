@@ -1598,3 +1598,77 @@ body:has(.portfolio-splash-layer) {
 @media(max-width:800px){
   .p-journey-experience .p-journey-card{margin-bottom:18px}
 }
+
+
+/* ===== Light theme should retain the same accent treatment used by dark theme ===== */
+[data-portfolio-theme="light"] .portfolio-splash-layer,
+[data-portfolio-theme="light"] .portfolio-splash-layer * {
+  --splash-accent: #67e8f9;
+}
+[data-portfolio-theme="light"] .portfolio-splash-layer .portfolio-splash-signature,
+[data-portfolio-theme="light"] .portfolio-splash-layer .portfolio-splash-name,
+[data-portfolio-theme="light"] .portfolio-splash-layer .portfolio-splash-title {
+  color: #67e8f9;
+  text-shadow: 0 0 18px rgba(103,232,249,.28);
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-hero h1 span {
+  color: #67e8f9;
+  text-shadow: 0 0 18px rgba(103,232,249,.28);
+}
+
+/* Home CTAs: same hover accent behavior in both themes. */
+.portfolio-modern .p-primary-btn,
+.portfolio-modern .p-secondary-btn {
+  transition: color .22s ease, background .22s ease, border-color .22s ease,
+              box-shadow .22s ease, transform .22s ease;
+}
+.portfolio-modern .p-primary-btn:hover {
+  color: #fff !important;
+  background: linear-gradient(135deg,#67e8f9,#4f46e5);
+  border-color: transparent;
+  box-shadow: 0 12px 30px rgba(79,70,229,.28), 0 0 22px rgba(103,232,249,.16);
+  transform: translateY(-2px);
+}
+.portfolio-modern .p-secondary-btn:hover {
+  color: #67e8f9 !important;
+  border-color: #67e8f9;
+  background: rgba(103,232,249,.08);
+  box-shadow: 0 10px 28px rgba(103,232,249,.14);
+  transform: translateY(-2px);
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-primary-btn:hover {
+  color: #fff !important;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-secondary-btn:hover {
+  color: #67e8f9 !important;
+}
+
+/* Project filter active label must remain black in light theme. */
+[data-portfolio-theme="light"] .portfolio-modern .p-project-filters button.active {
+  color: #000 !important;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-project-filters button.active:hover {
+  color: #000 !important;
+}
+
+/* Match dark-theme active menu accent in light theme. */
+[data-portfolio-theme="light"] .portfolio-modern .p-nav a.active,
+[data-portfolio-theme="light"] .portfolio-modern .p-nav a.active .p-nav-text,
+[data-portfolio-theme="light"] .portfolio-modern .p-nav a.active .p-nav-icon,
+[data-portfolio-theme="light"] .portfolio-modern .p-mobile-nav a.active,
+[data-portfolio-theme="light"] .portfolio-modern .p-mobile-nav a.active i {
+  color: var(--p-accent) !important;
+}
+
+/* Work experience: 10px separation after each card. */
+.p-journey-experience .p-journey-card {
+  margin-bottom: 10px;
+}
+.p-journey-experience .p-journey-card:last-child {
+  margin-bottom: 0;
+}
+@media (max-width:800px) {
+  .p-journey-experience .p-journey-card {
+    margin-bottom: 10px;
+  }
+}
