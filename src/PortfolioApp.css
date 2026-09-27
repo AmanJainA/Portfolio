@@ -683,13 +683,73 @@ body:has(.portfolio-splash-layer) {
 }
 
 
-/* Path-drawing-inspired typography for the existing splash glow.
-   Keeps the current glow/layout unchanged; only the Aman Jain letters get a cleaner outlined treatment. */
-.portfolio-splash-word-outline {
-  -webkit-text-stroke: 1.6px #c3e41d;
-  color: transparent;
-  text-shadow: 0 0 18px rgba(195,228,29,.08);
+
+/* Animated side glow — keeps the existing splash design unchanged. */
+.portfolio-splash-name::before,
+.portfolio-splash-name::after {
+  content: "";
+  position: absolute;
+  top: 8%;
+  width: 2px;
+  height: 84%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: .72;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(195,228,29,.12) 14%,
+    #c3e41d 42%,
+    rgba(195,228,29,.72) 50%,
+    #c3e41d 58%,
+    rgba(195,228,29,.12) 86%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 8px rgba(195,228,29,.5),
+    0 0 24px rgba(195,228,29,.22),
+    0 0 45px rgba(195,228,29,.10);
+  animation: portfolio-side-glow 2.4s ease-in-out infinite;
 }
-.portfolio-splash-word-outline span {
-  -webkit-text-stroke: inherit;
+
+.portfolio-splash-name::before {
+  left: -28px;
+}
+
+.portfolio-splash-name::after {
+  right: -28px;
+  animation-delay: -1.2s;
+}
+
+@keyframes portfolio-side-glow {
+  0%, 100% {
+    transform: scaleY(.62);
+    opacity: .28;
+    filter: blur(1px);
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: .9;
+    filter: blur(0);
+  }
+}
+
+@media (max-width: 650px) {
+  .portfolio-splash-name::before,
+  .portfolio-splash-name::after {
+    width: 1.5px;
+    height: 78%;
+  }
+
+  .portfolio-splash-name::before { left: -16px; }
+  .portfolio-splash-name::after { right: -16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-splash-name::before,
+  .portfolio-splash-name::after {
+    animation: none;
+    opacity: .5;
+    transform: scaleY(.8);
+  }
 }
