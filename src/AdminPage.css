@@ -76,3 +76,18 @@
 }
 
 .dashboard-status-stack{display:flex;flex-direction:column;align-items:flex-end;gap:7px}.dashboard-readiness{display:inline-flex;align-items:center;gap:7px;font-size:12px;color:var(--admin-muted,#7f8aa3)}.dashboard-readiness b{color:inherit}.dashboard-readiness i{font-size:11px}
+
+
+/* Admin dashboard refinement pack */
+.dashboard-stat{transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.dashboard-stat:hover{box-shadow:0 14px 34px rgba(16,24,40,.08);border-color:#d4dbea}
+.dashboard-card{transition:box-shadow .2s ease,border-color .2s ease}
+.dashboard-card:hover{border-color:#dde3ec;box-shadow:0 14px 42px rgba(16,24,40,.065)}
+.dashboard-project{transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.dashboard-project:hover{transform:translateY(-1px);border-color:#d7deea;background:#fbfcff}
+.dashboard-quick-grid button{transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.dashboard-quick-grid button:hover{box-shadow:0 8px 20px rgba(16,24,40,.06)}
+.dashboard-bar-row:focus-visible,.dashboard-stat:focus-visible,.dashboard-message-row:focus-visible,.dashboard-missing button:focus-visible,.dashboard-quick-grid button:focus-visible,.dashboard-project button:focus-visible,.admin-sidebar nav button:focus-visible,.admin-refresh:focus-visible,.admin-view:focus-visible{outline:3px solid rgba(124,92,255,.22);outline-offset:2px}
+.admin-message{box-shadow:0 8px 24px rgba(15,23,42,.05)}
+@media(max-width:900px){.admin-main{overflow-x:hidden}.dashboard-stat-grid{gap:10px}}
+@media(max-width:620px){.dashboard-card{padding:18px}.dashboard-welcome{padding:20px}.dashboard-stat{padding:13px}.dashboard-stat-icon{width:34px;height:34px}.dashboard-stat strong{font-size:1.2rem}.dashboard-project{padding:9px}.dashboard-project-thumb{width:46px;height:38px}}
