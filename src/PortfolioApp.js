@@ -84,7 +84,40 @@ function ProjectSection({ projects }) {
   }, [projects, filter]);
 
   return (
-    <ProjectSection projects={data.projects} />
+    <Section id="projects" title="My Projects" eyebrow="03 / SELECTED WORK">
+      <div className="p-project-filters" role="tablist" aria-label="Project filters">
+        {filters.map((item) => (
+          <button key={item} type="button" role="tab" aria-selected={filter === item}
+            className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>
+            {item}
+          </button>
+        ))}
+      </div>
+      <motion.div layout className="p-project-grid">
+        {filteredProjects.map((project, i) => (
+          <motion.article layout className="p-project" key={project.id}
+            initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }} transition={{ delay: i * 0.035 }} whileHover={{ y: -8 }}>
+            <div className="p-project-image">
+              {project.image_url ? <img src={project.image_url} alt={project.title} /> : <div className="p-project-placeholder"><i className="fa-solid fa-code" /></div>}
+              {project.link && project.link !== '#' && (
+                <a className="p-project-link" href={project.link} target="_blank" rel="noreferrer"
+                  aria-label={'Open ' + project.title} title="Open project">
+                  <i className="fa-solid fa-arrow-up-right-from-square" />
+                </a>
+              )}
+            </div>
+            <div className="p-project-body">
+              <span className="p-project-no">{String(project.sort_order || i + 1).padStart(2,'0')}</span>
+              <h3>{project.title}</h3>
+              <p>{project.summary}</p>
+              <div className="p-tech-row">{(project.tech_stack || []).map((t) => <span key={t}>{t}</span>)}</div>
+            </div>
+          </motion.article>
+        ))}
+      </motion.div>
+      {!filteredProjects.length && <div className="p-project-empty">No projects found for {filter}.</div>}
+    </Section>
   );
 }
 
@@ -355,10 +388,11 @@ export default function PortfolioApp() {
                     ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg','#61DAFB'],
                     ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg','#3DDC84'],
                     ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg','#54C5F8'],
-                  ].map(([name, level, icon], i) => (
+                  ].map(([name, level, icon, color], i) => (
                     <motion.div
                       className="p-about-tech-card"
                       key={name}
+                      style={{ '--tech-color': color }}
                       initial={{ opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
                       whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
                       viewport={{ once: true, amount: 0.18 }}
@@ -398,14 +432,7 @@ export default function PortfolioApp() {
           </div>
         </Section>
 
-        <Section id="projects" title="My Projects" eyebrow="03 / SELECTED WORK">
-          <div className="p-project-grid">
-            {data.projects.map((project, i) => <motion.article className="p-project" key={project.id} initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.035 }} whileHover={{ y: -8 }}>
-              <div className="p-project-image"><img src={project.image_url} alt={project.title} /><a href={project.link} target="_blank" rel="noreferrer"><i className="fa-solid fa-arrow-up-right-from-square" /></a></div>
-              <div className="p-project-body"><span className="p-project-no">{String(i + 1).padStart(2,'0')}</span><h3>{project.title}</h3><p>{project.summary}</p><div className="p-tech-row">{(project.tech_stack || []).map((t) => <span key={t}>{t}</span>)}</div></div>
-            </motion.article>)}
-          </div>
-        </Section>
+        <ProjectSection projects={data.projects} />
 
         <Section id="resume" title="Education & Work Experience" eyebrow="04 / JOURNEY">
           <div className="p-journey-timeline">
