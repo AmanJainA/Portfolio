@@ -152,7 +152,7 @@
 [data-portfolio-theme="light"] .p-about-copy>p,
 [data-portfolio-theme="light"] .p-timeline-card b { color:#354765; }
 [data-portfolio-theme="light"] .p-hero h1 span {
-  background:linear-gradient(90deg,var(--p-accent),var(--p-accent2));
+  background:linear-gradient(90deg,var(--p-accent),#fff,var(--p-accent2));
   background-clip:text; -webkit-background-clip:text;
 }
 [data-portfolio-theme="light"] .p-glass,
