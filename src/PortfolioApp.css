@@ -1585,3 +1585,16 @@ body:has(.portfolio-splash-layer) {
     padding: 18px;
   }
 }
+
+
+/* Work Experience card spacing in Education & Work Experience */
+.p-journey-experience{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+}
+.p-journey-experience .p-journey-card{margin-bottom:24px}
+.p-journey-experience .p-journey-card:last-child{margin-bottom:0}
+@media(max-width:800px){
+  .p-journey-experience .p-journey-card{margin-bottom:18px}
+}
