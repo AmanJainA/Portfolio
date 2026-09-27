@@ -79,7 +79,11 @@ function ProjectSection({ projects }) {
   const filteredProjects = useMemo(() => {
     if (filter === 'All') return projects;
     return projects.filter((project) =>
-      (project.tech_stack || []).some((tech) => String(tech).toLowerCase().includes(filter.toLowerCase()))
+      (project.tech_stack || []).some((tech) => {
+        const value = String(tech).toLowerCase();
+        if (filter === 'Android') return value.includes('android') || value.includes('flutter');
+        return value.includes(filter.toLowerCase());
+      })
     );
   }, [projects, filter]);
 
