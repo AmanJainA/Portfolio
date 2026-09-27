@@ -99,17 +99,24 @@ function AdminPage() {
 
 function Dashboard({data,profile,counts,onOpen}){
   const projects=[...(data?.projects||[])].sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0)).slice(0,5);
-  const profileFields=['full_name','hero_role','hero_intro','about_text','profile_image_url','email','phone','location','resume_url'];
-  const completed=profileFields.filter(k=>String(profile?.[k]||'').trim()).length;
-  const completeness=Math.round((completed/profileFields.length)*100);
-  const stats=[
-    ['Projects',counts.projects,'fa-briefcase','projects'],
-    ['Skills',counts.skills,'fa-code','skills'],
-    ['Experience',counts.experience,'fa-building','experience'],
-    ['Education',counts.education,'fa-graduation-cap','education'],
-    ['Languages',counts.languages,'fa-globe','languages'],
-    ['Messages',counts.contacts,'fa-inbox','contact'],
+  const messages=[...(data?.contact||[])].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,4);
+  const profileFields=[
+    ['full_name','Full name'],['hero_role','Hero role'],['hero_intro','Hero intro'],
+    ['about_text','About text'],['profile_image_url','Profile image'],['email','Email'],
+    ['phone','Phone'],['location','Location'],['resume_url','Resume']
   ];
+  const completed=profileFields.filter(([k])=>String(profile?.[k]||'').trim()).length;
+  const completeness=Math.round((completed/profileFields.length)*100);
+  const contentStats=[
+    ['Projects',counts.projects,'projects','fa-briefcase'],
+    ['Skills',counts.skills,'skills','fa-code'],
+    ['Experience',counts.experience,'experience','fa-building'],
+    ['Education',counts.education,'education','fa-graduation-cap'],
+    ['Languages',counts.languages,'languages','fa-globe'],
+    ['Social links',counts.social_links,'social_links','fa-share-nodes']
+  ];
+  const totalContent=contentStats.reduce((sum,x)=>sum+x[1],0)||1;
+  const missing=profileFields.filter(([k])=>!String(profile?.[k]||'').trim());
 
   return (
     <section className="dashboard-page">
@@ -119,11 +126,21 @@ function Dashboard({data,profile,counts,onOpen}){
           <h2>Portfolio overview</h2>
           <p>Manage your public profile, content and incoming enquiries from one screen.</p>
         </div>
-        <button type="button" onClick={()=>onOpen('profile')}><i className="fa-solid fa-pen"/> Edit Profile</button>
+        <div className="dashboard-welcome-actions">
+          <span className="dashboard-live"><i className="fa-solid fa-circle"/> CMS connected</span>
+          <button type="button" onClick={()=>onOpen('profile')}><i className="fa-solid fa-pen"/> Edit Profile</button>
+        </div>
       </div>
 
       <div className="dashboard-stat-grid">
-        {stats.map(([label,value,icon,key])=>(
+        {[
+          ['Projects',counts.projects,'fa-briefcase','projects'],
+          ['Skills',counts.skills,'fa-code','skills'],
+          ['Experience',counts.experience,'fa-building','experience'],
+          ['Education',counts.education,'fa-graduation-cap','education'],
+          ['Languages',counts.languages,'fa-globe','languages'],
+          ['Messages',counts.contacts,'fa-inbox','contact']
+        ].map(([label,value,icon,key])=>(
           <button type="button" key={label} className="dashboard-stat" onClick={()=>onOpen(key)}>
             <span className="dashboard-stat-icon"><i className={'fa-solid '+icon}/></span>
             <span><small>{label}</small><strong>{value}</strong></span>
@@ -141,9 +158,9 @@ function Dashboard({data,profile,counts,onOpen}){
           <div className="dashboard-progress"><span style={{width:completeness+'%'}}/></div>
           <p>{completed} of {profileFields.length} key profile fields completed.</p>
           <div className="dashboard-checks">
-            {profileFields.map(k=>(
+            {profileFields.map(([k,label])=>(
               <span key={k} className={profile?.[k]?'done':''}>
-                <i className={'fa-solid '+(profile?.[k]?'fa-check':'fa-minus')}/> {k.replace(/_/g,' ')}
+                <i className={'fa-solid '+(profile?.[k]?'fa-check':'fa-minus')}/> {label}
               </span>
             ))}
           </div>
@@ -155,17 +172,56 @@ function Dashboard({data,profile,counts,onOpen}){
             <button type="button" className="dashboard-link" onClick={()=>onOpen('profile')}>Edit</button>
           </div>
           <div className="dashboard-profile-row">
-            {profile?.profile_image_url ? (
-              <img src={profile.profile_image_url} alt="Profile"/>
-            ) : (
-              <div className="dashboard-avatar"><i className="fa-solid fa-user"/></div>
-            )}
+            {profile?.profile_image_url ? <img src={profile.profile_image_url} alt="Profile"/> : <div className="dashboard-avatar"><i className="fa-solid fa-user"/></div>}
             <div>
               <b>{profile?.hero_role||'Role not set'}</b>
               <small>{profile?.location||'Location not set'}</small>
               <small>{profile?.email||'Email not set'}</small>
             </div>
           </div>
+          <div className="dashboard-mini-status">
+            <span><i className="fa-solid fa-circle-check"/> {counts.projects} projects published</span>
+            <span><i className="fa-solid fa-circle-check"/> {counts.skills} skills listed</span>
+          </div>
+        </article>
+      </div>
+
+      <div className="dashboard-two-column">
+        <article className="dashboard-card">
+          <div className="dashboard-card-head">
+            <div><span>CONTENT ANALYTICS</span><h3>Portfolio structure</h3></div>
+            <small className="dashboard-muted">{totalContent} records</small>
+          </div>
+          <div className="dashboard-bars">
+            {contentStats.map(([label,value,key,icon])=>{
+              const width=Math.max(value?Math.round((value/Math.max(...contentStats.map(x=>x[1]),1))*100):0,value?8:0);
+              return (
+                <button type="button" className="dashboard-bar-row" key={key} onClick={()=>onOpen(key)}>
+                  <span className="dashboard-bar-label"><i className={'fa-solid '+icon}/>{label}<b>{value}</b></span>
+                  <span className="dashboard-bar-track"><span style={{width:width+'%'}}/></span>
+                </button>
+              );
+            })}
+          </div>
+        </article>
+
+        <article className="dashboard-card">
+          <div className="dashboard-card-head">
+            <div><span>ACTION CENTRE</span><h3>Next updates</h3></div>
+            <strong className="dashboard-count-badge">{missing.length}</strong>
+          </div>
+          {missing.length ? (
+            <div className="dashboard-missing">
+              {missing.slice(0,5).map(([key,label])=>(
+                <button type="button" key={key} onClick={()=>onOpen('profile')}>
+                  <span><i className="fa-solid fa-circle-exclamation"/>{label}</span>
+                  <i className="fa-solid fa-arrow-right"/>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="dashboard-complete"><i className="fa-solid fa-circle-check"/> All key profile fields are complete.</div>
+          )}
         </article>
       </div>
 
@@ -174,31 +230,52 @@ function Dashboard({data,profile,counts,onOpen}){
           <div><span>RECENT CONTENT</span><h3>Latest projects</h3></div>
           <button type="button" className="dashboard-link" onClick={()=>onOpen('projects')}>Manage all</button>
         </div>
-
-        {projects.length > 0 ? (
+        {projects.length ? (
           <div className="dashboard-projects">
             {projects.map(x=>(
               <div className="dashboard-project" key={x.id}>
-                <div className="dashboard-project-thumb">
-                  {x.image_url ? <img src={x.image_url} alt=""/> : <i className="fa-solid fa-code"/>}
-                </div>
+                <div className="dashboard-project-thumb">{x.image_url ? <img src={x.image_url} alt=""/> : <i className="fa-solid fa-code"/>}</div>
                 <div className="dashboard-project-info">
                   <b>{x.title||'Untitled project'}</b>
-                  <small>{Array.isArray(x.tech_stack) ? x.tech_stack.join(' · ') : (x.tech_stack||'No tech stack added')}</small>
+                  <small>{Array.isArray(x.tech_stack)?x.tech_stack.join(' · '):(x.tech_stack||'No tech stack added')}</small>
                 </div>
                 <button type="button" onClick={()=>onOpen('projects')}><i className="fa-solid fa-arrow-right"/></button>
               </div>
             ))}
           </div>
-        ) : (
-          <div className="dashboard-empty">No projects added yet.</div>
-        )}
+        ) : <div className="dashboard-empty">No projects added yet.</div>}
       </div>
 
-      <div className="dashboard-footer-grid">
-        <button type="button" className="dashboard-action" onClick={()=>onOpen('experience')}><i className="fa-solid fa-briefcase"/> Update experience <i className="fa-solid fa-arrow-right"/></button>
-        <button type="button" className="dashboard-action" onClick={()=>onOpen('skills')}><i className="fa-solid fa-code"/> Manage skills <i className="fa-solid fa-arrow-right"/></button>
-        <button type="button" className="dashboard-action" onClick={()=>onOpen('contact')}><i className="fa-solid fa-envelope"/> Review messages <i className="fa-solid fa-arrow-right"/></button>
+      <div className="dashboard-two-column">
+        <article className="dashboard-card">
+          <div className="dashboard-card-head">
+            <div><span>INBOX</span><h3>Recent messages</h3></div>
+            <button type="button" className="dashboard-link" onClick={()=>onOpen('contact')}>Open inbox</button>
+          </div>
+          {messages.length ? (
+            <div className="dashboard-message-list">
+              {messages.map(x=>(
+                <button type="button" className="dashboard-message-row" key={x.id} onClick={()=>onOpen('contact')}>
+                  <span className="dashboard-message-avatar">{(x.name||'?').trim().charAt(0).toUpperCase()}</span>
+                  <span><b>{x.name||'Unknown sender'}</b><small>{x.subject||'No subject'} · {new Date(x.created_at).toLocaleDateString()}</small></span>
+                  <i className="fa-solid fa-arrow-right"/>
+                </button>
+              ))}
+            </div>
+          ) : <div className="dashboard-empty">No contact messages yet.</div>}
+        </article>
+
+        <article className="dashboard-card">
+          <div className="dashboard-card-head">
+            <div><span>QUICK ACTIONS</span><h3>Manage portfolio</h3></div>
+          </div>
+          <div className="dashboard-quick-grid">
+            <button type="button" onClick={()=>onOpen('experience')}><i className="fa-solid fa-briefcase"/>Experience</button>
+            <button type="button" onClick={()=>onOpen('skills')}><i className="fa-solid fa-code"/>Skills</button>
+            <button type="button" onClick={()=>onOpen('education')}><i className="fa-solid fa-graduation-cap"/>Education</button>
+            <button type="button" onClick={()=>onOpen('social_links')}><i className="fa-solid fa-share-nodes"/>Social</button>
+          </div>
+        </article>
       </div>
     </section>
   );
