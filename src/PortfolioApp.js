@@ -37,8 +37,15 @@ export default function PortfolioApp() {
 
   const load = async () => {
     setLoading(true);
-    const resources = ['site_profile','languages','skills','projects','education','experience','social_links'];
-    const results = await Promise.all(resources.map((table) => db.from(table).select('*').order('sort_order', { ascending: true })));
+    const results = await Promise.all([
+      db.from('site_profile').select('*').limit(1),
+      db.from('languages').select('*').order('sort_order', { ascending: true }),
+      db.from('skills').select('*').order('sort_order', { ascending: true }),
+      db.from('projects').select('*').order('sort_order', { ascending: true }),
+      db.from('education').select('*').order('sort_order', { ascending: true }),
+      db.from('experience').select('*').order('sort_order', { ascending: true }),
+      db.from('social_links').select('*').order('sort_order', { ascending: true }),
+    ]);
     const failed = results.find((r) => r.error);
     if (failed) setError(failed.error.message);
     else {
