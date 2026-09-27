@@ -684,53 +684,57 @@ body:has(.portfolio-splash-layer) {
 
 
 
-/* Animated side glow — keeps the existing splash design unchanged. */
+/* Animated tracing lines around the name — a clean drawing effect, not a pulsing glow. */
 .portfolio-splash-name::before,
 .portfolio-splash-name::after {
   content: "";
   position: absolute;
-  top: 8%;
+  top: 2%;
   width: 2px;
-  height: 84%;
+  height: 96%;
   z-index: 1;
   pointer-events: none;
-  opacity: .72;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(195,228,29,.12) 14%,
-    #c3e41d 42%,
-    rgba(195,228,29,.72) 50%,
-    #c3e41d 58%,
-    rgba(195,228,29,.12) 86%,
+    transparent 18%,
+    #c3e41d 45%,
+    #efff8a 50%,
+    #c3e41d 55%,
+    transparent 82%,
     transparent 100%
   );
-  box-shadow:
-    0 0 8px rgba(195,228,29,.5),
-    0 0 24px rgba(195,228,29,.22),
-    0 0 45px rgba(195,228,29,.10);
-  animation: portfolio-side-glow 2.4s ease-in-out infinite;
+  background-size: 100% 220%;
+  background-position: 0 -120%;
+  opacity: .9;
+  filter: none;
+  box-shadow: 0 0 6px rgba(195,228,29,.28);
+  animation: portfolio-line-draw 2.2s linear infinite;
 }
 
 .portfolio-splash-name::before {
-  left: -28px;
+  left: -30px;
 }
 
 .portfolio-splash-name::after {
-  right: -28px;
-  animation-delay: -1.2s;
+  right: -30px;
+  animation-delay: -1.1s;
 }
 
-@keyframes portfolio-side-glow {
-  0%, 100% {
-    transform: scaleY(.62);
-    opacity: .28;
-    filter: blur(1px);
+@keyframes portfolio-line-draw {
+  0% {
+    background-position: 0 -120%;
+    opacity: .15;
   }
-  50% {
-    transform: scaleY(1);
+  8% {
     opacity: .9;
-    filter: blur(0);
+  }
+  92% {
+    opacity: .9;
+  }
+  100% {
+    background-position: 0 120%;
+    opacity: .15;
   }
 }
 
@@ -738,76 +742,33 @@ body:has(.portfolio-splash-layer) {
   .portfolio-splash-name::before,
   .portfolio-splash-name::after {
     width: 1.5px;
-    height: 78%;
+    height: 94%;
   }
 
-  .portfolio-splash-name::before { left: -16px; }
-  .portfolio-splash-name::after { right: -16px; }
+  .portfolio-splash-name::before { left: -18px; }
+  .portfolio-splash-name::after { right: -18px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .portfolio-splash-name::before,
   .portfolio-splash-name::after {
     animation: none;
-    opacity: .5;
-    transform: scaleY(.8);
+    opacity: .65;
+    background-position: 0 0;
   }
 }
 
-
-/* Soft animated aura around the Aman Jain lettering. */
-.portfolio-splash-name::after {
-  right: -34px;
-  width: 3px;
-  filter: blur(.2px);
-  box-shadow:
-    0 0 10px rgba(195,228,29,.72),
-    0 0 28px rgba(195,228,29,.42),
-    0 0 60px rgba(195,228,29,.22);
-}
-
-.portfolio-splash-name::before {
-  left: -34px;
-  width: 3px;
-  box-shadow:
-    0 0 10px rgba(195,228,29,.72),
-    0 0 28px rgba(195,228,29,.42),
-    0 0 60px rgba(195,228,29,.22);
-}
-
+/* Subtle static edge definition keeps the lettering crisp. */
 .portfolio-splash-word {
   text-shadow:
-    0 0 4px rgba(195,228,29,.45),
-    0 0 14px rgba(195,228,29,.28),
-    0 0 32px rgba(195,228,29,.16);
-  animation: portfolio-name-aura 2.8s ease-in-out infinite;
-}
-
-@keyframes portfolio-name-aura {
-  0%, 100% {
-    text-shadow:
-      0 0 4px rgba(195,228,29,.35),
-      0 0 12px rgba(195,228,29,.20),
-      0 0 26px rgba(195,228,29,.10);
-  }
-  50% {
-    text-shadow:
-      0 0 7px rgba(195,228,29,.72),
-      0 0 20px rgba(195,228,29,.42),
-      0 0 42px rgba(195,228,29,.22);
-  }
-}
-
-@media (max-width: 650px) {
-  .portfolio-splash-name::before { left: -20px; }
-  .portfolio-splash-name::after { right: -20px; }
+    0 0 3px rgba(195,228,29,.28),
+    0 0 10px rgba(195,228,29,.12);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .portfolio-splash-word {
-    animation: none;
     text-shadow:
-      0 0 5px rgba(195,228,29,.45),
-      0 0 16px rgba(195,228,29,.24);
+      0 0 4px rgba(195,228,29,.3),
+      0 0 12px rgba(195,228,29,.14);
   }
 }
