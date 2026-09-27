@@ -200,7 +200,7 @@ export default function PortfolioApp() {
             {menuItems.map(([id, label, icon]) => <a key={id} className={activeSection === id ? 'active' : ''} href={`#${id}`}><span className="p-nav-icon"><i className={`fa-solid ${icon}`} /></span><span className="p-nav-text">{label}</span></a>)}
           </nav>
           <div className="p-header-actions">
-            <button className="p-theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}><i className={theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'} /></button>
+            <button className={`p-theme-toggle ${theme === 'light' ? 'is-light' : 'is-dark'}`} type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}><span className="p-theme-toggle-track"><span className="p-theme-toggle-knob"><i className={theme === 'dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun'} /></span></span></button>
             <a className="p-header-cta" href="#contact">Let’s Talk <i className="fa-solid fa-arrow-up-right-from-square" /></a>
           </div>
         </div>
