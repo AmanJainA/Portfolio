@@ -257,48 +257,52 @@ export default function PortfolioApp() {
         </section>
 
         <Section id="about" title="About Me" eyebrow="01 / PROFILE">
-          <motion.div
-            className="p-glass p-about-immersive"
-            initial={{ opacity: 0, y: 35, rotateX: 8 }}
-            whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="p-about-copy">
-              <p>{p.about_text}</p>
+          <div className="p-about-scrollscene">
+            <div className="p-about-scroll-sticky">
+              <motion.div
+                className="p-glass p-about-immersive"
+                initial={{ opacity: 0, scale: .96, rotateX: 5 }}
+                whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{ duration: .7 }}
+              >
+                <div className="p-about-copy">
+                  <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
+                  <p>{p.about_text}</p>
+                </div>
+                <div className="p-about-tech-field" aria-label="Technical skills">
+                  <div className="p-about-tech-glow" />
+                  {[
+                    ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg'],
+                    ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg'],
+                    ['Bootstrap','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/bootstrap5.svg'],
+                    ['JavaScript','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/javascript.svg'],
+                    ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg'],
+                    ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg'],
+                    ['MySQL','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/mysql.svg'],
+                    ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg'],
+                    ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg'],
+                    ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg'],
+                    ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg'],
+                  ].map(([name, level, icon], i) => (
+                    <motion.div
+                      className="p-about-tech-card"
+                      key={name}
+                      initial={{ opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
+                      whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
+                      viewport={{ once: true, amount: 0.18 }}
+                      transition={{ delay: i * .11, duration: .8, type: 'spring', stiffness: 90, damping: 14 }}
+                      whileHover={{ y: -16, scale: 1.08, rotateX: -8, rotateY: i % 2 ? 9 : -9, z: 45 }}
+                    >
+                      <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
+                      <strong>{name}</strong>
+                      <small>{level}</small>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
             </div>
-
-            <div className="p-about-tech-field" aria-label="Technical skills">
-              <div className="p-about-tech-glow" />
-              {[
-                ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg'],
-                ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg'],
-                ['Bootstrap','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/bootstrap5.svg'],
-                ['JavaScript','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/javascript.svg'],
-                ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg'],
-                ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg'],
-                ['MySQL','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/mysql.svg'],
-                ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg'],
-                ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg'],
-                ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg'],
-                ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg'],
-              ].map(([name, level, icon], i) => (
-                <motion.div
-                  className="p-about-tech-card"
-                  key={name}
-                  initial={{ opacity: 0, scale: .55, y: 35, rotateY: 70 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0, rotateY: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ delay: 0.08 + i * 0.07, duration: 0.55, type: 'spring', stiffness: 120, damping: 12 }}
-                  whileHover={{ y: -12, scale: 1.08, rotateX: -6, rotateY: i % 2 ? 7 : -7 }}
-                >
-                  <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
-                  <strong>{name}</strong>
-                  <small>{level}</small>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+          </div>
         </Section>
 
         <Section id="skills" title="Skills" eyebrow="02 / CAPABILITIES">
