@@ -835,3 +835,151 @@ body:has(.portfolio-splash-layer) {
     transform: scaleY(.8);
   }
 }
+
+/* ===== Immersive About / 3D technology field ===== */
+.p-about-immersive {
+  width: 100%;
+  padding: clamp(28px, 4vw, 54px);
+  position: relative;
+  overflow: hidden;
+  perspective: 1200px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(103,232,249,.10), transparent 34%),
+    radial-gradient(circle at 15% 90%, rgba(139,92,246,.10), transparent 30%),
+    var(--p-card);
+}
+.p-about-copy {
+  position: relative;
+  z-index: 3;
+  max-width: 980px;
+  margin: 0 auto;
+  text-align: center;
+}
+.p-about-copy > p {
+  color: #c7d5e8;
+  line-height: 1.9;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  margin: 0;
+}
+.p-about-tech-field {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(110px, 1fr));
+  gap: 18px;
+  margin-top: 48px;
+  padding: 34px 10px 10px;
+  transform-style: preserve-3d;
+}
+.p-about-tech-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 55%;
+  height: 65%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(103,232,249,.16), rgba(139,92,246,.08) 38%, transparent 72%);
+  filter: blur(30px);
+  pointer-events: none;
+  animation: about-tech-pulse 4s ease-in-out infinite;
+}
+@keyframes about-tech-pulse {
+  0%,100% { transform: translate(-50%,-50%) scale(.88); opacity: .55; }
+  50% { transform: translate(-50%,-50%) scale(1.12); opacity: 1; }
+}
+.p-about-tech-card {
+  min-height: 145px;
+  padding: 19px 12px 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.018)),
+    rgba(7,17,31,.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 18px 45px rgba(0,0,0,.18);
+  backdrop-filter: blur(12px);
+  transition: border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+.p-about-tech-card::before {
+  content: "";
+  position: absolute;
+  inset: -60%;
+  background: conic-gradient(from 180deg, transparent 0 32%, rgba(103,232,249,.20), transparent 45% 70%, rgba(139,92,246,.18), transparent 82%);
+  animation: about-tech-shine 7s linear infinite;
+  pointer-events: none;
+}
+@keyframes about-tech-shine {
+  to { transform: rotate(360deg); }
+}
+.p-about-tech-card::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 21px;
+  background: linear-gradient(180deg, rgba(7,17,31,.32), rgba(7,17,31,.58));
+  z-index: 0;
+}
+.p-about-tech-card:hover {
+  border-color: rgba(103,232,249,.42);
+  box-shadow:
+    0 28px 65px rgba(0,0,0,.28),
+    0 0 35px rgba(103,232,249,.10);
+}
+.p-about-tech-icon,
+.p-about-tech-card strong,
+.p-about-tech-card small {
+  position: relative;
+  z-index: 1;
+}
+.p-about-tech-icon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.08);
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+  transform: translateZ(30px);
+}
+.p-about-tech-icon img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+.p-about-tech-card strong {
+  font-size: .84rem;
+  color: #edf4ff;
+  transform: translateZ(24px);
+}
+.p-about-tech-card small {
+  color: var(--p-muted);
+  font-size: .68rem;
+  transform: translateZ(18px);
+}
+@media (max-width: 1000px) {
+  .p-about-tech-field { grid-template-columns: repeat(4, minmax(110px, 1fr)); }
+}
+@media (max-width: 650px) {
+  .p-about-immersive { padding: 25px 15px; }
+  .p-about-tech-field {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+    margin-top: 32px;
+    padding: 12px 0 0;
+  }
+  .p-about-tech-card { min-height: 125px; border-radius: 18px; }
+  .p-about-tech-icon { width: 48px; height: 48px; border-radius: 14px; }
+  .p-about-tech-icon img { width: 31px; height: 31px; }
+}
