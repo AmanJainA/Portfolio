@@ -135,7 +135,7 @@ function Dashboard({data,profile,counts,onOpen,lastSync}){
           <p>Manage your public profile, content and incoming enquiries from one screen.</p>
         </div>
         <div className="dashboard-welcome-actions">
-          <span className="dashboard-live"><i className="fa-solid fa-circle"/> CMS connected</span>{lastSync&&<small className="dashboard-sync">Updated {lastSync.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</small>}
+          <div className="dashboard-status-stack"><span className="dashboard-live"><i className="fa-solid fa-circle"/> CMS connected</span><span className="dashboard-readiness"><i className="fa-solid fa-gauge-high"/> Portfolio readiness <b>{readiness}%</b></span>{lastSync&&<small className="dashboard-sync">Updated {lastSync.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</small>}</div>
           <button type="button" onClick={()=>onOpen('profile')}><i className="fa-solid fa-pen"/> Edit Profile</button>
         </div>
       </div>
