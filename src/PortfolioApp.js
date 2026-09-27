@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 import PortfolioHero from './components/ui/portfolio-hero';
 import { db } from './supabase';
