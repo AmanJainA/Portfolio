@@ -210,6 +210,29 @@ export default function PortfolioApp() {
       </nav>
 
       <main>
+        <section id="home" className="p-hero">
+          <div className="p-container p-hero-grid">
+            <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
+              <span className="p-eyebrow">WELCOME TO MY PORTFOLIO</span>
+              <h1>Hi, I’m <span>{p.full_name || 'Aman Jain'}</span></h1>
+              <h3>{p.hero_role || 'Creative Developer & Professional'}</h3>
+              <p>{p.hero_intro || p.about_text || 'I build useful digital experiences by combining technology, design and practical problem solving.'}</p>
+              <div className="p-actions">
+                <a className="p-primary-btn" href="#projects">View Projects <i className="fa-solid fa-arrow-down" /></a>
+                <a className="p-secondary-btn" href="#contact">Let’s Talk <i className="fa-solid fa-arrow-up-right-from-square" /></a>
+              </div>
+              <div className="p-socials">
+                {data.social_links.map((social) => <a key={social.id} href={social.url} target="_blank" rel="noreferrer" aria-label={social.label} title={social.label}><i className={social.icon_class || 'fa-solid fa-link'} /></a>)}
+              </div>
+            </motion.div>
+            <motion.div className="p-hero-visual" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
+              <div className="p-orbit p-orbit-one" />
+              <div className="p-orbit p-orbit-two" />
+              {p.profile_image_url ? <div className="p-profile-card"><img src={p.profile_image_url} alt={p.full_name || 'Profile'} /><div className="p-profile-badge"><span />Available for opportunities</div></div> : <div className="p-profile-card"><div className="p-profile-badge"><span />Available for opportunities</div></div>}
+            </motion.div>
+          </div>
+        </section>
+
         <Section id="about" title="About Me" eyebrow="01 / PROFILE">
           <div className="p-about-grid">
             <motion.div className="p-glass p-about-copy" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
