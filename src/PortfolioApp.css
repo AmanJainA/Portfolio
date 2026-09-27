@@ -1674,6 +1674,42 @@ body:has(.portfolio-splash-layer) {
 }
 
 
+/* ===== View Projects button — theme-aware normal and hover colors ===== */
+.portfolio-modern .p-primary-btn{
+  transition:color .22s ease,background .22s ease,border-color .22s ease,
+             box-shadow .22s ease,transform .22s ease;
+}
+
+/* Dark theme: keep the established purple primary button. */
+[data-portfolio-theme="dark"] .portfolio-modern .p-primary-btn,
+.portfolio-modern:not([data-portfolio-theme="light"]) .p-primary-btn{
+  color:#fff;
+  background:linear-gradient(135deg,var(--p-accent2),#4f46e5);
+  border-color:transparent;
+}
+[data-portfolio-theme="dark"] .portfolio-modern .p-primary-btn:hover,
+.portfolio-modern:not([data-portfolio-theme="light"]) .p-primary-btn:hover{
+  color:#fff !important;
+  background:linear-gradient(135deg,#67e8f9,#4f46e5);
+  border-color:transparent;
+  box-shadow:0 12px 30px rgba(79,70,229,.28),0 0 22px rgba(103,232,249,.16);
+  transform:translateY(-2px);
+}
+
+/* Light theme: dark normal button, blue hover. */
+[data-portfolio-theme="light"] .portfolio-modern .p-primary-btn{
+  color:#fff !important;
+  background:#111827;
+  border-color:#111827;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-primary-btn:hover{
+  color:#fff !important;
+  background:#2563eb;
+  border-color:#2563eb;
+  box-shadow:0 10px 25px rgba(37,99,235,.25);
+  transform:translateY(-2px);
+}
+
 /* ===== Match light theme to the established dark-theme accents ===== */
 
 /* Splash "AMAN JAIN" uses the same lime accent in both themes. */
