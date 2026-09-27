@@ -50,7 +50,19 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
   const lastName = rest.join(' ') || firstName;
 
   return (
-    <section className="portfolio-splash" aria-label="Portfolio introduction">
+    <section
+      className="portfolio-splash"
+      aria-label="Portfolio introduction"
+      role="button"
+      tabIndex={0}
+      onClick={onScrollDown}
+      onKeyDown={(event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          onScrollDown?.();
+        }
+      }}
+    >
       <div className="portfolio-splash-signature" aria-hidden="true">A</div>
 
       <div className="portfolio-splash-center">
