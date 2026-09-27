@@ -110,18 +110,99 @@ function Dashboard({data,profile,counts,onOpen}){
     ['Languages',counts.languages,'fa-globe','languages'],
     ['Messages',counts.contacts,'fa-inbox','contact'],
   ];
-  return <section className="dashboard-page">
-    <div className="dashboard-welcome"><div><span className="dashboard-kicker">CONTROL CENTRE</span><h2>Portfolio overview</h2><p>Manage your public profile, content and incoming enquiries from one screen.</p></div><button onClick={()=>onOpen('profile')}><i className="fa-solid fa-pen"/> Edit Profile</button></div>
-    <div className="dashboard-stat-grid">{stats.map(([label,value,icon,key])=><button key={label} className="dashboard-stat" onClick={()=>onOpen(key)}><span className="dashboard-stat-icon"><i className={'fa-solid '+icon}/></span><span><small>{label}</small><strong>{value}</strong></span><i className="fa-solid fa-arrow-up-right-from-square dashboard-stat-arrow"/></button>)}</div>
-    <div className="dashboard-main-grid">
-      <article className="dashboard-card dashboard-profile-card"><div className="dashboard-card-head"><div><span>PROFILE HEALTH</span><h3>Profile completeness</h3></div><strong>{completeness}%</strong></div><div className="dashboard-progress"><span style={{width:completeness+'%'}}/></div><p>{completed} of {profileFields.length} key profile fields completed.</p><div className="dashboard-checks">{profileFields.map(k=><span key={k} className={profile?.[k]?'done':''}><i className={'fa-solid '+(profile?.[k]?'fa-check':'fa-minus')}/>{k.replace(/_/g,' ')}</span>)}</div></article>
-      <article className="dashboard-card"><div className="dashboard-card-head"><div><span>PROFILE SNAPSHOT</span><h3>{profile?.full_name||'Your portfolio'}</h3></div><button className="dashboard-link" onClick={()=>onOpen('profile')}>Edit</button></div><div className="dashboard-profile-row">{profile?.profile_image_url?<img src={profile.profile_image_url} alt=""/>:<div className="dashboard-avatar"><i className="fa-solid fa-user"/></div>}<div><b>{profile?.hero_role||'Role not set'}</b><small>{profile?.location||'Location not set'}</small><small>{profile?.email||'Email not set'}</small></div></div></article>
-    </div>
-    <div className="dashboard-card"><div className="dashboard-card-head"><div><span>RECENT CONTENT</span><h3>Latest projects</h3></div><button className="dashboard-link" onClick={()=>onOpen('projects')}>Manage all</button></div>{projects.length?<div className="dashboard-projects">{projects.map(x=><div className="dashboard-project" key={x.id}><div className="dashboard-project-thumb">{x.image_url?<img src={x.image_url} alt=""/>:<i className="fa-solid fa-code"/></div><div><b>{x.title||'Untitled project'}</b><small>{Array.isArray(x.tech_stack)?x.tech_stack.join(' · '):x.tech_stack||'No tech stack added'}</small></div><button onClick={()=>onOpen('projects')}><i className="fa-solid fa-arrow-right"/></button></div>)}</div>:<div className="dashboard-empty">No projects added yet.</div>}</div>
-    <div className="dashboard-footer-grid"><button className="dashboard-action" onClick={()=>onOpen('experience')}><i className="fa-solid fa-briefcase"/>Update experience <i className="fa-solid fa-arrow-right"/></button><button className="dashboard-action" onClick={()=>onOpen('skills')}><i className="fa-solid fa-code"/>Manage skills <i className="fa-solid fa-arrow-right"/></button><button className="dashboard-action" onClick={()=>onOpen('contact')}><i className="fa-solid fa-envelope"/>Review messages <i className="fa-solid fa-arrow-right"/></button></div>
-  </section>;
-}
 
+  return (
+    <section className="dashboard-page">
+      <div className="dashboard-welcome">
+        <div>
+          <span className="dashboard-kicker">CONTROL CENTRE</span>
+          <h2>Portfolio overview</h2>
+          <p>Manage your public profile, content and incoming enquiries from one screen.</p>
+        </div>
+        <button type="button" onClick={()=>onOpen('profile')}><i className="fa-solid fa-pen"/> Edit Profile</button>
+      </div>
+
+      <div className="dashboard-stat-grid">
+        {stats.map(([label,value,icon,key])=>(
+          <button type="button" key={label} className="dashboard-stat" onClick={()=>onOpen(key)}>
+            <span className="dashboard-stat-icon"><i className={'fa-solid '+icon}/></span>
+            <span><small>{label}</small><strong>{value}</strong></span>
+            <i className="fa-solid fa-arrow-up-right-from-square dashboard-stat-arrow"/>
+          </button>
+        ))}
+      </div>
+
+      <div className="dashboard-main-grid">
+        <article className="dashboard-card dashboard-profile-card">
+          <div className="dashboard-card-head">
+            <div><span>PROFILE HEALTH</span><h3>Profile completeness</h3></div>
+            <strong>{completeness}%</strong>
+          </div>
+          <div className="dashboard-progress"><span style={{width:completeness+'%'}}/></div>
+          <p>{completed} of {profileFields.length} key profile fields completed.</p>
+          <div className="dashboard-checks">
+            {profileFields.map(k=>(
+              <span key={k} className={profile?.[k]?'done':''}>
+                <i className={'fa-solid '+(profile?.[k]?'fa-check':'fa-minus')}/> {k.replace(/_/g,' ')}
+              </span>
+            ))}
+          </div>
+        </article>
+
+        <article className="dashboard-card">
+          <div className="dashboard-card-head">
+            <div><span>PROFILE SNAPSHOT</span><h3>{profile?.full_name||'Your portfolio'}</h3></div>
+            <button type="button" className="dashboard-link" onClick={()=>onOpen('profile')}>Edit</button>
+          </div>
+          <div className="dashboard-profile-row">
+            {profile?.profile_image_url ? (
+              <img src={profile.profile_image_url} alt="Profile"/>
+            ) : (
+              <div className="dashboard-avatar"><i className="fa-solid fa-user"/></div>
+            )}
+            <div>
+              <b>{profile?.hero_role||'Role not set'}</b>
+              <small>{profile?.location||'Location not set'}</small>
+              <small>{profile?.email||'Email not set'}</small>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div className="dashboard-card">
+        <div className="dashboard-card-head">
+          <div><span>RECENT CONTENT</span><h3>Latest projects</h3></div>
+          <button type="button" className="dashboard-link" onClick={()=>onOpen('projects')}>Manage all</button>
+        </div>
+
+        {projects.length > 0 ? (
+          <div className="dashboard-projects">
+            {projects.map(x=>(
+              <div className="dashboard-project" key={x.id}>
+                <div className="dashboard-project-thumb">
+                  {x.image_url ? <img src={x.image_url} alt=""/> : <i className="fa-solid fa-code"/>}
+                </div>
+                <div className="dashboard-project-info">
+                  <b>{x.title||'Untitled project'}</b>
+                  <small>{Array.isArray(x.tech_stack) ? x.tech_stack.join(' · ') : (x.tech_stack||'No tech stack added')}</small>
+                </div>
+                <button type="button" onClick={()=>onOpen('projects')}><i className="fa-solid fa-arrow-right"/></button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="dashboard-empty">No projects added yet.</div>
+        )}
+      </div>
+
+      <div className="dashboard-footer-grid">
+        <button type="button" className="dashboard-action" onClick={()=>onOpen('experience')}><i className="fa-solid fa-briefcase"/> Update experience <i className="fa-solid fa-arrow-right"/></button>
+        <button type="button" className="dashboard-action" onClick={()=>onOpen('skills')}><i className="fa-solid fa-code"/> Manage skills <i className="fa-solid fa-arrow-right"/></button>
+        <button type="button" className="dashboard-action" onClick={()=>onOpen('contact')}><i className="fa-solid fa-envelope"/> Review messages <i className="fa-solid fa-arrow-right"/></button>
+      </div>
+    </section>
+  );
+}
 function ProfileEditor({profile,onSave,busy}){
  const [form,setForm]=useState(profile);const [same,setSame]=useState(profile.favicon_url===profile.profile_image_url);
  useEffect(()=>setForm(profile),[profile]);
