@@ -1699,14 +1699,15 @@ body:has(.portfolio-splash-layer) {
 /* Light theme: dark normal button, blue hover. */
 [data-portfolio-theme="light"] .portfolio-modern .p-primary-btn{
   color:#fff !important;
-  background:#111827;
-  border-color:#111827;
+  /* Slightly darker version of the existing purple theme color. */
+  background:#5b21b6;
+  border-color:#5b21b6;
 }
 [data-portfolio-theme="light"] .portfolio-modern .p-primary-btn:hover{
   color:#fff !important;
-  background:#2563eb;
-  border-color:#2563eb;
-  box-shadow:0 10px 25px rgba(37,99,235,.25);
+  background:#4c1d95;
+  border-color:#4c1d95;
+  box-shadow:0 10px 25px rgba(76,29,149,.28);
   transform:translateY(-2px);
 }
 
@@ -1714,7 +1715,9 @@ body:has(.portfolio-splash-layer) {
 
 /* Splash "AMAN JAIN" uses the same lime accent in both themes. */
 [data-portfolio-theme="light"] .portfolio-splash-word{
-  color:#c3e41d;
+  /* Darker shade of the dark-theme #c3e41d for readability on light mode. */
+  color:#8fa600;
+  text-shadow:0 0 14px rgba(143,166,0,.18);
 }
 
 /* Home "Aman Jain" keeps the same blue -> purple treatment as dark theme. */
