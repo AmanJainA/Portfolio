@@ -145,7 +145,7 @@ export default function PortfolioApp() {
         <div className="p-container p-header-inner">
           <a className="p-brand" href="#home"><span className="p-brand-mark"><i className="fa-solid fa-code" /></span><span>{p.username || p.full_name || 'Portfolio'}</span></a>
           <nav className="p-nav" aria-label="Primary navigation">
-            {menuItems.map(([id, label]) => <a key={id} className={activeSection === id ? 'active' : ''} href={`#${id}`}>{label}</a>)}
+            {menuItems.map(([id, label, icon]) => <a key={id} className={activeSection === id ? 'active' : ''} href={`#${id}`}><span className="p-nav-icon"><i className={`fa-solid ${icon}`} /></span><span className="p-nav-text">{label}</span></a>)}
           </nav>
           <div className="p-header-actions">
             <button className="p-theme-toggle" type="button" onClick={toggleTheme} aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}><i className={theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon'} /></button>
