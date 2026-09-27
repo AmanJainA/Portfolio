@@ -261,25 +261,46 @@ export default function PortfolioApp() {
 
   const submitContact = async (e) => {
     e.preventDefault();
-    const form = new FormData(e.currentTarget);
+    const formElement = e.currentTarget;
+    const form = new FormData(formElement);
     const payload = {
-      name: form.get('name'),
-      email: form.get('email'),
-      subject: form.get('subject'),
-      message: form.get('message'),
-      source: 'portfolio-site',
+      name: String(form.get('name') || '').trim(),
+      email: String(form.get('email') || '').trim(),
+      subject: String(form.get('subject') || '').trim(),
+      message: String(form.get('message') || '').trim(),
     };
-    const { error: insertError } = await db.from('contact').insert(payload);
-    if (insertError) {
-      alert(insertError.message);
+
+    if (!payload.name || !payload.email || !payload.message) {
+      alert('Please fill in your name, email and message.');
       return;
     }
+
     try {
-      const api = window.location.hostname === 'localhost' ? 'http://localhost:5000/send' : null;
-      if (api) await fetch(api, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-    } catch (_) {}
-    e.currentTarget.reset();
-    alert('Message sent successfully.');
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: payload,
+      });
+
+      if (error) {
+        let message = error.message || 'Unable to send the message.';
+        try {
+          if (error.context) {
+            const body = await error.context.json();
+            if (body?.error) message = body.error;
+          }
+        } catch (_) {}
+        throw new Error(message);
+      }
+
+      if (!data?.ok) {
+        throw new Error(data?.error || 'Unable to send the message.');
+      }
+
+      formElement.reset();
+      alert('Message sent successfully. I will get back to you soon.');
+    } catch (error) {
+      console.error('Contact form error:', error);
+      alert(error?.message || 'Unable to send the message. Please try again.');
+    }
   };
 
   if (loading) return <div className="p-loader"><div className="p-loader-orb" /><p>Loading portfolio…</p></div>;
