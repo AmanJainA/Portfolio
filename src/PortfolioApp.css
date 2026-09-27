@@ -168,96 +168,94 @@
 }
 
 
-/* =========================================================
-   FINAL NAVIGATION SYSTEM
-   Desktop: fixed left sidebar
-   Mobile/tablet: fixed bottom navigation
-   Theme: shared dark/light variables across the whole UI
-   ========================================================= */
 
+/* FINAL PORTFOLIO NAV — desktop icon rail + labels underneath */
 @media (min-width: 992px) {
-  .portfolio-modern {
-    min-height: 100vh;
-  }
-
   .p-header {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 252px;
-    height: 100vh;
-    z-index: 200;
+    width: 92px;
     background: rgba(7,17,31,.94);
-    border: 0;
     border-right: 1px solid var(--p-border);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
   }
 
   .p-header-inner {
     width: 100%;
-    height: 100%;
-    min-height: 100vh;
-    margin: 0;
-    padding: 28px 18px 22px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0;
+    padding: 26px 10px 20px;
+    align-items: center;
   }
 
   .p-brand {
-    margin: 0 8px 34px;
-    padding: 2px 0;
-    justify-content: flex-start;
-    font-size: 1.05rem;
+    margin: 0 0 42px;
+    justify-content: center;
+  }
+
+  .p-brand > span:last-child {
+    display: none;
+  }
+
+  .p-brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: 13px;
   }
 
   .p-nav {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 7px;
-    width: 100%;
+    align-items: center;
+    gap: 13px;
   }
 
   .p-nav a {
+    width: 70px;
+    min-height: 64px;
+    padding: 8px 4px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    min-height: 48px;
-    padding: 12px 14px;
-    border-radius: 13px;
-    font-size: .9rem;
-    font-weight: 700;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 14px;
     color: var(--p-muted);
-    transition: background .2s ease, color .2s ease, transform .2s ease;
+    font-size: .62rem;
+    font-weight: 700;
+    text-align: center;
+    transition: .2s ease;
   }
 
   .p-nav a::before {
     content: "";
-    width: 7px;
-    height: 7px;
-    margin-right: 12px;
-    border-radius: 50%;
-    background: currentColor;
-    opacity: .35;
-    transition: .2s ease;
+    width: auto;
+    height: auto;
+    margin: 0;
+    opacity: 1;
+    background: none;
+    box-shadow: none;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
   }
+
+  .p-nav a:nth-child(1)::before { content: "\f015"; }
+  .p-nav a:nth-child(2)::before { content: "\f007"; }
+  .p-nav a:nth-child(3)::before { content: "\f121"; }
+  .p-nav a:nth-child(4)::before { content: "\f0b1"; }
+  .p-nav a:nth-child(5)::before { content: "\f15c"; }
+  .p-nav a:nth-child(6)::before { content: "\f0e0"; }
 
   .p-nav a:hover {
     color: var(--p-text);
     background: rgba(255,255,255,.055);
-    transform: translateX(2px);
+    transform: translateY(-2px);
   }
 
   .p-nav a.active {
     color: var(--p-text);
-    background: linear-gradient(90deg, rgba(103,232,249,.13), rgba(139,92,246,.08));
-    box-shadow: inset 3px 0 0 var(--p-accent);
+    background: linear-gradient(145deg, rgba(103,232,249,.15), rgba(139,92,246,.12));
+    box-shadow: 0 8px 24px rgba(0,0,0,.16);
   }
 
   .p-nav a.active::before {
-    opacity: 1;
-    background: var(--p-accent);
-    box-shadow: 0 0 10px rgba(103,232,249,.55);
+    color: var(--p-accent);
   }
 
   .p-nav a.active::after {
@@ -267,40 +265,32 @@
   .p-header-actions {
     margin: auto 0 0;
     width: 100%;
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 9px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     align-items: center;
-  }
-
-  .p-theme-toggle {
-    width: 44px;
-    height: 44px;
   }
 
   .p-header-cta {
+    width: 70px;
+    min-height: 48px;
+    padding: 7px 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    min-height: 44px;
-    padding: 10px 12px;
-    color: var(--p-text);
-    background: rgba(255,255,255,.045);
-    border-color: var(--p-border);
+    text-align: center;
+    font-size: .67rem;
+    border-radius: 14px;
   }
 
-  .p-mobile-nav {
-    display: none !important;
+  .p-theme-toggle {
+    width: 42px;
+    height: 42px;
   }
 
   .portfolio-modern > main,
   .portfolio-modern > footer {
-    margin-left: 252px;
-  }
-
-  .p-section {
-    scroll-margin-top: 24px;
+    margin-left: 92px;
   }
 
   .p-hero {
@@ -308,73 +298,42 @@
   }
 
   [data-portfolio-theme="light"] .p-header {
-    background: rgba(255,255,255,.94);
+    background: rgba(255,255,255,.95);
     border-right-color: rgba(22,32,51,.10);
   }
 
   [data-portfolio-theme="light"] .p-nav a:hover {
-    background: rgba(22,32,51,.045);
+    background: rgba(22,32,51,.05);
   }
 
   [data-portfolio-theme="light"] .p-nav a.active {
-    background: linear-gradient(90deg, rgba(37,99,235,.10), rgba(124,58,237,.06));
-  }
-
-  [data-portfolio-theme="light"] .p-header-cta {
-    background: rgba(22,32,51,.035);
+    background: linear-gradient(145deg, rgba(37,99,235,.10), rgba(124,58,237,.07));
   }
 }
 
-/* Keep the bottom navigation strictly for smaller screens. */
+/* Mobile/tablet stays as the fixed bottom icon+label bar. */
 @media (max-width: 991px) {
-  .p-header {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: auto;
-  }
-
-  .p-header-inner {
-    width: min(1180px, 92%);
-    height: 66px;
-    min-height: 66px;
-    margin: auto;
-    padding: 0;
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .p-brand {
-    margin: 0;
-  }
-
-  .p-header-actions {
-    margin-left: auto;
-  }
-
-  .portfolio-modern > main,
-  .portfolio-modern > footer {
-    margin-left: 0;
-  }
+  body { padding-bottom: 78px; }
 
   .p-mobile-nav {
+    display: flex !important;
+  }
+
+  .p-mobile-nav a {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
 
-/* Override the old 992–1000px fallback so 992px+ is always desktop. */
 @media (min-width: 992px) and (max-width: 1000px) {
-  body {
-    padding-bottom: 0;
-  }
-
-  .p-mobile-nav {
-    display: none !important;
-  }
+  body { padding-bottom: 0; }
 
   .p-header {
     position: fixed;
-    width: 252px;
+    inset: 0 auto 0 0;
+    width: 92px;
     height: 100vh;
   }
 
@@ -382,14 +341,9 @@
     width: 100%;
     height: 100%;
     min-height: 100vh;
+    padding: 26px 10px 20px;
     margin: 0;
-    padding: 28px 18px 22px;
     flex-direction: column;
-    align-items: stretch;
-  }
-
-  .p-brand {
-    margin: 0 8px 34px;
   }
 
   .p-nav {
@@ -397,49 +351,12 @@
     flex-direction: column;
   }
 
-  .p-header-actions {
-    margin: auto 0 0;
-    width: 100%;
+  .p-mobile-nav {
+    display: none !important;
   }
 
   .portfolio-modern > main,
   .portfolio-modern > footer {
-    margin-left: 252px;
+    margin-left: 92px;
   }
-}
-
-/* Theme-safe page surface, form controls and browser chrome. */
-html,
-body,
-#root {
-  min-height: 100%;
-}
-
-html {
-  color-scheme: dark;
-}
-
-html[data-portfolio-theme="light"] {
-  color-scheme: light;
-}
-
-body {
-  margin: 0;
-  background: var(--p-bg, #07111f);
-  color: var(--p-text, #edf4ff);
-  transition: background .25s ease, color .25s ease;
-}
-
-body.portfolio-light-mode {
-  background: #f5f7fb;
-  color: #162033;
-}
-
-::selection {
-  background: rgba(103,232,249,.28);
-  color: inherit;
-}
-
-[data-portfolio-theme="light"] ::selection {
-  background: rgba(37,99,235,.20);
 }
