@@ -73,7 +73,7 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
             delay={90}
             animateBy="letters"
             direction="top"
-            className="portfolio-splash-word portfolio-splash-word-outline"
+            className="portfolio-splash-word"
           />
           <BlurText
             text={lastName || ''}
