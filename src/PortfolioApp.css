@@ -652,3 +652,32 @@ body.portfolio-light-mode {
     height: 138px;
   }
 }
+
+
+/* =========================================================
+   ONE-TIME SPLASH GATE
+   Shows only on initial page load. Once entered, the
+   portfolio stays active until the browser page is refreshed.
+   ========================================================= */
+
+.portfolio-splash-layer {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  z-index: 999999;
+  background: #000;
+  overflow: hidden;
+}
+
+body:has(.portfolio-splash-layer) {
+  overflow: hidden;
+}
+
+.portfolio-splash-layer .portfolio-splash {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  cursor: pointer;
+}
