@@ -37,6 +37,14 @@ export default function PortfolioApp() {
   const [error, setError] = useState('');
   const [theme, setTheme] = useState(() => localStorage.getItem('portfolio_theme') || 'dark');
   const [activeSection, setActiveSection] = useState('home');
+  const [showSplash, setShowSplash] = useState(true);
+
+  const enterPortfolio = () => {
+    setShowSplash(false);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 0);
+  };
 
   const menuItems = [
     ['home', 'Home', 'fa-house'],
@@ -75,6 +83,37 @@ export default function PortfolioApp() {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!showSplash) return;
+
+    const handleWheel = (event) => {
+      if (Math.abs(event.deltaY) > 5) enterPortfolio();
+    };
+
+    const handleTouchMove = () => enterPortfolio();
+
+    const handleKeyDown = (event) => {
+      if (
+        event.key === 'ArrowDown' ||
+        event.key === 'PageDown' ||
+        event.key === ' ' ||
+        event.key === 'Enter'
+      ) {
+        enterPortfolio();
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showSplash]);
 
   const load = async () => {
     setLoading(true);
@@ -142,6 +181,18 @@ export default function PortfolioApp() {
 
   return (
     <div className="portfolio-modern">
+      {showSplash && (
+        <div className="portfolio-splash-layer">
+          <PortfolioHero
+            name={p.full_name || 'Aman Jain'}
+            imageUrl={p.profile_image_url}
+            onScrollDown={enterPortfolio}
+          />
+        </div>
+      )}
+
+      {!showSplash && (
+        <>
       <header className="p-header">
         <div className="p-container p-header-inner">
           <a className="p-brand" href="#home"><span className="p-brand-mark"><i className="fa-solid fa-code" /></span><span>{p.username || p.full_name || 'Portfolio'}</span></a>
@@ -159,12 +210,6 @@ export default function PortfolioApp() {
       </nav>
 
       <main>
-        <PortfolioHero
-          name={p.full_name || 'Aman Jain'}
-          imageUrl={p.profile_image_url}
-          onScrollDown={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-        />
-
         <Section id="about" title="About Me" eyebrow="01 / PROFILE">
           <div className="p-about-grid">
             <motion.div className="p-glass p-about-copy" initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
@@ -224,6 +269,8 @@ export default function PortfolioApp() {
         </Section>
       </main>
       <footer className="p-footer"><div className="p-container"><span>© {new Date().getFullYear()} {p.full_name || 'Aman Jain'}</span><span>Designed with Motion + modern UX principles</span></div></footer>
+        </>
+      )}
     </div>
   );
 }
