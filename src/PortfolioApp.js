@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { motion } from 'motion/react';
+import PortfolioHero from './components/ui/portfolio-hero';
 import { db } from './supabase';
 import './PortfolioApp.css';
 
@@ -158,30 +159,11 @@ export default function PortfolioApp() {
       </nav>
 
       <main>
-        <section id="home" className="p-hero">
-          <div className="p-container p-hero-grid">
-            <motion.div className="p-hero-copy" initial={{ opacity: 0, x: -35 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
-              <span className="p-eyebrow">FULL STACK • DATA • DIGITAL PRODUCTS</span>
-              <h1>Hi, I’m <span>{p.full_name || 'Aman Jain'}</span>.</h1>
-              <h3>{p.hero_role || 'Full Stack Developer'}</h3>
-              <p>{p.hero_intro}</p>
-              <div className="p-actions">
-                <a className="p-primary-btn" href="#projects">Explore Projects <i className="fa-solid fa-arrow-down" /></a>
-                {p.resume_url && <a className="p-secondary-btn" href={p.resume_url} target="_blank" rel="noreferrer">Download CV</a>}
-              </div>
-              <div className="p-socials">
-                {data.social_links.map((s) => <a key={s.id} href={s.url} target={s.url.startsWith('mailto:') ? undefined : '_blank'} rel="noreferrer" aria-label={s.label}><i className={s.icon_class} /></a>)}
-              </div>
-            </motion.div>
-            <motion.div className="p-hero-visual" initial={{ opacity: 0, scale: 0.88 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }}>
-              <div className="p-orbit p-orbit-one" /><div className="p-orbit p-orbit-two" />
-              <div className="p-profile-card">
-                <img src={p.profile_image_url} alt={p.full_name || 'Profile'} />
-                <div className="p-profile-badge"><span /> Available for opportunities</div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        <PortfolioHero
+          name={p.full_name || 'Aman Jain'}
+          imageUrl={p.profile_image_url}
+          onScrollDown={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
+        />
 
         <Section id="about" title="About Me" eyebrow="01 / PROFILE">
           <div className="p-about-grid">
