@@ -228,7 +228,32 @@ export default function PortfolioApp() {
             <motion.div className="p-hero-visual" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
               <div className="p-orbit p-orbit-one" />
               <div className="p-orbit p-orbit-two" />
-              {p.profile_image_url ? <div className="p-profile-card"><img src={p.profile_image_url} alt={p.full_name || 'Profile'} /><div className="p-profile-badge"><span />Available for opportunities</div></div> : <div className="p-profile-card"><div className="p-profile-badge"><span />Available for opportunities</div></div>}
+              {p.profile_image_url ? (
+                <div
+                  className="p-profile-card p-profile-mascot"
+                  onMouseMove={(event) => {
+                    const rect = event.currentTarget.getBoundingClientRect();
+                    const x = (event.clientX - rect.left) / rect.width - 0.5;
+                    const y = (event.clientY - rect.top) / rect.height - 0.5;
+                    event.currentTarget.style.setProperty('--mouse-x', x.toFixed(3));
+                    event.currentTarget.style.setProperty('--mouse-y', y.toFixed(3));
+                    event.currentTarget.classList.add('is-looking');
+                  }}
+                  onMouseLeave={(event) => {
+                    event.currentTarget.style.setProperty('--mouse-x', '0');
+                    event.currentTarget.style.setProperty('--mouse-y', '0');
+                    event.currentTarget.classList.remove('is-looking');
+                  }}
+                >
+                  <div className="p-profile-mascot-inner">
+                    <img src={p.profile_image_url} alt={p.full_name || 'Profile'} />
+                    <span className="p-mascot-eye-glow mascot-eye-left" />
+                    <span className="p-mascot-eye-glow mascot-eye-right" />
+                    <span className="p-mascot-wave">Hello 👋</span>
+                  </div>
+                  <div className="p-profile-badge"><span />Available for opportunities</div>
+                </div>
+              ) : <div className="p-profile-card"><div className="p-profile-badge"><span />Available for opportunities</div></div>}
             </motion.div>
           </div>
         </section>
