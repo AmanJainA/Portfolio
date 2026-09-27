@@ -305,7 +305,75 @@ function ProfileEditor({profile,onSave,busy}){
  return <form className="admin-form profile-form" onSubmit={submit}><div className="profile-preview"><img src={form.profile_image_url} alt="profile"/><div><b>One profile image function</b><p>Use this same URL for the profile image and browser favicon.</p><label><input type="checkbox" checked={same} onChange={e=>setSame(e.target.checked)}/> Use profile image as favicon</label></div></div><div className="admin-form-grid">{[['full_name','Full name'],['username','Display username'],['hero_role','Hero role'],['hero_intro','Hero intro'],['profile_image_url','Profile image URL'],['favicon_url','Favicon URL'],['resume_url','Resume URL'],['email','Email'],['phone','Phone'],['location','Location'],['contact_heading','Contact heading'],['contact_description','Contact description']].map(([k,l])=><label key={k}>{l}{['hero_intro','about_text','contact_description'].includes(k)?<textarea value={form[k]||''} onChange={e=>change(k,e.target.value)}/>:<input value={form[k]||''} onChange={e=>change(k,e.target.value)}/>}</label>)}<label className="wide">About Me<textarea rows="7" value={form.about_text||''} onChange={e=>change('about_text',e.target.value)}/></label></div><button className="admin-save" disabled={busy}>Save Profile</button></form>
 }
 
-function DataTable({items,config,onEdit,onDelete}){return <div className="admin-table-wrap"><table className="admin-data-table"><thead><tr><th>#</th>{config.fields.map(([k,label])=><th key={k}>{label}</th>)}<th>Actions</th></tr></thead><tbody>{items.length?items.map((item,index)=><tr key={item.id||index}><td>{index+1}</td>{config.fields.map(([k])=><td key={k}>{k==='is_visible'?<span className={item[k]?'status-on':'status-off'}>{item[k]?'Visible':'Hidden'}</span>:k==='image_url'&&item[k]?<img className="table-thumb" src={item[k]} alt=""/>:Array.isArray(item[k])?item[k].join(', '):String(item[k]??'')}</td>)}<td><div className="table-actions"><button title="Edit" onClick={()=>onEdit(item)}><i className="fa-solid fa-pen"/></button><button title="Delete" className="danger" onClick={()=>onDelete(item.id)}><i className="fa-solid fa-trash"/></button></div></td></tr>)):<tr><td colSpan={config.fields.length+2} className="table-empty">No records found.</td></tr>}</tbody></table></div>}
+function DataTable({ items, config, onEdit, onDelete }) {
+  const renderCell = (item, key) => {
+    if (key === 'is_visible') {
+      return (
+        <span className={item[key] ? 'status-on' : 'status-off'}>
+          {item[key] ? 'Visible' : 'Hidden'}
+        </span>
+      );
+    }
+
+    if (key === 'image_url' && item[key]) {
+      return <img className="table-thumb" src={item[key]} alt="" />;
+    }
+
+    if (Array.isArray(item[key])) {
+      return item[key].join(', ');
+    }
+
+    if (item[key] === null || item[key] === undefined) {
+      return '';
+    }
+
+    return String(item[key]);
+  };
+
+  return (
+    <div className="admin-table-wrap">
+      <table className="admin-data-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            {config.fields.map(([key, label]) => (
+              <th key={key}>{label}</th>
+            ))}
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {items.length > 0 ? (
+            items.map((item, index) => (
+              <tr key={item.id || index}>
+                <td>{index + 1}</td>
+                {config.fields.map(([key]) => (
+                  <td key={key}>{renderCell(item, key)}</td>
+                ))}
+                <td>
+                  <div className="table-actions">
+                    <button type="button" title="Edit" onClick={() => onEdit(item)}>
+                      <i className="fa-solid fa-pen" />
+                    </button>
+                    <button type="button" title="Delete" className="danger" onClick={() => onDelete(item.id)}>
+                      <i className="fa-solid fa-trash" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan={config.fields.length + 2} className="table-empty">
+                No records found.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+}
 
 function Pagination({page,pageCount,pageSize,setPage,setPageSize,total}){return <div className="admin-pagination"><span>Showing {total?((page-1)*pageSize+1):0}-{Math.min(page*pageSize,total)} of {total}</span><div><label>Rows <select value={pageSize} onChange={e=>setPageSize(Number(e.target.value))}>{[10,20,50,100].map(n=><option key={n}>{n}</option>)}</select></label><button disabled={page<=1} onClick={()=>setPage(page-1)}>‹</button><b>{page} / {pageCount}</b><button disabled={page>=pageCount} onClick={()=>setPage(page+1)}>›</button></div></div>}
 
