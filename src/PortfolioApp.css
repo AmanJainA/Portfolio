@@ -983,3 +983,74 @@ body:has(.portfolio-splash-layer) {
   .p-about-tech-icon { width: 48px; height: 48px; border-radius: 14px; }
   .p-about-tech-icon img { width: 31px; height: 31px; }
 }
+
+/* ===== Scrollsequence-style About scene ===== */
+.p-about-scrollscene {
+  position: relative;
+  min-height: 185vh;
+  perspective: 1400px;
+}
+.p-about-scroll-sticky {
+  position: sticky;
+  top: 88px;
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+}
+.p-about-scrollscene .p-about-immersive {
+  width: 100%;
+  transform-style: preserve-3d;
+}
+.p-about-scroll-label {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: var(--p-accent);
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .18em;
+  animation: about-scroll-label 2s ease-in-out infinite;
+}
+@keyframes about-scroll-label {
+  0%,100% { opacity: .45; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+.p-about-scrollscene .p-about-tech-field {
+  transform-style: preserve-3d;
+  grid-template-columns: repeat(6, minmax(100px, 1fr));
+}
+.p-about-scrollscene .p-about-tech-card {
+  transform-style: preserve-3d;
+}
+.p-about-scrollscene .p-about-tech-card:nth-child(1) { margin-top: 24px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(2) { margin-top: -12px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(3) { margin-top: 18px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(4) { margin-top: -18px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(5) { margin-top: 12px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(6) { margin-top: -8px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(7) { margin-top: -15px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(8) { margin-top: 16px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(9) { margin-top: -10px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(10) { margin-top: 20px; }
+.p-about-scrollscene .p-about-tech-card:nth-child(11) { margin-top: -14px; }
+
+@media (max-width: 1000px) {
+  .p-about-scrollscene { min-height: 155vh; }
+  .p-about-scroll-sticky { top: 78px; }
+  .p-about-scrollscene .p-about-tech-field { grid-template-columns: repeat(4, minmax(100px, 1fr)); }
+}
+@media (max-width: 650px) {
+  .p-about-scrollscene {
+    min-height: auto;
+  }
+  .p-about-scroll-sticky {
+    position: relative;
+    top: auto;
+    min-height: auto;
+  }
+  .p-about-scrollscene .p-about-tech-field {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .p-about-scrollscene .p-about-tech-card {
+    margin-top: 0;
+  }
+}
