@@ -684,57 +684,56 @@ body:has(.portfolio-splash-layer) {
 
 
 
-/* Animated tracing lines around the name — a clean drawing effect, not a pulsing glow. */
+/* Animated tracing frame around the name — the light travels like it is drawing Aman Jain. */
 .portfolio-splash-name::before,
 .portfolio-splash-name::after {
   content: "";
   position: absolute;
-  top: 2%;
+  top: -10%;
   width: 2px;
-  height: 96%;
+  height: 120%;
   z-index: 1;
   pointer-events: none;
+  opacity: .95;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    transparent 18%,
-    #c3e41d 45%,
-    #efff8a 50%,
-    #c3e41d 55%,
-    transparent 82%,
+    transparent 44%,
+    #c3e41d 48%,
+    #f4ff9a 50%,
+    #c3e41d 52%,
+    transparent 56%,
     transparent 100%
   );
-  background-size: 100% 220%;
-  background-position: 0 -120%;
-  opacity: .9;
-  filter: none;
-  box-shadow: 0 0 6px rgba(195,228,29,.28);
-  animation: portfolio-line-draw 2.2s linear infinite;
+  background-size: 100% 300%;
+  background-position: 0 -150%;
+  box-shadow: 0 0 7px rgba(195,228,29,.38);
+  animation: portfolio-line-trace 2.6s cubic-bezier(.55,0,.25,1) infinite;
 }
 
 .portfolio-splash-name::before {
-  left: -30px;
+  left: -34px;
 }
 
 .portfolio-splash-name::after {
-  right: -30px;
-  animation-delay: -1.1s;
+  right: -34px;
+  animation-delay: -1.3s;
 }
 
-@keyframes portfolio-line-draw {
+@keyframes portfolio-line-trace {
   0% {
-    background-position: 0 -120%;
-    opacity: .15;
+    background-position: 0 -150%;
+    opacity: 0;
   }
-  8% {
-    opacity: .9;
+  12% {
+    opacity: .95;
   }
-  92% {
-    opacity: .9;
+  88% {
+    opacity: .95;
   }
   100% {
-    background-position: 0 120%;
-    opacity: .15;
+    background-position: 0 150%;
+    opacity: 0;
   }
 }
 
@@ -742,11 +741,11 @@ body:has(.portfolio-splash-layer) {
   .portfolio-splash-name::before,
   .portfolio-splash-name::after {
     width: 1.5px;
-    height: 94%;
+    height: 116%;
   }
 
-  .portfolio-splash-name::before { left: -18px; }
-  .portfolio-splash-name::after { right: -18px; }
+  .portfolio-splash-name::before { left: -20px; }
+  .portfolio-splash-name::after { right: -20px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
