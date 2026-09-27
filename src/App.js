@@ -7,6 +7,7 @@ import AdminPage from './AdminPage';
 
 export default function App() {
   const path = window.location.pathname.replace(/\/+$/, '') || '/';
-  const isAdmin = path === '/admin' || path.endsWith('/admin');
+  const hash = window.location.hash.toLowerCase();
+  const isAdmin = path === '/admin' || path.endsWith('/admin') || hash === '#/admin' || hash === '#admin';
   return isAdmin ? <AdminPage /> : <PortfolioApp />;
 }
