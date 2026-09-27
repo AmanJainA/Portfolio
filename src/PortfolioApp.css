@@ -1054,3 +1054,119 @@ body:has(.portfolio-splash-layer) {
     margin-top: 0;
   }
 }
+
+
+/* ===== Instant light/dark theme toggle + light-mode contrast ===== */
+.p-theme-toggle-track {
+  width: 43px;
+  height: 24px;
+  padding: 2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,.14);
+  border: 1px solid currentColor;
+  transition: background .2s ease, border-color .2s ease;
+}
+.p-theme-toggle-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: 0 0 18px;
+  background: #fff;
+  color: #07111f;
+  font-size: .58rem;
+  transform: translateX(0);
+  transition: transform .2s ease, background .2s ease, color .2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,.22);
+}
+.p-theme-toggle.is-light .p-theme-toggle-track {
+  background: rgba(37,99,235,.14);
+}
+.p-theme-toggle.is-light .p-theme-toggle-knob {
+  transform: translateX(17px);
+  background: #162033;
+  color: #fff;
+}
+
+[data-portfolio-theme="light"] .portfolio-modern h1,
+[data-portfolio-theme="light"] .portfolio-modern h2,
+[data-portfolio-theme="light"] .portfolio-modern h3,
+[data-portfolio-theme="light"] .portfolio-modern h4,
+[data-portfolio-theme="light"] .portfolio-modern h5,
+[data-portfolio-theme="light"] .portfolio-modern h6,
+[data-portfolio-theme="light"] .portfolio-modern strong,
+[data-portfolio-theme="light"] .portfolio-modern b,
+[data-portfolio-theme="light"] .portfolio-modern p,
+[data-portfolio-theme="light"] .portfolio-modern span,
+[data-portfolio-theme="light"] .portfolio-modern label,
+[data-portfolio-theme="light"] .portfolio-modern .p-title,
+[data-portfolio-theme="light"] .portfolio-modern .p-project-body,
+[data-portfolio-theme="light"] .portfolio-modern .p-skill-box,
+[data-portfolio-theme="light"] .portfolio-modern .p-skill-panel,
+[data-portfolio-theme="light"] .portfolio-modern .p-column-title,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-copy h3,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-copy p,
+[data-portfolio-theme="light"] .portfolio-modern .p-about-tech-card strong {
+  color: #111827;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-muted,
+[data-portfolio-theme="light"] .portfolio-modern small,
+[data-portfolio-theme="light"] .portfolio-modern .p-hero p,
+[data-portfolio-theme="light"] .portfolio-modern .p-project p,
+[data-portfolio-theme="light"] .portfolio-modern .p-skill-box p,
+[data-portfolio-theme="light"] .portfolio-modern .p-ring-wrap > span,
+[data-portfolio-theme="light"] .portfolio-modern .p-footer {
+  color: #4b5563;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-primary-btn,
+[data-portfolio-theme="light"] .portfolio-modern .p-secondary-btn,
+[data-portfolio-theme="light"] .portfolio-modern .p-socials a,
+[data-portfolio-theme="light"] .portfolio-modern .p-project-image > a,
+[data-portfolio-theme="light"] .portfolio-modern .p-profile-badge {
+  color: #111827;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-primary-btn {
+  color: #fff;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-profile-badge {
+  background: rgba(255,255,255,.92);
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-mascot-wave {
+  color: #111827;
+  background: rgba(255,255,255,.94);
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-about-tech-card {
+  background: linear-gradient(145deg, rgba(255,255,255,.94), rgba(241,245,249,.9));
+  border-color: rgba(17,24,39,.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 18px 45px rgba(17,24,39,.08);
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-about-tech-card::after {
+  background: linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.45));
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-about-tech-icon {
+  background: rgba(17,24,39,.045);
+  border-color: rgba(17,24,39,.08);
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-track,
+[data-portfolio-theme="light"] .portfolio-modern .p-ring {
+  color: #111827;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-form input,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-form textarea {
+  color: #111827;
+  caret-color: #111827;
+}
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-form input::placeholder,
+[data-portfolio-theme="light"] .portfolio-modern .p-contact-form textarea::placeholder {
+  color: #6b7280;
+  opacity: 1;
+}
+
+@media (min-width: 992px) {
+  .p-theme-toggle { width: 47px; height: 28px; border: 0; background: transparent; padding: 0; }
+  .p-theme-toggle:hover { border: 0; background: transparent; }
+}
