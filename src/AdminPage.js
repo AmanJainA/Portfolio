@@ -24,16 +24,20 @@ function AdminPage() {
   const [form,setForm] = useState({});
   const [busy,setBusy] = useState(false);
   const [message,setMessage] = useState('');
+  const [search,setSearch] = useState('');
+  const [sidebarOpen,setSidebarOpen] = useState(false);
+  const [lastSync,setLastSync] = useState(null);
 
   const load = async () => {
     if (!token) return;
     setBusy(true);
     const {data: result,error} = await db.rpc('admin_get_all',{p_token:token});
-    if(error){setMessage(error.message); setToken(''); localStorage.removeItem('portfolio_admin_token');}
+    if(error){setMessage(error.message); setToken(''); setUser(null); localStorage.removeItem('portfolio_admin_token'); localStorage.removeItem('portfolio_admin_user');}
     else { setData(result); setLastSync(new Date()); }
     setBusy(false);
   };
   useEffect(()=>{load()},[token]);
+  useEffect(()=>{setSearch('');setEditing(null)},[active]);
 
   const doLogin = async (e) => {
     e.preventDefault(); setBusy(true); setMessage('');
@@ -43,7 +47,7 @@ function AdminPage() {
     setBusy(false);
   };
 
-  const logout = async()=>{ if(token) await db.rpc('admin_logout',{p_token:token}); localStorage.removeItem('portfolio_admin_token');localStorage.removeItem('portfolio_admin_user');setToken('');setUser(null);setData(null); };
+  const logout = async()=>{ if(token) await db.rpc('admin_logout',{p_token:token}); localStorage.removeItem('portfolio_admin_token');localStorage.removeItem('portfolio_admin_user');setToken('');setUser(null);setData(null);setLastSync(null);setSearch('');setSidebarOpen(false); };
 
   const save = async(resource,payload)=>{
     setBusy(true);setMessage('');
