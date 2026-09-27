@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useInView } from 'motion/react';
 import PortfolioHero from './components/ui/portfolio-hero';
 import { db } from './supabase';
 import './PortfolioApp.css';
@@ -15,6 +15,77 @@ function setFavicon(url) {
     document.head.appendChild(link);
   }
   link.href = url;
+}
+
+function AnimatedNumber({ value }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.45 });
+  const [display, setDisplay] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const target = Number(value) || 0;
+    const duration = 900;
+    const start = performance.now();
+    let frame;
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(target * eased));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, value]);
+  return <span ref={ref}>{display}</span>;
+}
+
+function ProfessionalRing({ skill }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.45 });
+  const [display, setDisplay] = useState(0);
+  useEffect(() => {
+    if (!inView) return;
+    const target = Number(skill.percent) || 0;
+    const duration = 950;
+    const start = performance.now();
+    let frame;
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(target * eased));
+      if (progress < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [inView, skill.percent]);
+  return (
+    <div className="p-ring-wrap" ref={ref}>
+      <motion.div
+        className="p-ring"
+        initial={{ '--pct': '0deg' }}
+        animate={{ '--pct': inView ? (skill.percent * 3.6) + 'deg' : '0deg' }}
+        transition={{ duration: .95, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <strong>{display}%</strong>
+      </motion.div>
+      <span>{skill.name}</span>
+    </div>
+  );
+}
+
+function ProjectSection({ projects }) {
+  const [filter, setFilter] = useState('All');
+  const filters = ['All', 'PHP', 'Android', 'Flutter', 'React'];
+  const filteredProjects = useMemo(() => {
+    if (filter === 'All') return projects;
+    return projects.filter((project) =>
+      (project.tech_stack || []).some((tech) => String(tech).toLowerCase().includes(filter.toLowerCase()))
+    );
+  }, [projects, filter]);
+
+  return (
+    <ProjectSection projects={data.projects} />
+  );
 }
 
 function Section({ id, title, eyebrow, children }) {
@@ -273,17 +344,17 @@ export default function PortfolioApp() {
                 <div className="p-about-tech-field" aria-label="Technical skills">
                   <div className="p-about-tech-glow" />
                   {[
-                    ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg'],
-                    ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg'],
-                    ['Bootstrap','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/bootstrap5.svg'],
-                    ['JavaScript','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/javascript.svg'],
-                    ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg'],
-                    ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg'],
-                    ['MySQL','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/mysql.svg'],
-                    ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg'],
-                    ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg'],
-                    ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg'],
-                    ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg'],
+                    ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg','#E55025'],
+                    ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg','#1572B6'],
+                    ['Bootstrap','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/bootstrap5.svg','#7952B3'],
+                    ['JavaScript','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/javascript.svg','#F7DF1E'],
+                    ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg','#0769AD'],
+                    ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg','#777BB4'],
+                    ['MySQL','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/mysql.svg','#4479A1'],
+                    ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg','#68A063'],
+                    ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg','#61DAFB'],
+                    ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg','#3DDC84'],
+                    ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg','#54C5F8'],
                   ].map(([name, level, icon], i) => (
                     <motion.div
                       className="p-about-tech-card"
@@ -313,8 +384,17 @@ export default function PortfolioApp() {
             </motion.article>)}
           </div>
           <div className="p-skill-columns">
-            <div className="p-glass p-skill-panel"><h3>Technical Skills</h3>{technical.map((s) => <div className="p-progress" key={s.id}><div><span>{s.name}</span><b>{s.percent}%</b></div><span className="p-track"><span style={{ width: `${s.percent}%` }} /></span></div>)}</div>
-            <div className="p-glass p-skill-panel"><h3>Professional Skills</h3><div className="p-ring-grid">{professional.map((s) => <div className="p-ring-wrap" key={s.id}><div className="p-ring" style={{ '--pct': `${s.percent * 3.6}deg` }}><strong>{s.percent}%</strong></div><span>{s.name}</span></div>)}</div></div>
+            <motion.div className="p-glass p-skill-panel" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: .55 }}>
+              <h3>Technical Skills</h3>
+              {technical.map((s) => <div className="p-progress" key={s.id}>
+                <div><span>{s.name}</span><b><AnimatedNumber value={s.percent} />%</b></div>
+                <span className="p-track"><motion.span initial={{ width: 0 }} whileInView={{ width: s.percent + '%' }} viewport={{ once: true, amount: 0.45 }} transition={{ duration: .95, ease: [0.22, 1, 0.36, 1] }} /></span>
+              </div>)}
+            </motion.div>
+            <motion.div className="p-glass p-skill-panel" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: .55, delay: .08 }}>
+              <h3>Professional Skills</h3>
+              <div className="p-ring-grid">{professional.map((s) => <ProfessionalRing key={s.id} skill={s} />)}</div>
+            </motion.div>
           </div>
         </Section>
 
@@ -328,9 +408,33 @@ export default function PortfolioApp() {
         </Section>
 
         <Section id="resume" title="Education & Work Experience" eyebrow="04 / JOURNEY">
-          <div className="p-timeline-grid">
-            <div><h3 className="p-column-title">Education</h3>{data.education.map((x) => <motion.article className="p-timeline-card" key={x.id} initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}><span>{x.period}</span><h3>{x.title}</h3><b>{x.location}</b>{(x.details || []).map(d => <p key={d}>{d}</p>)}</motion.article>)}</div>
-            <div><h3 className="p-column-title">Work Experience</h3>{data.experience.map((x) => <motion.article className="p-timeline-card" key={x.id} initial={{ opacity: 0, x: 18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}><span>{x.period}</span><h3>{x.title}</h3><b>{x.company}</b>{(x.details || []).map(d => <p key={d}>{d}</p>)}</motion.article>)}</div>
+          <div className="p-journey-timeline">
+            <div className="p-journey-line" aria-hidden="true" />
+            {Array.from({ length: Math.max(data.education.length, data.experience.length) }).map((_, i) => {
+              const education = data.education[i];
+              const experience = data.experience[i];
+              return (
+                <div className="p-journey-row" key={education?.id || experience?.id || i}>
+                  <div className="p-journey-side p-journey-education">
+                    {education && <motion.article className="p-journey-card p-journey-card-left"
+                      initial={{ opacity: 0, x: -28 }} whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: .25 }} transition={{ duration: .55 }}>
+                      <span>{education.period}</span><h3>{education.title}</h3><b>{education.location}</b>
+                      {(education.details || []).map(d => <p key={d}>{d}</p>)}
+                    </motion.article>}
+                  </div>
+                  <div className="p-journey-dot" aria-hidden="true" />
+                  <div className="p-journey-side p-journey-experience">
+                    {experience && <motion.article className="p-journey-card p-journey-card-right"
+                      initial={{ opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, amount: .25 }} transition={{ duration: .55 }}>
+                      <span>{experience.period}</span><h3>{experience.title}</h3><b>{experience.company}</b>
+                      {(experience.details || []).map(d => <p key={d}>{d}</p>)}
+                    </motion.article>}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </Section>
 
