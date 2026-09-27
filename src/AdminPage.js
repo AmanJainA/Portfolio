@@ -30,7 +30,7 @@ function AdminPage() {
     setBusy(true);
     const {data: result,error} = await db.rpc('admin_get_all',{p_token:token});
     if(error){setMessage(error.message); setToken(''); localStorage.removeItem('portfolio_admin_token');}
-    else setData(result);
+    else { setData(result); setLastSync(new Date()); }
     setBusy(false);
   };
   useEffect(()=>{load()},[token]);
@@ -72,6 +72,11 @@ function AdminPage() {
   };
   const activeConfig=resources.find(r=>r.key===active);
   const items=active==='profile'?[profile]:data?.[active]||[];
+  const filteredItems=useMemo(()=>{
+    if(!search.trim() || active==='profile' || active==='dashboard' || active==='contact') return items;
+    const q=search.toLowerCase();
+    return items.filter(item=>Object.values(item||{}).some(value=>Array.isArray(value)?value.join(' ').toLowerCase().includes(q):String(value??'').toLowerCase().includes(q)));
+  },[items,search,active]);
 
   const startEdit=(item,config)=>{setEditing(item?.id||'new');setForm(item?{...item}:empty(config.fields));};
   const normalize=(config,payload)=>{
@@ -81,23 +86,24 @@ function AdminPage() {
     return next;
   };
 
-  return <div className="admin-shell">
+  return <div className={`admin-shell ${sidebarOpen?'sidebar-open':''}`}>
+    <button type="button" className="admin-sidebar-overlay" aria-label="Close menu" onClick={()=>setSidebarOpen(false)}/>
     <aside className="admin-sidebar"><div className="admin-side-brand"><i className="fa-solid fa-layer-group"/> Portfolio CMS</div><div className="admin-user"><div className="admin-avatar">{(user?.username||'A')[0]}</div><div><b>{user?.username||'Admin'}</b><small>{user?.email}</small></div></div>
-      <nav><button className={active==='dashboard'?'active':''} onClick={()=>{setActive('dashboard');setEditing(null)}}><i className="fa-solid fa-chart-pie"/> Dashboard</button><button className={active==='profile'?'active':''} onClick={()=>{setActive('profile');setEditing(null)}}><i className="fa-solid fa-user"/> Profile</button>{resources.map(r=><button key={r.key} className={active===r.key?'active':''} onClick={()=>{setActive(r.key);setEditing(null)}}><i className={r.key==='projects'?'fa-solid fa-briefcase':r.key==='social_links'?'fa-solid fa-share-nodes':'fa-solid fa-layer-group'}/>{r.label}</button>)}<button onClick={()=>setActive('contact')} className={active==='contact'?'active':''}><i className="fa-solid fa-inbox"/> Contact Messages</button></nav>
+      <nav><button className={active==='dashboard'?'active':''} onClick={()=>{setActive('dashboard');setEditing(null);setSidebarOpen(false)}}><i className="fa-solid fa-chart-pie"/> Dashboard</button><button className={active==='profile'?'active':''} onClick={()=>{setActive('profile');setEditing(null);setSidebarOpen(false)}}><i className="fa-solid fa-user"/> Profile</button>{resources.map(r=><button key={r.key} className={active===r.key?'active':''} onClick={()=>{setActive(r.key);setEditing(null);setSidebarOpen(false)}}><i className={r.key==='projects'?'fa-solid fa-briefcase':r.key==='social_links'?'fa-solid fa-share-nodes':'fa-solid fa-layer-group'}/>{r.label}</button>)}<button onClick={()=>{setActive('contact');setSidebarOpen(false)}} className={active==='contact'?'active':''}><i className="fa-solid fa-inbox"/> Contact Messages</button></nav>
       <button className="admin-logout" onClick={logout}><i className="fa-solid fa-right-from-bracket"/> Logout</button>
     </aside>
-    <main className="admin-main"><header className="admin-top"><div><span>Portfolio CMS</span><h1>{active==='dashboard'?'Dashboard':active==='profile'?'Profile Settings':active==='contact'?'Contact Messages':activeConfig?.label}</h1></div><a href={process.env.PUBLIC_URL || '/'} className="admin-view">View Portfolio <i className="fa-solid fa-arrow-up-right-from-square"/></a></header>
+    <main className="admin-main"><header className="admin-top"><button type="button" className="admin-menu-toggle" onClick={()=>setSidebarOpen(true)} aria-label="Open menu"><i className="fa-solid fa-bars"/></button><div><span>Portfolio CMS</span><h1>{active==='dashboard'?'Dashboard':active==='profile'?'Profile Settings':active==='contact'?'Contact Messages':activeConfig?.label}</h1></div><div className="admin-top-actions">{lastSync&&<span className="admin-sync"><i className="fa-solid fa-circle-check"/> Synced {lastSync.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</span>}<button type="button" className="admin-refresh" onClick={load} disabled={busy}><i className={`fa-solid fa-rotate ${busy?'spin':''}`}/> Refresh</button><a href={process.env.PUBLIC_URL || '/'} className="admin-view">View Portfolio <i className="fa-solid fa-arrow-up-right-from-square"/></a></div></header>
       {message&&<div className="admin-message">{message}</div>}
-      {active==='dashboard' && <Dashboard data={data} profile={profile} counts={counts} onOpen={setActive}/>} {active==='profile' && <ProfileEditor profile={profile} onSave={(x)=>save('profile',x)} busy={busy}/>}
+      {active==='dashboard' && <Dashboard data={data} profile={profile} counts={counts} onOpen={(key)=>{setActive(key);setSearch('')}} lastSync={lastSync}/>} {active==='profile' && <ProfileEditor profile={profile} onSave={(x)=>save('profile',x)} busy={busy}/>}
       {active==='contact' && <ContactList items={data?.contact||[]} onDelete={(id)=>remove('contact',id)}/>}
-      {active!=='profile'&&active!=='contact'&&activeConfig && <section className="admin-section"><div className="admin-toolbar"><button className="admin-add" onClick={()=>startEdit(null,activeConfig)}>+ Add {activeConfig.label.replace(/s$/,'')}</button><span>{items.length} records</span></div>{editing && <ItemEditor config={activeConfig} form={form} setForm={setForm} onSave={()=>save(activeConfig.resource,normalize(activeConfig,form))} onCancel={()=>setEditing(null)} busy={busy}/>}<div className="admin-table">{items.map(item=><div className="admin-row" key={item.id}><div className="admin-row-main"><strong>{item.name||item.title||item.label}</strong><small>{item.category||item.company||item.url||item.level||''}</small></div><div className="admin-row-actions"><button onClick={()=>startEdit(item,activeConfig)}>Edit</button><button className="danger" onClick={()=>remove(activeConfig.resource,item.id)}>Delete</button></div></div>)}</div></section>}
+      {active!=='profile'&&active!=='contact'&&activeConfig && <section className="admin-section"><div className="admin-toolbar"><div className="admin-toolbar-left"><button className="admin-add" onClick={()=>startEdit(null,activeConfig)}>+ Add {activeConfig.label.replace(/s$/,'')}</button><span>{filteredItems.length} of {items.length} records</span></div><input className="admin-search" value={search} onChange={e=>setSearch(e.target.value)} placeholder={`Search ${activeConfig.label.toLowerCase()}…`} aria-label="Search records"/></div>{editing && <ItemEditor config={activeConfig} form={form} setForm={setForm} onSave={()=>save(activeConfig.resource,normalize(activeConfig,form))} onCancel={()=>setEditing(null)} busy={busy}/>}<div className="admin-table">{filteredItems.map(item=><div className="admin-row" key={item.id}><div className="admin-row-main"><strong>{item.name||item.title||item.label}</strong><small>{item.category||item.company||item.url||item.level||''}</small></div><div className="admin-row-actions"><button onClick={()=>startEdit(item,activeConfig)}>Edit</button><button className="danger" onClick={()=>remove(activeConfig.resource,item.id)}>Delete</button></div></div>)}</div></section>}
     </main>
   </div>;
 }
 
 
 
-function Dashboard({data,profile,counts,onOpen}){
+function Dashboard({data,profile,counts,onOpen,lastSync}){
   const projects=[...(data?.projects||[])].sort((a,b)=>(Number(a.sort_order)||0)-(Number(b.sort_order)||0)).slice(0,5);
   const messages=[...(data?.contact||[])].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at)).slice(0,4);
   const profileFields=[
@@ -116,6 +122,8 @@ function Dashboard({data,profile,counts,onOpen}){
     ['Social links',counts.social_links,'social_links','fa-share-nodes']
   ];
   const totalContent=contentStats.reduce((sum,x)=>sum+x[1],0)||1;
+  const visibility=counts.projects+counts.skills+counts.experience+counts.education+counts.languages+counts.social_links;
+  const readiness=Math.min(100, Math.round((completeness*0.6)+(Math.min(visibility,30)/30*40)));
   const missing=profileFields.filter(([k])=>!String(profile?.[k]||'').trim());
 
   return (
@@ -127,7 +135,7 @@ function Dashboard({data,profile,counts,onOpen}){
           <p>Manage your public profile, content and incoming enquiries from one screen.</p>
         </div>
         <div className="dashboard-welcome-actions">
-          <span className="dashboard-live"><i className="fa-solid fa-circle"/> CMS connected</span>
+          <span className="dashboard-live"><i className="fa-solid fa-circle"/> CMS connected</span>{lastSync&&<small className="dashboard-sync">Updated {lastSync.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</small>}
           <button type="button" onClick={()=>onOpen('profile')}><i className="fa-solid fa-pen"/> Edit Profile</button>
         </div>
       </div>
