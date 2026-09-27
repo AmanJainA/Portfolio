@@ -22,7 +22,9 @@
     "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "@supabase/supabase-js": "^2.117.1",
+    "motion": "^13.4.4"
   },
   "scripts": {
     "start": "concurrently \"npm run start-client\" \"npm run start-server\"",
