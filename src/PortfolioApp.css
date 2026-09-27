@@ -684,56 +684,53 @@ body:has(.portfolio-splash-layer) {
 
 
 
-/* Animated tracing frame around the name — the light travels like it is drawing Aman Jain. */
+/* Animated side glow — keeps the existing splash design unchanged. */
 .portfolio-splash-name::before,
 .portfolio-splash-name::after {
   content: "";
   position: absolute;
-  top: -10%;
+  top: 8%;
   width: 2px;
-  height: 120%;
+  height: 84%;
   z-index: 1;
   pointer-events: none;
-  opacity: .95;
+  opacity: .72;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    transparent 44%,
-    #c3e41d 48%,
-    #f4ff9a 50%,
-    #c3e41d 52%,
-    transparent 56%,
+    rgba(195,228,29,.12) 14%,
+    #c3e41d 42%,
+    rgba(195,228,29,.72) 50%,
+    #c3e41d 58%,
+    rgba(195,228,29,.12) 86%,
     transparent 100%
   );
-  background-size: 100% 300%;
-  background-position: 0 -150%;
-  box-shadow: 0 0 7px rgba(195,228,29,.38);
-  animation: portfolio-line-trace 2.6s cubic-bezier(.55,0,.25,1) infinite;
+  box-shadow:
+    0 0 8px rgba(195,228,29,.5),
+    0 0 24px rgba(195,228,29,.22),
+    0 0 45px rgba(195,228,29,.10);
+  animation: portfolio-side-glow 2.4s ease-in-out infinite;
 }
 
 .portfolio-splash-name::before {
-  left: -34px;
+  left: -28px;
 }
 
 .portfolio-splash-name::after {
-  right: -34px;
-  animation-delay: -1.3s;
+  right: -28px;
+  animation-delay: -1.2s;
 }
 
-@keyframes portfolio-line-trace {
-  0% {
-    background-position: 0 -150%;
-    opacity: 0;
+@keyframes portfolio-side-glow {
+  0%, 100% {
+    transform: scaleY(.62);
+    opacity: .28;
+    filter: blur(1px);
   }
-  12% {
-    opacity: .95;
-  }
-  88% {
-    opacity: .95;
-  }
-  100% {
-    background-position: 0 150%;
-    opacity: 0;
+  50% {
+    transform: scaleY(1);
+    opacity: .9;
+    filter: blur(0);
   }
 }
 
@@ -741,33 +738,18 @@ body:has(.portfolio-splash-layer) {
   .portfolio-splash-name::before,
   .portfolio-splash-name::after {
     width: 1.5px;
-    height: 116%;
+    height: 78%;
   }
 
-  .portfolio-splash-name::before { left: -20px; }
-  .portfolio-splash-name::after { right: -20px; }
+  .portfolio-splash-name::before { left: -16px; }
+  .portfolio-splash-name::after { right: -16px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .portfolio-splash-name::before,
   .portfolio-splash-name::after {
     animation: none;
-    opacity: .65;
-    background-position: 0 0;
-  }
-}
-
-/* Subtle static edge definition keeps the lettering crisp. */
-.portfolio-splash-word {
-  text-shadow:
-    0 0 3px rgba(195,228,29,.28),
-    0 0 10px rgba(195,228,29,.12);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .portfolio-splash-word {
-    text-shadow:
-      0 0 4px rgba(195,228,29,.3),
-      0 0 12px rgba(195,228,29,.14);
+    opacity: .5;
+    transform: scaleY(.8);
   }
 }
