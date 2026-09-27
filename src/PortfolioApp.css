@@ -681,3 +681,15 @@ body:has(.portfolio-splash-layer) {
   min-height: 100%;
   cursor: pointer;
 }
+
+
+/* Path-drawing-inspired typography for the existing splash glow.
+   Keeps the current glow/layout unchanged; only the Aman Jain letters get a cleaner outlined treatment. */
+.portfolio-splash-word-outline {
+  -webkit-text-stroke: 1.6px #c3e41d;
+  color: transparent;
+  text-shadow: 0 0 18px rgba(195,228,29,.08);
+}
+.portfolio-splash-word-outline span {
+  -webkit-text-stroke: inherit;
+}
