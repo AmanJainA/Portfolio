@@ -81,6 +81,7 @@ export default function PortfolioApp() {
     offset: ['start 82%', 'end 18%'],
   });
   const aboutProgress = useSpring(rawAboutProgress, { stiffness: 90, damping: 24, mass: 0.18 });
+  const { scrollYProgress: pageProgress } = useScroll();
 
   const enterPortfolio = () => {
     setShowSplash(false);
@@ -224,6 +225,7 @@ export default function PortfolioApp() {
 
   return (
     <div className="portfolio-modern">
+      <motion.div className="p-page-progress" style={{ scaleX: pageProgress }} aria-hidden="true" />
       {showSplash && (
         <div className="portfolio-splash-layer">
           <PortfolioHero
