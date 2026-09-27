@@ -46,7 +46,8 @@ function BlurText({ text, delay = 100, animateBy = 'letters', direction = 'top',
 }
 
 export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScrollDown }) {
-  const [firstName, ...rest] = String(name).trim().split(/\s+/);
+  const displayName = String(name || 'Aman Jain').trim() || 'Aman Jain';
+  const [firstName, ...rest] = displayName.split(/\s+/);
   const lastName = rest.join(' ') || firstName;
 
   return (
@@ -72,19 +73,19 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
             delay={90}
             animateBy="letters"
             direction="top"
-            className="portfolio-splash-word"
+            className="portfolio-splash-word portfolio-splash-word-outline"
           />
           <BlurText
             text={lastName || ''}
             delay={90}
             animateBy="letters"
             direction="top"
-            className="portfolio-splash-word"
+            className="portfolio-splash-word portfolio-splash-word-outline"
           />
 
           {imageUrl && (
             <div className="portfolio-splash-photo">
-              <img src={imageUrl} alt={name || 'Profile'} />
+              <img src={imageUrl} alt={displayName} />
             </div>
           )}
         </div>
@@ -104,7 +105,8 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
         type="button"
         className="portfolio-splash-scroll"
         aria-label="Scroll to portfolio"
-        onClick={() => {
+        onClick={(event) => {
+          event.stopPropagation();
           if (onScrollDown) {
             onScrollDown();
             return;
