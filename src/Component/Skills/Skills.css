@@ -1,0 +1,171 @@
+:root {
+  --text-color: #111;
+  --bg-color: #fff;
+  --progress-bg: #eee;
+  --progress-fill: #00cba9;
+  --circular-bg: #e6e6e6;
+  --circular-fill: #00cba9;
+}
+
+[data-theme="dark"] {
+  --text-color: #000;
+  --bg-color: #121212;
+  --progress-bg: #333;
+  --progress-fill: #00cba9;
+  --circular-bg: #444;
+  --circular-fill: #00cba9;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.skills-section {
+  padding: 60px 0;
+  overflow-x: hidden;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.skill-box {
+  border-radius: 12px;
+  padding: 1.5rem;
+  height: 100%;
+  transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+}
+.skill-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+}
+.skill-icon {
+  font-size: 2.5rem;
+  color: #00bcd4;
+}
+.progress {
+  background-color: var(--progress-bg);
+  height: 8px;
+  border-radius: 50px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: #00cba9;
+  width: 0;
+  height: 100%;
+  transition: width 2s ease;
+}
+
+.my-progress-bar {
+  background-color: var(--progress-fill);
+  height: 100%;
+  width: 0;
+  transition: width 1.5s ease-in-out;
+}
+
+.circular-progress {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: conic-gradient(var(--circular-bg) 0deg, var(--circular-bg) 360deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  font-weight: bold;
+  transition: background 2s ease;
+  z-index: 1;
+}
+
+.progress-bar {
+  background-color: #00e6c3;
+  animation: progressAnim 2s ease-out forwards;
+}
+
+@keyframes progressAnim {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: var(--progress-width);
+  }
+}
+
+
+
+.circular-progress .progress-value {
+  position: absolute;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  /* Ensure visibility on dark background */
+  z-index: 2;
+  /* Make sure it stays above the background */
+  pointer-events: none;
+}
+
+.circular-progress .label {
+  position: absolute;
+  bottom: -25px;
+  font-size: 14px;
+  color: #ccc;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+}
+
+
+
+/* Circular progress styles */
+.circular-progress {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  color: white;
+  position: relative;
+}
+
+.progress-value {
+  font-weight: bold;
+  z-index: 2;
+}
+
+.circular-progress .label {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #ccc;
+}
+
+.my-progress-bar {
+  background-color: #00cba9;
+  height: 12px;
+  width: 0;
+  border-radius: 6px;
+  transition: width 2s ease;
+}
+
+.progress-value {
+  position: absolute;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.label {
+  margin-top: 90px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-align: center;
+}
