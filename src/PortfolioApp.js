@@ -6,6 +6,33 @@ import './PortfolioApp.css';
 
 const emptyData = { profile: null, languages: [], skills: [], projects: [], education: [], experience: [], social_links: [] };
 
+function sanitizeRichText(html) {
+  if (!html) return '';
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(String(html), 'text/html');
+  const allowed = new Set(['P','BR','STRONG','B','EM','I','U','SPAN','DIV']);
+  doc.body.querySelectorAll('*').forEach((node) => {
+    if (!allowed.has(node.tagName)) {
+      node.replaceWith(...Array.from(node.childNodes));
+      return;
+    }
+    Array.from(node.attributes).forEach((attr) => {
+      if (attr.name !== 'style') node.removeAttribute(attr.name);
+    });
+    if (node.hasAttribute('style')) {
+      const color = node.style.color;
+      node.removeAttribute('style');
+      if (color) node.style.color = color;
+    }
+  });
+  return doc.body.innerHTML;
+}
+
+function RichText({html,className=''}) {
+  const safe = sanitizeRichText(html);
+  return <div className={className} dangerouslySetInnerHTML={{__html:safe || ''}} />;
+}
+
 function setFavicon(url) {
   if (!url) return;
   let link = document.querySelector('link[rel="icon"]');
@@ -345,7 +372,7 @@ export default function PortfolioApp() {
               <span className="p-eyebrow">WELCOME TO MY PORTFOLIO</span>
               <h1>Hi, I’m <span>{p.full_name || 'Aman Jain'}</span></h1>
               <h3>{p.hero_role || 'Creative Developer & Professional'}</h3>
-              <p>{p.hero_intro || p.about_text || 'I build useful digital experiences by combining technology, design and practical problem solving.'}</p>
+              <RichText html={p.hero_intro || p.about_text || 'I build useful digital experiences by combining technology, design and practical problem solving.'} className="p-hero-rich-text" />
               <div className="p-actions">
                 <a className="p-primary-btn" href="#projects">View Projects <i className="fa-solid fa-arrow-down" /></a>
                 <a className="p-secondary-btn" href="#contact">Let’s Talk <i className="fa-solid fa-arrow-up-right-from-square" /></a>
@@ -402,7 +429,7 @@ export default function PortfolioApp() {
               >
                 <div className="p-about-copy">
                   <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
-                  <p>{p.about_text}</p>
+                  <RichText html={p.about_text} className="p-about-rich-text" />
                 </div>
                 <div className="p-about-tech-field" aria-label="Technical skills">
                   <div className="p-about-tech-glow" />
@@ -484,7 +511,7 @@ export default function PortfolioApp() {
                     </motion.article>}
                   </div>
                   <div className="p-journey-dot" aria-hidden="true" />
-                  <div className="p-journey-side p-journey-experience">
+                  <div className="p-journey-side p-journey-experience mb-2">
                     {experience && <motion.article className="p-journey-card p-journey-card-right"
                       initial={{ opacity: 0, x: 28 }} whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, amount: .25 }} transition={{ duration: .55 }}>
