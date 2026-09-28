@@ -2102,3 +2102,17 @@ body:has(.portfolio-splash-layer) {
 .p-about-rich-text u { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
 .p-hero-rich-text span[style*="color"],
 .p-about-rich-text span[style*="color"] { color: inherit; }
+
+
+/* ===== Unified active navigation colour ===== */
+.portfolio-modern {
+  --p-menu-active: #fe655c;
+}
+.p-nav a.active,
+.p-nav a.active:hover,
+[data-portfolio-theme="light"] .p-nav a.active,
+[data-portfolio-theme="light"] .p-nav a.active:hover,
+.p-mobile-nav a.active,
+[data-portfolio-theme="light"] .p-mobile-nav a.active {
+  color: var(--p-menu-active) !important;
+}
