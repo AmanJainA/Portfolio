@@ -2116,3 +2116,8 @@ body:has(.portfolio-splash-layer) {
 [data-portfolio-theme="light"] .p-mobile-nav a.active {
   color: var(--p-menu-active) !important;
 }
+
+.p-mobile-nav a.active i,
+[data-portfolio-theme="light"] .p-mobile-nav a.active i {
+  color: var(--p-menu-active) !important;
+}
