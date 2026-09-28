@@ -1675,6 +1675,15 @@ body:has(.portfolio-splash-layer) {
   color: #fe655c !important;
 }
 
+/* Mobile active menu: apply the same accent to both icon and text label. */
+@media (max-width: 991px) {
+  .portfolio-modern .p-mobile-nav a.active,
+  .portfolio-modern .p-mobile-nav a.active i,
+  .portfolio-modern .p-mobile-nav a.active .p-nav-text {
+    color: #fe655c !important;
+  }
+}
+
 /* Match dark-theme active menu accent in light theme. */
 [data-portfolio-theme="light"] .portfolio-modern .p-nav a.active,
 [data-portfolio-theme="light"] .portfolio-modern .p-nav a.active .p-nav-text,
