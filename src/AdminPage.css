@@ -232,3 +232,107 @@ html[data-admin-theme="dark"] .dashboard-project:hover .dashboard-project button
 html[data-admin-theme="dark"] .contact-admin-card h3 {
   color: #fff;
 }
+
+
+/* ===== Profile rich-text editor ===== */
+.admin-rich-editor {
+  grid-column: 1 / -1;
+  margin-top: 2px;
+}
+.admin-rich-editor-label {
+  font-size: .76rem;
+  color: #64748b;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.admin-rich-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid #dbe2eb;
+  border-bottom: 0;
+  border-radius: 10px 10px 0 0;
+  background: #fff;
+}
+.admin-rich-toolbar button,
+.admin-color-picker {
+  width: 34px;
+  height: 32px;
+  border: 1px solid #dbe2eb;
+  border-radius: 7px;
+  background: #f8fafc;
+  color: #182033;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: .82rem;
+  font-weight: 800;
+}
+.admin-rich-toolbar button:hover,
+.admin-color-picker:hover {
+  border-color: #7c3aed;
+}
+.admin-color-picker {
+  position: relative;
+  overflow: hidden;
+}
+.admin-color-picker span { pointer-events: none; }
+.admin-color-picker input {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0;
+  cursor: pointer;
+}
+.admin-rich-content {
+  min-height: 145px;
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #dbe2eb;
+  border-radius: 0 0 10px 10px;
+  background: #fbfcfe;
+  color: #182033;
+  outline: none;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+.admin-rich-content:focus { border-color: #7c3aed; }
+.admin-rich-content:empty::before {
+  content: attr(data-placeholder);
+  color: #94a3b8;
+  pointer-events: none;
+}
+.admin-rich-hint {
+  display: block;
+  margin-top: 6px;
+  color: #7b8797;
+  font-size: .68rem;
+  line-height: 1.45;
+}
+html[data-admin-theme="dark"] .admin-rich-editor-label { color: #9aabc2; }
+html[data-admin-theme="dark"] .admin-rich-toolbar {
+  background: #111c31;
+  border-color: rgba(255,255,255,.10);
+}
+html[data-admin-theme="dark"] .admin-rich-toolbar button,
+html[data-admin-theme="dark"] .admin-color-picker {
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.10);
+  color: #edf4ff;
+}
+html[data-admin-theme="dark"] .admin-rich-content {
+  background: #0e1728;
+  border-color: rgba(255,255,255,.10);
+  color: #edf4ff;
+}
+html[data-admin-theme="dark"] .admin-rich-content:focus { border-color: #67e8f9; }
+html[data-admin-theme="dark"] .admin-rich-hint { color: #8292a9; }
+@media(max-width:800px){
+  .admin-rich-editor { margin-top: 0; }
+  .admin-rich-toolbar { flex-wrap: wrap; }
+  .admin-rich-content { min-height: 125px; }
+}
