@@ -44,6 +44,43 @@ function setFavicon(url) {
   link.href = url;
 }
 
+function HeroRoleTypewriter() {
+  const roles = ['Full Stack Developer', 'Consultant & Data Analyst'];
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [text, setText] = useState('');
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentRole = roles[roleIndex];
+    const typingSpeed = deleting ? 55 : 95;
+    const pauseAfterTyping = 1800;
+    const pauseAfterDeleting = 450;
+
+    const timer = setTimeout(() => {
+      if (!deleting) {
+        const nextText = currentRole.slice(0, text.length + 1);
+        setText(nextText);
+        if (nextText === currentRole) setDeleting(true);
+      } else {
+        const nextText = currentRole.slice(0, Math.max(0, text.length - 1));
+        setText(nextText);
+        if (!nextText) {
+          setDeleting(false);
+          setRoleIndex((index) => (index + 1) % roles.length);
+        }
+      }
+    }, !deleting && text === currentRole ? pauseAfterTyping : deleting && text === '' ? pauseAfterDeleting : typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [text, deleting, roleIndex]);
+
+  return (
+    <h3 className="p-hero-role-typewriter" aria-label={roles[roleIndex]}>
+      <span>{text}</span><span className="p-hero-role-cursor" aria-hidden="true" />
+    </h3>
+  );
+}
+
 function AnimatedNumber({ value }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.45 });
@@ -371,7 +408,7 @@ export default function PortfolioApp() {
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
               <span className="p-eyebrow">WELCOME TO MY PORTFOLIO</span>
               <h1>Hi, I’m <span>{p.full_name || 'Aman Jain'}</span></h1>
-              <h3>{p.hero_role || 'Creative Developer & Professional'}</h3>
+              <HeroRoleTypewriter />
               <RichText html={p.hero_intro || p.about_text || 'I build useful digital experiences by combining technology, design and practical problem solving.'} className="p-hero-rich-text" />
               <div className="p-actions">
                 <a className="p-primary-btn" href="#projects">View Projects <i className="fa-solid fa-arrow-down" /></a>
