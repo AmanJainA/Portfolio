@@ -297,12 +297,92 @@ function Dashboard({data,profile,counts,onOpen,lastSync}){
     </section>
   );
 }
+function sanitizeRichText(html) {
+  if (!html) return '';
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(String(html), 'text/html');
+  const allowed = new Set(['P','BR','STRONG','B','EM','I','U','SPAN','DIV']);
+  doc.body.querySelectorAll('*').forEach((node) => {
+    if (!allowed.has(node.tagName)) {
+      node.replaceWith(...Array.from(node.childNodes));
+      return;
+    }
+    Array.from(node.attributes).forEach((attr) => {
+      if (attr.name !== 'style') node.removeAttribute(attr.name);
+    });
+    if (node.hasAttribute('style')) {
+      const color = node.style.color;
+      node.removeAttribute('style');
+      if (color) node.style.color = color;
+    }
+  });
+  return doc.body.innerHTML;
+}
+
+function RichTextEditor({label,value,onChange,placeholder}) {
+  const editorRef = useRef(null);
+
+  useEffect(() => {
+    if (!editorRef.current) return;
+    if (document.activeElement !== editorRef.current && editorRef.current.innerHTML !== (value || '')) {
+      editorRef.current.innerHTML = value || '';
+    }
+  }, [value]);
+
+  const run = (command, commandValue=null) => {
+    editorRef.current?.focus();
+    document.execCommand(command, false, commandValue);
+    onChange(sanitizeRichText(editorRef.current?.innerHTML || ''));
+  };
+
+  const handleInput = () => onChange(sanitizeRichText(editorRef.current?.innerHTML || ''));
+
+  return (
+    <div className="admin-rich-editor wide">
+      <div className="admin-rich-editor-label">{label}</div>
+      <div className="admin-rich-toolbar" role="toolbar" aria-label={label + ' formatting'}>
+        <button type="button" title="Bold" onMouseDown={(e)=>e.preventDefault()} onClick={()=>run('bold')}><b>B</b></button>
+        <button type="button" title="Italic" onMouseDown={(e)=>e.preventDefault()} onClick={()=>run('italic')}><i>I</i></button>
+        <button type="button" title="Underline" onMouseDown={(e)=>e.preventDefault()} onClick={()=>run('underline')}><u>U</u></button>
+        <label className="admin-color-picker" title="Text colour">
+          <span>A</span>
+          <input type="color" defaultValue="#fe655c" onMouseDown={(e)=>e.stopPropagation()} onChange={(e)=>run('foreColor',e.target.value)} aria-label="Text colour"/>
+        </label>
+        <button type="button" title="Clear formatting" onMouseDown={(e)=>e.preventDefault()} onClick={()=>run('removeFormat')}>Tx</button>
+      </div>
+      <div
+        ref={editorRef}
+        className="admin-rich-content"
+        contentEditable
+        suppressContentEditableWarning
+        data-placeholder={placeholder || 'Write your content…'}
+        onInput={handleInput}
+        onBlur={handleInput}
+      />
+      <small className="admin-rich-hint">Select specific words, then use B, I, U or the colour picker. Formatting is saved with the profile.</small>
+    </div>
+  );
+}
+
 function ProfileEditor({profile,onSave,busy}){
  const [form,setForm]=useState(profile);const [same,setSame]=useState(profile.favicon_url===profile.profile_image_url);
  useEffect(()=>setForm(profile),[profile]);
  const change=(k,v)=>setForm({...form,[k]:v});
  const submit=e=>{e.preventDefault();onSave({...form,favicon_url:same?form.profile_image_url:form.favicon_url})};
- return <form className="admin-form profile-form" onSubmit={submit}><div className="profile-preview"><img src={form.profile_image_url} alt="profile"/><div><b>One profile image function</b><p>Use this same URL for the profile image and browser favicon.</p><label><input type="checkbox" checked={same} onChange={e=>setSame(e.target.checked)}/> Use profile image as favicon</label></div></div><div className="admin-form-grid">{[['full_name','Full name'],['username','Display username'],['hero_role','Hero role'],['hero_intro','Hero intro'],['profile_image_url','Profile image URL'],['favicon_url','Favicon URL'],['resume_url','Resume URL'],['email','Email'],['phone','Phone'],['location','Location'],['contact_heading','Contact heading'],['contact_description','Contact description']].map(([k,l])=><label key={k}>{l}{['hero_intro','about_text','contact_description'].includes(k)?<textarea value={form[k]||''} onChange={e=>change(k,e.target.value)}/>:<input value={form[k]||''} onChange={e=>change(k,e.target.value)}/>}</label>)}<label className="wide">About Me<textarea rows="7" value={form.about_text||''} onChange={e=>change('about_text',e.target.value)}/></label></div><button className="admin-save" disabled={busy}>Save Profile</button></form>
+ return <form className="admin-form profile-form" onSubmit={submit}>
+   <div className="profile-preview"><img src={form.profile_image_url} alt="profile"/><div><b>One profile image function</b><p>Use this same URL for the profile image and browser favicon.</p><label><input type="checkbox" checked={same} onChange={e=>setSame(e.target.checked)}/> Use profile image as favicon</label></div></div>
+   <div className="admin-form-grid">
+     {[
+       ['full_name','Full name'],['username','Display username'],['hero_role','Hero role'],
+       ['profile_image_url','Profile image URL'],['favicon_url','Favicon URL'],['resume_url','Resume URL'],
+       ['email','Email'],['phone','Phone'],['location','Location'],['contact_heading','Contact heading'],
+       ['contact_description','Contact description']
+     ].map(([k,l])=><label key={k}>{l}{k==='contact_description'?<textarea rows="4" value={form[k]||''} onChange={e=>change(k,e.target.value)}/>:<input value={form[k]||''} onChange={e=>change(k,e.target.value)}/>}</label>)}
+     <RichTextEditor label="Hero Intro" value={form.hero_intro||''} onChange={v=>change('hero_intro',v)} placeholder="Write the short introduction shown in the Hero section…"/>
+     <RichTextEditor label="About Me" value={form.about_text||''} onChange={v=>change('about_text',v)} placeholder="Write your About Me content…"/>
+   </div>
+   <button className="admin-save" disabled={busy}>Save Profile</button>
+ </form>
 }
 
 function DataTable({ items, config, onEdit, onDelete }) {
