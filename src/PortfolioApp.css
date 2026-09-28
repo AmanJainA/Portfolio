@@ -1954,3 +1954,93 @@ body:has(.portfolio-splash-layer) {
     padding:12px 17px;
   }
 }
+
+
+/* ===== Final requested updates ===== */
+.p-resume-link{
+  position:relative;
+}
+.p-resume-link::after{
+  content:"";
+  position:absolute;
+  inset:-4px;
+  border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--p-accent) 35%,transparent);
+  opacity:0;
+  transform:scale(.8);
+  transition:.25s ease;
+}
+.p-resume-link:hover::after{
+  opacity:1;
+  transform:scale(1);
+}
+.p-contact-links{
+  display:grid;
+  gap:14px;
+  margin-top:25px;
+}
+.p-contact-card{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  min-height:82px;
+  padding:16px 18px;
+  border:1px solid var(--p-border);
+  border-radius:18px;
+  background:var(--p-card);
+  color:var(--p-text) !important;
+  text-decoration:none;
+  box-shadow:0 12px 35px rgba(0,0,0,.08);
+  backdrop-filter:blur(12px);
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s ease,border-color .25s ease;
+}
+.p-contact-card:hover{
+  transform:translateY(-5px) scale(1.015);
+  border-color:color-mix(in srgb,var(--p-accent) 55%,var(--p-border));
+  box-shadow:0 18px 42px rgba(0,0,0,.14),0 0 22px color-mix(in srgb,var(--p-accent) 10%,transparent);
+}
+.p-contact-card-icon{
+  width:46px;
+  height:46px;
+  flex:0 0 46px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  background:color-mix(in srgb,var(--p-accent) 11%,transparent);
+  color:var(--p-accent);
+  font-size:1.05rem;
+}
+.p-contact-card span:last-child{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+.p-contact-card small{
+  color:var(--p-muted);
+  font-size:.7rem;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  font-weight:800;
+}
+.p-contact-card strong{
+  margin-top:5px;
+  color:var(--p-text);
+  font-size:.9rem;
+  line-height:1.45;
+  word-break:break-word;
+}
+.p-footer .p-container{
+  display:flex;
+  justify-content:center;
+  text-align:center;
+}
+[data-portfolio-theme="light"] .p-contact-card{
+  background:rgba(255,255,255,.86);
+  box-shadow:0 12px 35px rgba(22,32,51,.07);
+}
+@media(max-width:650px){
+  .p-contact-card{
+    min-height:76px;
+    padding:14px;
+  }
+}
