@@ -224,12 +224,11 @@ html[data-admin-theme="dark"] .dashboard-project:hover .dashboard-project button
 
 
 /* Contact message card heading — black in light theme */
-html[data-admin-theme="light"] .contact-admin-card h3,
-.admin-shell:not([data-admin-theme="dark"]) .contact-admin-card h3 {
+.contact-admin-card h3 {
   color: #111827;
 }
 
-/* Keep the contact heading readable in dark theme */
+/* Keep the contact heading white in dark theme */
 html[data-admin-theme="dark"] .contact-admin-card h3 {
-  color: #f8fafc;
+  color: #fff;
 }
