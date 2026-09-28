@@ -2165,6 +2165,17 @@ body:has(.portfolio-splash-layer) {
   color: var(--p-menu-active) !important;
 }
 
+/* Mobile professional skills: two cards per row */
+@media (max-width: 800px) {
+  .p-ring-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .p-ring-wrap {
+    min-width: 0;
+  }
+}
+
 /* Hero role typewriter */
 .p-hero-role-typewriter{display:inline-flex;align-items:center;min-height:1.35em}
 .p-hero-role-cursor{display:inline-block;width:2px;height:1em;margin-left:5px;background:currentColor;animation:p-hero-cursor-blink .75s steps(1,end) infinite}
