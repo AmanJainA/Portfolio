@@ -1613,8 +1613,26 @@ body:has(.portfolio-splash-layer) {
   .p-journey-row .p-journey-education {
     margin-bottom: 14px;
   }
+  /* Keep one timeline marker for every education/experience card on mobile. */
   .p-journey-row .p-journey-dot {
     display: none;
+  }
+  .p-journey-card {
+    position: relative;
+  }
+  .p-journey-card::before {
+    content: "";
+    position: absolute;
+    left: -23px;
+    top: 23px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--p-bg);
+    border: 2px solid var(--p-accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb,var(--p-accent) 12%,transparent),
+                0 0 14px color-mix(in srgb,var(--p-accent) 35%,transparent);
+    z-index: 4;
   }
 
   /* Each education card is shown first, in database order. */
