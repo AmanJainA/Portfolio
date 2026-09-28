@@ -506,7 +506,7 @@ export default function PortfolioApp() {
               <div className="p-contact-links">
                 {p.phone && <a className="p-contact-card" href={`tel:${p.phone}`}><span className="p-contact-card-icon"><i className="fa-solid fa-phone" /></span><span><small>Phone</small><strong>{p.phone}</strong></span></a>}
                 {p.email && <a className="p-contact-card" href={`mailto:${p.email}`}><span className="p-contact-card-icon"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span></a>}
-                {p.address && <div className="p-contact-card"><span className="p-contact-card-icon"><i className="fa-solid fa-location-dot" /></span><span><small>Address</small><strong>{p.address}</strong></span></div>}
+                {(p.address || p.location) && <div className="p-contact-card"><span className="p-contact-card-icon"><i className="fa-solid fa-location-dot" /></span><span><small>Address</small><strong>{p.address || p.location}</strong></span></div>}
               </div>
             </div>
             <form className="p-glass p-contact-form" onSubmit={submitContact}>
