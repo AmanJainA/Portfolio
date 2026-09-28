@@ -1670,7 +1670,8 @@ body:has(.portfolio-splash-layer) {
 .portfolio-modern .p-nav a.active .p-nav-text,
 .portfolio-modern .p-nav a.active .p-nav-icon,
 .portfolio-modern .p-mobile-nav a.active,
-.portfolio-modern .p-mobile-nav a.active i {
+.portfolio-modern .p-mobile-nav a.active i,
+.portfolio-modern .p-mobile-nav a.active .p-nav-text {
   color: #fe655c !important;
 }
 
