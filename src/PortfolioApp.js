@@ -123,17 +123,32 @@ function ProfessionalRing({ skill }) {
     return () => cancelAnimationFrame(frame);
   }, [inView, skill.percent]);
   return (
-    <div className="p-ring-wrap" ref={ref}>
+    <motion.div
+      className="p-ring-wrap"
+      ref={ref}
+      initial={{ opacity: 0, y: 34, scale: 0.78, rotate: -8 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ duration: 0.7, type: 'spring', stiffness: 115, damping: 14 }}
+      whileHover={{ y: -8, scale: 1.045, rotate: 1.5 }}
+    >
       <motion.div
         className="p-ring"
-        initial={{ '--pct': '0deg' }}
-        animate={{ '--pct': inView ? (skill.percent * 3.6) + 'deg' : '0deg' }}
+        initial={{ '--pct': '0deg', scale: 0.82 }}
+        animate={{ '--pct': inView ? (skill.percent * 3.6) + 'deg' : '0deg', scale: inView ? 1 : 0.82 }}
         transition={{ duration: .95, ease: [0.22, 1, 0.36, 1] }}
       >
         <strong>{display}%</strong>
       </motion.div>
-      <span>{skill.name}</span>
-    </div>
+      <motion.span
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: .18, duration: .35 }}
+      >
+        {skill.name}
+      </motion.span>
+    </motion.div>
   );
 }
 
