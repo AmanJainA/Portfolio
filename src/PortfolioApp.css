@@ -1632,7 +1632,16 @@ body:has(.portfolio-splash-layer) {
     border: 2px solid var(--p-accent);
     box-shadow: 0 0 0 4px color-mix(in srgb,var(--p-accent) 12%,transparent),
                 0 0 14px color-mix(in srgb,var(--p-accent) 35%,transparent);
-    z-index: 4;
+    z-index: 5;
+  }
+
+  /* Keep the mobile timeline itself behind every dot. */
+  .p-journey-line {
+    z-index: 1;
+  }
+  .p-journey-card,
+  .p-journey-card::before {
+    z-index: 5;
   }
 
   /* Each education card is shown first, in database order. */
