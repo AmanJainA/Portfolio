@@ -2180,3 +2180,41 @@ body:has(.portfolio-splash-layer) {
 .p-hero-role-typewriter{display:inline-flex;align-items:center;min-height:1.35em}
 .p-hero-role-cursor{display:inline-block;width:2px;height:1em;margin-left:5px;background:currentColor;animation:p-hero-cursor-blink .75s steps(1,end) infinite}
 @keyframes p-hero-cursor-blink{0%,45%{opacity:1}46%,100%{opacity:0}}
+
+/* Professional skills motion graphics */
+.p-ring-wrap {
+  position: relative;
+  isolation: isolate;
+  transition: filter .3s ease;
+}
+.p-ring-wrap::before,
+.p-ring-wrap::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 76%;
+  aspect-ratio: 1;
+  border: 1px solid color-mix(in srgb, var(--p-accent) 18%, transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(.72);
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+.p-ring-wrap::before {
+  animation: p-ring-orbit-pulse 2.8s ease-out infinite;
+}
+.p-ring-wrap::after {
+  animation: p-ring-orbit-pulse 2.8s ease-out 1.4s infinite;
+}
+.p-ring-wrap:hover { filter: drop-shadow(0 10px 22px color-mix(in srgb, var(--p-accent) 16%, transparent)); }
+@keyframes p-ring-orbit-pulse {
+  0% { transform: translate(-50%, -50%) scale(.72); opacity: 0; }
+  18% { opacity: .55; }
+  100% { transform: translate(-50%, -50%) scale(1.35); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p-ring-wrap::before,
+  .p-ring-wrap::after { animation: none; }
+}
