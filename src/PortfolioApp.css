@@ -1587,6 +1587,49 @@ body:has(.portfolio-splash-layer) {
 }
 
 
+
+/* ===== Mobile journey order: Education 1-4, then Experience 1-4 ===== */
+@media (max-width: 800px) {
+  .p-journey-timeline {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 1fr);
+  }
+  .p-journey-head {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+  .p-journey-line {
+    grid-column: 1;
+    grid-row: 2 / span 8;
+  }
+  .p-journey-row {
+    display: contents;
+  }
+  .p-journey-row .p-journey-education,
+  .p-journey-row .p-journey-experience {
+    grid-column: 2;
+    padding-left: 18px;
+  }
+  .p-journey-row .p-journey-education {
+    margin-bottom: 14px;
+  }
+  .p-journey-row .p-journey-dot {
+    display: none;
+  }
+
+  /* Each education card is shown first, in database order. */
+  .p-journey-row:nth-of-type(3) .p-journey-education { order: 3; }
+  .p-journey-row:nth-of-type(4) .p-journey-education { order: 4; }
+  .p-journey-row:nth-of-type(5) .p-journey-education { order: 5; }
+  .p-journey-row:nth-of-type(6) .p-journey-education { order: 6; }
+
+  /* Then all experience cards, in database order. */
+  .p-journey-row:nth-of-type(3) .p-journey-experience { order: 7; }
+  .p-journey-row:nth-of-type(4) .p-journey-experience { order: 8; }
+  .p-journey-row:nth-of-type(5) .p-journey-experience { order: 9; }
+  .p-journey-row:nth-of-type(6) .p-journey-experience { order: 10; }
+}
+
 /* Work Experience card spacing in Education & Work Experience */
 .p-journey-experience{
   display:flex;
