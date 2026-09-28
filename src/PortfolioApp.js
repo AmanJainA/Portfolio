@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, useInView } from 'motion/react';
 import PortfolioHero from './components/ui/portfolio-hero';
-import { db } from './supabase';
+import { db, supabase } from './supabase';
 import './PortfolioApp.css';
 
 const emptyData = { profile: null, languages: [], skills: [], projects: [], education: [], experience: [], social_links: [] };
@@ -351,7 +351,12 @@ export default function PortfolioApp() {
                 <a className="p-secondary-btn" href="#contact">Let’s Talk <i className="fa-solid fa-arrow-up-right-from-square" /></a>
               </div>
               <div className="p-socials">
-                {data.social_links.map((social) => <a key={social.id} href={social.url} target="_blank" rel="noreferrer" aria-label={social.label} title={social.label}><i className={social.icon_class || 'fa-solid fa-link'} /></a>)}
+                {data.social_links
+                  .filter((social) => !/portfolio|website/i.test(String(social.label || '')))
+                  .map((social) => <a key={social.id} href={social.url} target="_blank" rel="noreferrer" aria-label={social.label} title={social.label}><i className={social.icon_class || 'fa-solid fa-link'} /></a>)}
+                <a className="p-resume-link" href="/Portfollio/assets/pdf/AmanJainResume.pdf" download="Aman-Jain-Resume.pdf" aria-label="Download Resume" title="Download Resume">
+                  <i className="fa-solid fa-file-arrow-down" />
+                </a>
               </div>
             </motion.div>
             <motion.div className="p-hero-visual" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
@@ -495,7 +500,15 @@ export default function PortfolioApp() {
 
         <Section id="contact" title={p.contact_heading || 'Contact Form'} eyebrow="05 / CONNECT">
           <div className="p-contact-grid">
-            <div className="p-contact-copy"><h3>Let’s build something useful.</h3><p>{p.contact_description}</p><div className="p-contact-links">{p.email && <a href={`mailto:${p.email}`}><i className="fa-solid fa-envelope" />{p.email}</a>}{p.phone && <a href={`tel:${p.phone}`}><i className="fa-solid fa-phone" />{p.phone}</a>}</div></div>
+            <div className="p-contact-copy">
+              <h3>Let’s build something useful.</h3>
+              <p>{p.contact_description}</p>
+              <div className="p-contact-links">
+                {p.phone && <a className="p-contact-card" href={`tel:${p.phone}`}><span className="p-contact-card-icon"><i className="fa-solid fa-phone" /></span><span><small>Phone</small><strong>{p.phone}</strong></span></a>}
+                {p.email && <a className="p-contact-card" href={`mailto:${p.email}`}><span className="p-contact-card-icon"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span></a>}
+                {p.address && <div className="p-contact-card"><span className="p-contact-card-icon"><i className="fa-solid fa-location-dot" /></span><span><small>Address</small><strong>{p.address}</strong></span></div>}
+              </div>
+            </div>
             <form className="p-glass p-contact-form" onSubmit={submitContact}>
               <div className="p-form-grid"><input name="name" placeholder="Your name" required /><input name="email" type="email" placeholder="Email address" required /></div>
               <input name="subject" placeholder="Subject" /><textarea name="message" rows="7" placeholder="Tell me about your project…" required /><button className="p-primary-btn" type="submit">Send Message <i className="fa-solid fa-paper-plane" /></button>
@@ -503,7 +516,7 @@ export default function PortfolioApp() {
           </div>
         </Section>
       </main>
-      <footer className="p-footer"><div className="p-container"><span>© {new Date().getFullYear()} {p.full_name || 'Aman Jain'}</span><span>Designed with Motion + modern UX principles</span></div></footer>
+      <footer className="p-footer"><div className="p-container"><span>© 2026 All rights reserved by {p.full_name || 'Aman Jain'}</span></div></footer>
         </>
       )}
     </div>
