@@ -321,6 +321,7 @@ function sanitizeRichText(html) {
 
 function RichTextEditor({label,value,onChange,placeholder}) {
   const editorRef = useRef(null);
+  const savedSelection = useRef(null);
 
   useEffect(() => {
     if (!editorRef.current) return;
@@ -329,8 +330,23 @@ function RichTextEditor({label,value,onChange,placeholder}) {
     }
   }, [value]);
 
+  const saveSelection = () => {
+    const selection = window.getSelection();
+    if (!selection || !selection.rangeCount || !editorRef.current?.contains(selection.anchorNode)) return;
+    savedSelection.current = selection.getRangeAt(0).cloneRange();
+  };
+
+  const restoreSelection = () => {
+    if (!savedSelection.current) return;
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(savedSelection.current);
+  };
+
   const run = (command, commandValue=null) => {
     editorRef.current?.focus();
+    restoreSelection();
+    document.execCommand('styleWithCSS', false, true);
     document.execCommand(command, false, commandValue);
     onChange(sanitizeRichText(editorRef.current?.innerHTML || ''));
   };
@@ -346,7 +362,7 @@ function RichTextEditor({label,value,onChange,placeholder}) {
         <button type="button" title="Underline" onMouseDown={(e)=>e.preventDefault()} onClick={()=>run('underline')}><u>U</u></button>
         <label className="admin-color-picker" title="Text colour">
           <span>A</span>
-          <input type="color" defaultValue="#fe655c" onMouseDown={(e)=>e.stopPropagation()} onChange={(e)=>run('foreColor',e.target.value)} aria-label="Text colour"/>
+          <input type="color" defaultValue="#fe655c" onMouseDown={saveSelection} onChange={(e)=>run('foreColor',e.target.value)} aria-label="Text colour"/>
         </label>
         <button type="button" title="Clear formatting" onMouseDown={(e)=>e.preventDefault()} onClick={()=>run('removeFormat')}>Tx</button>
       </div>
