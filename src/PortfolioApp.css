@@ -2077,3 +2077,28 @@ body:has(.portfolio-splash-layer) {
     padding:14px;
   }
 }
+
+
+/* ===== Rich profile content ===== */
+.p-hero-rich-text,
+.p-about-rich-text {
+  color: inherit;
+}
+.p-hero-rich-text > *:first-child,
+.p-about-rich-text > *:first-child { margin-top: 0; }
+.p-hero-rich-text > *:last-child,
+.p-about-rich-text > *:last-child { margin-bottom: 0; }
+.p-hero-rich-text p,
+.p-about-rich-text p { margin: 0 0 10px; }
+.p-hero-rich-text strong,
+.p-about-rich-text strong,
+.p-hero-rich-text b,
+.p-about-rich-text b { font-weight: 800; }
+.p-hero-rich-text em,
+.p-about-rich-text em,
+.p-hero-rich-text i,
+.p-about-rich-text i { font-style: italic; }
+.p-hero-rich-text u,
+.p-about-rich-text u { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.p-hero-rich-text span[style*="color"],
+.p-about-rich-text span[style*="color"] { color: inherit; }
