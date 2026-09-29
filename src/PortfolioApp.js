@@ -641,7 +641,7 @@ export default function PortfolioApp() {
                   {technical.map((skill, i) => (
                     <motion.div className="p-progress p-skills-progress" key={skill.id}
                       initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ delay: i * .055, duration: .45 }}>
-                      <div><span><b className="p-skill-row-no">{String(i + 1).padStart(2, '0')}</b>{skill.name}</span><b><AnimatedNumber value={skill.percent} />%</b></div>
+                      <div><span>{skill.name}</span><b><AnimatedNumber value={skill.percent} />%</b></div>
                       <span className="p-track"><motion.span initial={{ width: 0 }} whileInView={{ width: skill.percent + '%' }} viewport={{ once: true, amount: .45 }} transition={{ duration: 1, delay: i * .035, ease: [0.22, 1, 0.36, 1] }} /></span>
                     </motion.div>
                   ))}
