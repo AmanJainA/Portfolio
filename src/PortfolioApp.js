@@ -249,92 +249,6 @@ function AboutScrollScene({ aboutText, techItems }) {
   );
 }
 
-function SkillsMotionScene({ boxes, technical, professional }) {
-  const sceneRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: sceneRef, offset: ['start end', 'end start'] });
-  const progress = useSpring(scrollYProgress, { stiffness: 75, damping: 25, mass: .55 });
-  const gridY = useTransform(progress, [0, .5, 1], [55, 0, -55]);
-  const coreY = useTransform(progress, [0, .5, 1], [32, 0, -24]);
-  const coreScale = useTransform(progress, [0, .45, 1], [.82, 1, .92]);
-  const coreRotate = useTransform(progress, [0, .5, 1], [-7, 0, 7]);
-  const sweepX = useTransform(progress, [0, 1], ['-20%', '120%']);
-
-  return (
-    <div ref={sceneRef} className="p-skills-motion-scene">
-      <motion.div className="p-skills-motion-grid" style={{ y: gridY }} aria-hidden="true" />
-      <motion.div className="p-skills-motion-sweep" style={{ x: sweepX }} aria-hidden="true" />
-      <div className="p-skills-motion-hud" aria-hidden="true">
-        <span><i className="fa-solid fa-terminal" /> DEV://SKILLS</span>
-        <span><i className="fa-solid fa-circle-nodes" /> SYSTEM / ONLINE</span>
-      </div>
-
-      <motion.div className="p-skills-core" style={{ y: coreY, scale: coreScale, rotate: coreRotate }}>
-        <span className="p-skills-core-ring ring-a" />
-        <span className="p-skills-core-ring ring-b" />
-        <span className="p-skills-core-ring ring-c" />
-        <div className="p-skills-core-icon"><i className="fa-solid fa-code" /></div>
-        <small>FULL STACK</small>
-        <strong>BUILD</strong>
-        <em>CODE · DATA · CONSULT</em>
-      </motion.div>
-
-      <div className="p-skills-orbit">
-        {technical.map((skill, i) => (
-          <motion.article
-            key={skill.id}
-            className="p-skills-orbit-card"
-            style={{ '--skill-index': i }}
-            initial={{ opacity: 0, y: 28, scale: .78 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: .2 }}
-            transition={{ delay: i * .045, duration: .55, type: 'spring', stiffness: 120, damping: 17 }}
-            whileHover={{ y: -8, scale: 1.05 }}
-          >
-            <span className="p-skills-orbit-icon"><i className={skill.icon_class || 'fa-solid fa-code'} /></span>
-            <strong>{skill.name}</strong>
-            <small><AnimatedNumber value={skill.percent} />%</small>
-          </motion.article>
-        ))}
-      </div>
-
-      <div className="p-skills-panels">
-        <motion.div className="p-skills-panel p-skills-capabilities" initial={{ opacity: 0, x: -35 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .65 }}>
-          <div className="p-skills-panel-heading">
-            <span><i className="fa-solid fa-layer-group" /></span>
-            <div><small>CORE CAPABILITIES</small><strong>What I build</strong></div>
-          </div>
-          <div className="p-skills-capability-grid">
-            {boxes.map((skill, i) => (
-              <motion.div key={skill.id} className="p-skills-capability" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * .05 }}>
-                <i className={skill.icon_class || 'fa-solid fa-code'} />
-                <div><strong>{skill.name}</strong><small>{skill.description}</small></div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div className="p-skills-panel p-skills-professional" initial={{ opacity: 0, x: 35 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .65, delay: .08 }}>
-          <div className="p-skills-panel-heading">
-            <span><i className="fa-solid fa-chart-simple" /></span>
-            <div><small>PROFESSIONAL STACK</small><strong>How I deliver</strong></div>
-          </div>
-          <div className="p-skills-professional-list">
-            {professional.map((skill, i) => (
-              <motion.div key={skill.id} className="p-skills-professional-row" initial={{ opacity: 0, x: 16 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * .055 }}>
-                <span className="p-skills-professional-icon"><i className={skill.icon_class || 'fa-solid fa-star'} /></span>
-                <div className="p-skills-professional-main">
-                  <div><strong>{skill.name}</strong><b><AnimatedNumber value={skill.percent} />%</b></div>
-                  <span className="p-skills-professional-track"><motion.i initial={{ scaleX: 0 }} whileInView={{ scaleX: skill.percent / 100 }} viewport={{ once: true }} transition={{ duration: .8, delay: i * .05 }} /></span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
 function ProjectSection({ projects }) {
   const [filter, setFilter] = useState('All');
   const filters = ['All', 'PHP', 'Android', 'Flutter', 'React'];
@@ -719,7 +633,25 @@ export default function PortfolioApp() {
         </Section>
 
         <Section id="skills" title="Skills" eyebrow="02 / CAPABILITIES">
-          <SkillsMotionScene boxes={boxes} technical={technical} professional={professional} />
+          <div className="p-box-grid">
+            {boxes.map((s, i) => <motion.article className="p-glass p-skill-box" key={s.id} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }} whileHover={{ y: -6 }}>
+              <i className={s.icon_class || 'fa-solid fa-code'} />
+              <h3>{s.name}</h3><p>{s.description}</p>
+            </motion.article>)}
+          </div>
+          <div className="p-skill-columns">
+            <motion.div className="p-glass p-skill-panel" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: .55 }}>
+              <h3>Technical Skills</h3>
+              {technical.map((s) => <div className="p-progress" key={s.id}>
+                <div><span>{s.name}</span><b><AnimatedNumber value={s.percent} />%</b></div>
+                <span className="p-track"><motion.span initial={{ width: 0 }} whileInView={{ width: s.percent + '%' }} viewport={{ once: true, amount: 0.45 }} transition={{ duration: .95, ease: [0.22, 1, 0.36, 1] }} /></span>
+              </div>)}
+            </motion.div>
+            <motion.div className="p-glass p-skill-panel" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: .55, delay: .08 }}>
+              <h3>Professional Skills</h3>
+              <div className="p-ring-grid">{professional.map((s) => <ProfessionalRing key={s.id} skill={s} />)}</div>
+            </motion.div>
+          </div>
         </Section>
 
         <ProjectSection projects={data.projects} />
