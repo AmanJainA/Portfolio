@@ -33,6 +33,34 @@ function RichText({html,className=''}) {
   return <div className={className} dangerouslySetInnerHTML={{__html:safe || ''}} />;
 }
 
+function AnimatedAboutText({ html }) {
+  const safe = sanitizeRichText(html);
+  const blocks = useMemo(() => {
+    if (!safe) return [];
+    const doc = new DOMParser().parseFromString(safe, 'text/html');
+    return Array.from(doc.body.childNodes).map((node, index) => {
+      if (node.nodeType === Node.TEXT_NODE) return { html: node.textContent || '', key: 'text-' + index };
+      return { html: node.outerHTML, key: 'block-' + index };
+    }).filter((block) => block.html.trim());
+  }, [safe]);
+
+  return (
+    <div className="p-about-rich-text">
+      {blocks.map((block, index) => (
+        <motion.div
+          key={block.key}
+          className="p-about-text-block"
+          initial={{ opacity: 0, y: 34, filter: 'blur(7px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, amount: 0.35 }}
+          transition={{ duration: 0.72, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+          dangerouslySetInnerHTML={{ __html: block.html }}
+        />
+      ))}
+    </div>
+  );
+}
+
 function setFavicon(url) {
   if (!url) return;
   let link = document.querySelector('link[rel="icon"]');
@@ -190,7 +218,7 @@ function AboutScrollScene({ aboutText, techItems }) {
           <div className="p-about-motion-node p-about-motion-node-two" aria-hidden="true" />
           <div className="p-about-copy">
             <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
-            <RichText html={aboutText} className="p-about-rich-text" />
+            <AnimatedAboutText html={aboutText} />
           </div>
           <motion.div
             className="p-about-tech-field"
