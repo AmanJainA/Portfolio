@@ -64,6 +64,27 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
         }
       }}
     >
+      <div className="portfolio-splash-tech-layer" aria-hidden="true">
+        <div className="portfolio-splash-grid" />
+        <div className="portfolio-splash-orbit portfolio-splash-orbit-one" />
+        <div className="portfolio-splash-orbit portfolio-splash-orbit-two" />
+        <div className="portfolio-splash-orbit portfolio-splash-orbit-three" />
+        <div className="portfolio-splash-node portfolio-splash-node-one" />
+        <div className="portfolio-splash-node portfolio-splash-node-two" />
+        <div className="portfolio-splash-node portfolio-splash-node-three" />
+        <div className="portfolio-splash-scanlines" />
+      </div>
+
+      <div className="portfolio-splash-system portfolio-splash-system-left" aria-hidden="true">
+        <span>SYS://PORTFOLIO</span>
+        <span>BUILD 2026.09</span>
+      </div>
+
+      <div className="portfolio-splash-system portfolio-splash-system-right" aria-hidden="true">
+        <span><i /> SYSTEM ONLINE</span>
+        <span>DEV_MODE / 01</span>
+      </div>
+
       <div className="portfolio-splash-signature" aria-hidden="true">A</div>
 
       <div className="portfolio-splash-center">
