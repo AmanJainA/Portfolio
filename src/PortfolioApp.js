@@ -469,7 +469,7 @@ export default function PortfolioApp() {
                 </a>
               </div>
             </motion.div>
-            <motion.div key={heroRoleCycle} className="p-hero-visual" initial={{ opacity: 0, x: 70, scale: 0.94 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}>
+            <motion.div key={heroRoleCycle} className="p-hero-visual" initial={{ opacity: 0, x: 90, scale: 0.96 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
               <div className="p-hero-tech-grid" aria-hidden="true" />
               <div className="p-hero-code code-one" aria-hidden="true">&lt;code /&gt;</div>
               <div className="p-hero-code code-two" aria-hidden="true">01 / 10 / 01</div>
