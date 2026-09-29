@@ -13659,3 +13659,208 @@ body {
   color: #fff;
   color: rgba(255, 255, 255, 0.8);
 }
+
+
+/* ===== Developer / Information Technology splash layer ===== */
+.portfolio-splash {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.portfolio-splash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(143, 166, 0, 0.13), transparent 24%),
+    radial-gradient(circle at 12% 20%, rgba(79, 101, 145, 0.12), transparent 25%),
+    radial-gradient(circle at 88% 78%, rgba(79, 101, 145, 0.1), transparent 24%);
+}
+
+.portfolio-splash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  opacity: 0.34;
+  background-image:
+    linear-gradient(rgba(143, 166, 0, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 166, 0, 0.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 22%, black 78%, transparent 100%);
+}
+
+.portfolio-splash-tech-layer {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.portfolio-splash-grid {
+  position: absolute;
+  width: 150%;
+  height: 58%;
+  left: -25%;
+  bottom: -13%;
+  opacity: 0.28;
+  transform: perspective(520px) rotateX(62deg);
+  transform-origin: center top;
+  background-image:
+    linear-gradient(rgba(143, 166, 0, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 166, 0, 0.2) 1px, transparent 1px);
+  background-size: 46px 46px;
+  animation: portfolioSplashGrid 9s linear infinite;
+}
+
+.portfolio-splash-orbit {
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  border: 1px solid rgba(143, 166, 0, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 35px rgba(143, 166, 0, 0.05);
+}
+
+.portfolio-splash-orbit-one {
+  width: min(58vw, 720px);
+  height: min(58vw, 720px);
+  animation: portfolioSplashOrbit 18s linear infinite;
+}
+
+.portfolio-splash-orbit-two {
+  width: min(43vw, 540px);
+  height: min(25vw, 300px);
+  transform: translate(-50%, -50%) rotate(28deg);
+  animation: portfolioSplashOrbitReverse 14s linear infinite;
+}
+
+.portfolio-splash-orbit-three {
+  width: min(34vw, 430px);
+  height: min(19vw, 230px);
+  transform: translate(-50%, -50%) rotate(-38deg);
+  border-style: dashed;
+  opacity: 0.7;
+  animation: portfolioSplashOrbit 11s linear infinite;
+}
+
+.portfolio-splash-node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8fa600;
+  box-shadow: 0 0 14px rgba(143, 166, 0, 0.85);
+}
+
+.portfolio-splash-node-one { left: 19%; top: 31%; animation: portfolioSplashNode 3.2s ease-in-out infinite; }
+.portfolio-splash-node-two { right: 18%; top: 38%; animation: portfolioSplashNode 4s ease-in-out infinite 0.8s; }
+.portfolio-splash-node-three { right: 26%; bottom: 22%; animation: portfolioSplashNode 3.6s ease-in-out infinite 1.2s; }
+
+.portfolio-splash-system {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-family: "SFMono-Regular", "Roboto Mono", "Courier New", monospace;
+  font-size: 9px;
+  line-height: 1.35;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: currentColor;
+  opacity: 0.52;
+  pointer-events: none;
+}
+
+.portfolio-splash-system-left { left: 3.5%; top: 4%; }
+.portfolio-splash-system-right { right: 3.5%; top: 4%; text-align: right; }
+
+.portfolio-splash-system-right i {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: #8fa600;
+  box-shadow: 0 0 8px rgba(143, 166, 0, 0.8);
+  animation: portfolioSplashPulse 1.8s ease-in-out infinite;
+}
+
+.portfolio-splash-scanlines {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgba(143, 166, 0, 0.08) 4px
+  );
+  animation: portfolioSplashScan 7s linear infinite;
+}
+
+.portfolio-splash-name,
+.portfolio-splash-center,
+.portfolio-splash-tagline,
+.portfolio-splash-scroll,
+.portfolio-splash-signature {
+  position: relative;
+  z-index: 3;
+}
+
+@keyframes portfolioSplashGrid {
+  from { background-position: 0 0; }
+  to { background-position: 0 46px; }
+}
+
+@keyframes portfolioSplashOrbit {
+  from { rotate: 0deg; }
+  to { rotate: 360deg; }
+}
+
+@keyframes portfolioSplashOrbitReverse {
+  from { rotate: 360deg; }
+  to { rotate: 0deg; }
+}
+
+@keyframes portfolioSplashNode {
+  0%, 100% { transform: scale(0.7); opacity: 0.35; }
+  50% { transform: scale(1.35); opacity: 1; }
+}
+
+@keyframes portfolioSplashPulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+
+@keyframes portfolioSplashScan {
+  from { transform: translateY(-12px); }
+  to { transform: translateY(12px); }
+}
+
+@media (max-width: 767.98px) {
+  .portfolio-splash-grid { height: 46%; bottom: -8%; background-size: 32px 32px; }
+  .portfolio-splash-orbit-one { width: 118vw; height: 118vw; }
+  .portfolio-splash-orbit-two { width: 92vw; height: 52vw; }
+  .portfolio-splash-orbit-three { width: 76vw; height: 42vw; }
+  .portfolio-splash-system { font-size: 7px; letter-spacing: 0.12em; }
+  .portfolio-splash-system-left { left: 4%; top: 3%; }
+  .portfolio-splash-system-right { right: 4%; top: 3%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-splash-grid,
+  .portfolio-splash-orbit,
+  .portfolio-splash-node,
+  .portfolio-splash-system-right i,
+  .portfolio-splash-scanlines {
+    animation: none !important;
+  }
+}
