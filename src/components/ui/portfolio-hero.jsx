@@ -142,7 +142,6 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
               <img src={imageUrl} alt={displayName} />
               <span className="portfolio-splash-photo-scan portfolio-splash-photo-scan-one" aria-hidden="true" />
               <span className="portfolio-splash-photo-scan portfolio-splash-photo-scan-two" aria-hidden="true" />
-              <span className="portfolio-splash-photo-scan portfolio-splash-photo-scan-three" aria-hidden="true" />
               <span className="portfolio-splash-photo-frame" aria-hidden="true" />
             </div>
           )}
