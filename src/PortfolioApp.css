@@ -2282,3 +2282,406 @@ body:has(.portfolio-splash-layer) {
   .p-ring-wrap::before,
   .p-ring-wrap::after { animation: none; }
 }
+
+
+
+/* ===== IT DIGITAL SYSTEMS SPLASH ENHANCEMENT =====
+   Visual-only enhancement: existing splash layout/positions remain unchanged. */
+.portfolio-splash {
+  --it-splash-accent: #c3e41d;
+  --it-splash-grid: rgba(195,228,29,.085);
+  --it-splash-line: rgba(255,255,255,.10);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(195,228,29,.055), transparent 27%),
+    radial-gradient(circle at 15% 20%, rgba(195,228,29,.045), transparent 25%),
+    radial-gradient(circle at 86% 78%, rgba(195,228,29,.035), transparent 28%),
+    #000;
+}
+
+/* Perspective data grid — stays behind the existing content. */
+.portfolio-splash::before {
+  content: "";
+  position: absolute;
+  inset: -24%;
+  z-index: -3;
+  pointer-events: none;
+  opacity: .58;
+  background-image:
+    linear-gradient(var(--it-splash-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--it-splash-grid) 1px, transparent 1px);
+  background-size: 58px 58px;
+  transform: perspective(650px) rotateX(62deg) translateY(24%);
+  transform-origin: center bottom;
+  animation: it-splash-grid-move 12s linear infinite;
+  mask-image: linear-gradient(to top, rgba(0,0,0,1), transparent 82%);
+}
+
+/* Fine scanline / display texture. */
+.portfolio-splash::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+  opacity: .13;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(255,255,255,.18) 4px
+    ),
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(195,228,29,.045) 50%,
+      transparent 100%
+    );
+  mix-blend-mode: screen;
+  animation: it-splash-scan 7s linear infinite;
+}
+
+/* Small technical labels without changing the existing DOM/layout. */
+.portfolio-splash::marker { display:none; }
+
+.portfolio-splash-signature {
+  text-shadow:
+    0 0 12px rgba(195,228,29,.35),
+    0 0 32px rgba(195,228,29,.12);
+  animation: it-splash-signature 4s ease-in-out infinite;
+}
+
+.portfolio-splash-signature::after {
+  content: " / SYSTEM 01";
+  display: block;
+  margin-top: -5px;
+  font-family: "Fira Code", monospace;
+  font-size: 7px;
+  font-weight: 500;
+  letter-spacing: .22em;
+  color: rgba(255,255,255,.34);
+  white-space: nowrap;
+  text-align: center;
+  animation: it-splash-data-fade 3.5s ease-in-out infinite;
+}
+
+/* Oversized type gets a subtle digital scan/glow while keeping its exact position. */
+.portfolio-splash-word {
+  position: relative;
+  text-shadow:
+    0 0 18px rgba(195,228,29,.12),
+    0 0 50px rgba(195,228,29,.05);
+  animation: it-splash-type-breathe 5s ease-in-out infinite;
+}
+
+.portfolio-splash-word-outline {
+  text-shadow:
+    1px 0 rgba(195,228,29,.18),
+    -1px 0 rgba(255,255,255,.08),
+    0 0 24px rgba(195,228,29,.10);
+}
+
+/* Digital scan bands travel through the name without changing its dimensions. */
+.portfolio-splash-name::after {
+  animation:
+    portfolio-side-glow 2.4s ease-in-out infinite,
+    it-splash-side-scan 4.8s linear infinite;
+}
+
+.portfolio-splash-photo {
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.55),
+    0 0 0 1px rgba(195,228,29,.22),
+    0 0 35px rgba(195,228,29,.10);
+  animation: it-splash-photo-float 5s ease-in-out infinite;
+}
+
+.portfolio-splash-photo::before,
+.portfolio-splash-photo::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+  left: -18%;
+  width: 136%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(195,228,29,.9) 42%,
+    rgba(255,255,255,.85) 50%,
+    rgba(195,228,29,.9) 58%,
+    transparent
+  );
+  box-shadow: 0 0 12px rgba(195,228,29,.55);
+}
+
+.portfolio-splash-photo::before {
+  top: 26%;
+  animation: it-splash-photo-scan 3.8s linear infinite;
+}
+
+.portfolio-splash-photo::after {
+  top: 68%;
+  opacity: .42;
+  animation: it-splash-photo-scan 4.7s linear .8s infinite reverse;
+}
+
+.portfolio-splash-tagline {
+  position: absolute;
+}
+
+.portfolio-splash-tagline::before,
+.portfolio-splash-tagline::after {
+  position: absolute;
+  top: 50%;
+  width: min(20vw, 180px);
+  height: 1px;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(195,228,29,.48),
+    transparent
+  );
+  opacity: .65;
+}
+
+.portfolio-splash-tagline::before {
+  right: calc(100% + 18px);
+}
+
+.portfolio-splash-tagline::after {
+  left: calc(100% + 18px);
+}
+
+.portfolio-splash-tagline-text {
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-family: "Fira Code", monospace;
+  font-size: clamp(10px, 1.15vw, 14px);
+  color: rgba(255,255,255,.46);
+  text-shadow: 0 0 14px rgba(195,228,29,.08);
+}
+
+.portfolio-splash-tagline-text::after {
+  content: "  //  DIGITAL SYSTEMS";
+  color: var(--it-splash-accent);
+  opacity: .72;
+  font-size: .72em;
+}
+
+/* Technical HUD corners around the unchanged central composition. */
+.portfolio-splash-scroll::before {
+  content: "01";
+  position: absolute;
+  right: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  font: 8px/1 "Fira Code", monospace;
+  letter-spacing: .14em;
+  color: rgba(195,228,29,.55);
+}
+
+.portfolio-splash-scroll::after {
+  content: "SCROLL / ENTER";
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%);
+  font: 8px/1 "Fira Code", monospace;
+  letter-spacing: .12em;
+  color: rgba(255,255,255,.26);
+  white-space: nowrap;
+}
+
+.portfolio-splash-scroll {
+  animation: it-splash-scroll-pulse 2.4s ease-in-out infinite;
+}
+
+.portfolio-splash-scroll svg {
+  filter: drop-shadow(0 0 7px rgba(195,228,29,.35));
+}
+
+/* Ambient orbital traces — fixed around the existing center, no layout shift. */
+.portfolio-splash-center::before,
+.portfolio-splash-center::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(58vw, 650px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(195,228,29,.12);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -2;
+}
+
+.portfolio-splash-center::before {
+  transform: translate(-50%, -50%) rotate(18deg) scaleY(.34);
+  box-shadow: 0 0 28px rgba(195,228,29,.04);
+  animation: it-splash-orbit 15s linear infinite;
+}
+
+.portfolio-splash-center::after {
+  width: min(43vw, 480px);
+  transform: translate(-50%, -50%) rotate(-34deg) scaleY(.48);
+  border-color: rgba(255,255,255,.09);
+  animation: it-splash-orbit-reverse 11s linear infinite;
+}
+
+@keyframes it-splash-grid-move {
+  from { background-position: 0 0, 0 0; }
+  to { background-position: 0 58px, 58px 0; }
+}
+
+@keyframes it-splash-scan {
+  0% { transform: translateY(-3%); }
+  50% { transform: translateY(3%); }
+  100% { transform: translateY(-3%); }
+}
+
+@keyframes it-splash-signature {
+  0%,100% { opacity: .82; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(-2px); }
+}
+
+@keyframes it-splash-data-fade {
+  0%,100% { opacity: .28; }
+  50% { opacity: .65; }
+}
+
+@keyframes it-splash-type-breathe {
+  0%,100% { filter: brightness(1); }
+  50% { filter: brightness(1.08); }
+}
+
+@keyframes it-splash-side-scan {
+  0%, 100% { background-position: 0 0; }
+  50% { background-position: 0 100%; }
+}
+
+@keyframes it-splash-photo-float {
+  0%,100% { filter: brightness(1) saturate(.92); }
+  50% { filter: brightness(1.08) saturate(1); }
+}
+
+@keyframes it-splash-photo-scan {
+  0% { transform: translateY(-30px); opacity: 0; }
+  15% { opacity: .9; }
+  70% { opacity: .55; }
+  100% { transform: translateY(115px); opacity: 0; }
+}
+
+@keyframes it-splash-scroll-pulse {
+  0%,100% { filter: drop-shadow(0 0 0 rgba(195,228,29,0)); }
+  50% { filter: drop-shadow(0 0 12px rgba(195,228,29,.18)); }
+}
+
+@keyframes it-splash-orbit {
+  to { transform: translate(-50%, -50%) rotate(378deg) scaleY(.34); }
+}
+
+@keyframes it-splash-orbit-reverse {
+  to { transform: translate(-50%, -50%) rotate(-394deg) scaleY(.48); }
+}
+
+@media (max-width: 650px) {
+  .portfolio-splash::before {
+    background-size: 34px 34px;
+    opacity: .42;
+  }
+
+  .portfolio-splash-tagline::before,
+  .portfolio-splash-tagline::after {
+    width: 46px;
+  }
+
+  .portfolio-splash-tagline::before {
+    right: calc(100% + 7px);
+  }
+
+  .portfolio-splash-tagline::after {
+    left: calc(100% + 7px);
+  }
+
+  .portfolio-splash-scroll::before,
+  .portfolio-splash-scroll::after {
+    display: none;
+  }
+
+  .portfolio-splash-center::before {
+    width: 88vw;
+  }
+
+  .portfolio-splash-center::after {
+    width: 70vw;
+  }
+
+  .portfolio-splash-signature::after {
+    font-size: 6px;
+  }
+}
+
+[data-portfolio-theme="light"] .portfolio-splash {
+  --it-splash-accent: #8fa600;
+  --it-splash-grid: rgba(143,166,0,.12);
+  --it-splash-line: rgba(17,17,17,.10);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(143,166,0,.07), transparent 28%),
+    radial-gradient(circle at 15% 20%, rgba(143,166,0,.05), transparent 25%),
+    #fafafa;
+}
+
+[data-portfolio-theme="light"] .portfolio-splash::after {
+  opacity: .08;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 3px,
+      rgba(17,17,17,.10) 4px
+    );
+  mix-blend-mode: multiply;
+}
+
+[data-portfolio-theme="light"] .portfolio-splash-word {
+  text-shadow: 0 0 18px rgba(143,166,0,.12);
+}
+
+[data-portfolio-theme="light"] .portfolio-splash-center::before {
+  border-color: rgba(143,166,0,.15);
+}
+
+[data-portfolio-theme="light"] .portfolio-splash-center::after {
+  border-color: rgba(17,17,17,.10);
+}
+
+[data-portfolio-theme="light"] .portfolio-splash-tagline::before,
+[data-portfolio-theme="light"] .portfolio-splash-tagline::after {
+  background: linear-gradient(90deg, transparent, rgba(143,166,0,.42), transparent);
+}
+
+[data-portfolio-theme="light"] .portfolio-splash-photo {
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.16),
+    0 0 0 1px rgba(143,166,0,.25),
+    0 0 30px rgba(143,166,0,.10);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-splash::before,
+  .portfolio-splash::after,
+  .portfolio-splash-signature,
+  .portfolio-splash-word,
+  .portfolio-splash-photo,
+  .portfolio-splash-scroll,
+  .portfolio-splash-center::before,
+  .portfolio-splash-center::after,
+  .portfolio-splash-photo::before,
+  .portfolio-splash-photo::after {
+    animation: none !important;
+  }
+}
