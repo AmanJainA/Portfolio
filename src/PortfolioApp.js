@@ -49,12 +49,19 @@ function HeroRoleTypewriter({ onRoleStart }) {
   const [roleIndex, setRoleIndex] = useState(0);
   const [text, setText] = useState('');
   const [deleting, setDeleting] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!deleting && text === '') onRoleStart?.(roleIndex);
-  }, [roleIndex, deleting, text, onRoleStart]);
+    const introTimer = setTimeout(() => setReady(true), 900);
+    return () => clearTimeout(introTimer);
+  }, []);
 
   useEffect(() => {
+    if (ready && !deleting && text === '') onRoleStart?.(roleIndex);
+  }, [ready, roleIndex, deleting, text, onRoleStart]);
+
+  useEffect(() => {
+    if (!ready) return;
     const currentRole = roles[roleIndex];
     const typingSpeed = deleting ? 55 : 95;
     const pauseAfterTyping = 5000;
