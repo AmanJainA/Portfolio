@@ -788,8 +788,8 @@ export default function PortfolioApp() {
                         aria-haspopup="dialog"
                       >
                         <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-location-dot" /></span>
-                        <span><small>Address · View Location</small><strong>2B, Parasnath Colony, Baral Road, Bijainagar, Ajmer - 305624</strong></span>
-
+                        <span><small>Address · View Location</small><strong>{p.address || p.location}</strong></span>
+                        <i className="fa-solid fa-arrow-up-right-from-square p-contact-address-arrow" aria-hidden="true" />
                       </motion.button>
 
                       <AnimatePresence>
@@ -826,13 +826,13 @@ export default function PortfolioApp() {
                                 <div className="p-contact-map-scanline" aria-hidden="true" />
                                 <iframe
                                   title="Bijainagar, Ajmer location map"
-                                  src="https://www.google.com/maps?q=Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624&output=embed"
+                                  src="https://www.google.com/maps?q=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624&output=embed"
                                   loading="lazy"
                                   referrerPolicy="no-referrer-when-downgrade"
                                 />
                                 <a
                                   className="p-contact-map-open"
-                                  href="https://www.google.com/maps/search/?api=1&query=Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624"
+                                  href="https://www.google.com/maps/search/?api=1&query=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624"
                                   target="_blank"
                                   rel="noreferrer"
                                 >
