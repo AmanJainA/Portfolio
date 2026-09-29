@@ -465,6 +465,12 @@ export default function PortfolioApp() {
               </div>
             </motion.div>
             <motion.div className="p-hero-visual" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
+              <div className="p-hero-tech-grid" aria-hidden="true" />
+              <div className="p-hero-code code-one" aria-hidden="true">&lt;code /&gt;</div>
+              <div className="p-hero-code code-two" aria-hidden="true">01 / 10 / 01</div>
+              <div className="p-hero-node node-one" aria-hidden="true" />
+              <div className="p-hero-node node-two" aria-hidden="true" />
+              <div className="p-hero-node node-three" aria-hidden="true" />
               <div className="p-orbit p-orbit-one" />
               <div className="p-orbit p-orbit-two" />
               {p.profile_image_url ? (
