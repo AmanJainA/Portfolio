@@ -1630,25 +1630,31 @@ body:has(.portfolio-splash-layer) {
   .p-journey-card::before {
     content: "";
     position: absolute;
-    left: -23px;
+    /*
+      Center the 14px marker exactly on the mobile timeline.
+      The card is offset by the 26px timeline column + 18px
+      card padding, so -38px aligns its center with the line.
+    */
+    left: -38px;
     top: 23px;
     width: 10px;
     height: 10px;
     border-radius: 50%;
     background: var(--p-bg);
     border: 2px solid var(--p-accent);
-    box-shadow: 0 0 0 4px color-mix(in srgb,var(--p-accent) 12%,transparent),
-                0 0 14px color-mix(in srgb,var(--p-accent) 35%,transparent);
-    z-index: 5;
+    box-shadow:
+      0 0 0 4px color-mix(in srgb,var(--p-accent) 12%,transparent),
+      0 0 16px color-mix(in srgb,var(--p-accent) 45%,transparent);
+    z-index: 10;
   }
 
-  /* Keep the mobile timeline itself behind every dot. */
+  /* Timeline stays behind every marker, making each dot sit visibly on it. */
   .p-journey-line {
     z-index: 1;
   }
   .p-journey-card,
   .p-journey-card::before {
-    z-index: 5;
+    z-index: 10;
   }
 
   /* Each education card is shown first, in database order. */
