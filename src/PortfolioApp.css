@@ -3690,3 +3690,18 @@ body:has(.portfolio-splash-layer) {
   .p-contact-map-frame,.p-contact-map-frame iframe{min-height:250px}
   .p-contact-map-open{left:10px;right:10px;justify-content:center}
 }
+
+/* Contact location 3D modal */
+.p-contact-map-modal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:24px;background:rgba(3,8,18,.68);backdrop-filter:blur(14px);perspective:1400px}
+.p-contact-map-modal-card{width:min(900px,94vw);max-height:min(720px,92vh);overflow:hidden;border:1px solid color-mix(in srgb,var(--p-accent) 35%,var(--p-border));border-radius:24px;background:var(--p-bg);box-shadow:0 35px 100px rgba(0,0,0,.42),0 0 45px color-mix(in srgb,var(--p-accent) 10%,transparent);transform-style:preserve-3d}
+.p-contact-map-modal-head{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:18px 20px;border-bottom:1px solid var(--p-border);background:color-mix(in srgb,var(--p-bg) 92%,var(--p-accent) 8%)}
+.p-contact-map-modal-head small{display:block;margin-bottom:5px;color:var(--p-accent);font-size:.66rem;font-weight:800;letter-spacing:.16em}.p-contact-map-modal-head strong{display:block;max-width:720px;color:var(--p-text);font-size:.9rem;line-height:1.45}
+.p-contact-map-close{width:38px;height:38px;flex:0 0 38px;border:1px solid var(--p-border);border-radius:12px;background:transparent;color:var(--p-text);cursor:pointer;transition:transform .25s ease,border-color .25s ease,color .25s ease}.p-contact-map-close:hover{transform:rotate(90deg) scale(1.05);border-color:var(--p-accent);color:var(--p-accent)}
+.p-contact-map-modal-frame{position:relative;height:min(560px,68vh);overflow:hidden;background:var(--p-bg)}
+.p-contact-map-modal-frame iframe{display:block;width:100%;height:100%;border:0;filter:saturate(.9) contrast(1.04)}
+.p-contact-map-scanline{position:absolute;z-index:2;left:0;right:0;top:-2px;height:2px;background:var(--p-accent);box-shadow:0 0 16px var(--p-accent);animation:pContactMapScan 3.2s ease-in-out infinite;pointer-events:none}
+.p-contact-map-modal-frame:after{content:"";position:absolute;inset:0;pointer-events:none;border:1px solid color-mix(in srgb,var(--p-accent) 18%,transparent);box-shadow:inset 0 0 55px color-mix(in srgb,var(--p-accent) 8%,transparent)}
+.p-contact-map-modal .p-contact-map-open{z-index:3}
+@keyframes pContactMapScan{0%,100%{top:0;opacity:.35}50%{top:100%;opacity:1}}
+@media(max-width:650px){.p-contact-map-modal{padding:12px}.p-contact-map-modal-card{width:96vw;border-radius:18px}.p-contact-map-modal-head{padding:14px}.p-contact-map-modal-head strong{font-size:.78rem}.p-contact-map-modal-frame{height:62vh}.p-contact-map-modal .p-contact-map-open{left:12px;right:12px;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.p-contact-map-scanline{animation:none;display:none}}
