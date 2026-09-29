@@ -3084,3 +3084,18 @@ body:has(.portfolio-splash-layer) {
     max-width: 100%;
   }
 }
+
+/* Mobile hero: let intro text and actions span across the visual column */
+@media (max-width: 650px) {
+  .p-hero .p-container.p-hero-grid .p-hero-rich-text,
+  .p-hero .p-container.p-hero-grid .p-actions {
+    position: relative;
+    z-index: 20;
+    width: calc(100% + 122px);
+    max-width: none;
+  }
+
+  .p-hero .p-container.p-hero-grid .p-actions {
+    z-index: 21;
+  }
+}
