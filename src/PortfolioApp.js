@@ -789,7 +789,7 @@ export default function PortfolioApp() {
                       >
                         <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-location-dot" /></span>
                         <span><small>Address · View Location</small><strong>{p.address || p.location}</strong></span>
-                        
+                        <i className="fa-solid fa-arrow-up-right-from-square p-contact-address-arrow" aria-hidden="true" />
                       </motion.button>
 
                       <AnimatePresence>
