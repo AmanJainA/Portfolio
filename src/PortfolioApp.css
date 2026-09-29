@@ -2627,12 +2627,42 @@ body:has(.portfolio-splash-layer) {
   animation:p-profile-orbit-reverse 7s linear infinite;
   pointer-events:none;
 }
-.p-profile-card.p-profile-mascot img{
+.p-profile-card.p-profile-mascot img.p-profile-base-image{
   position:relative;
   z-index:1;
   transform:translate3d(0,0,0) scale(1);
   filter:drop-shadow(0 18px 30px rgba(0,0,0,.16));
   animation:p-profile-image-breathe 4.2s ease-in-out infinite;
+}
+.p-profile-face-follow{
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:100%;
+  z-index:2;
+  pointer-events:none;
+  overflow:hidden;
+  clip-path:ellipse(27% 24% at 50% 34%);
+  opacity:0;
+  transform:translate3d(0,0,0);
+  transition:opacity .28s ease;
+}
+.p-profile-face-follow img{
+  position:absolute!important;
+  inset:0;
+  width:100%!important;
+  height:100%!important;
+  object-fit:contain;
+  transform:translate3d(calc(var(--mouse-x, 0) * 16px),calc(var(--mouse-y, 0) * 11px),0) scale(1.018)!important;
+  filter:drop-shadow(0 5px 12px rgba(0,0,0,.12))!important;
+}
+.p-profile-card.p-profile-mascot.is-looking .p-profile-face-follow{
+  opacity:.96;
+}
+.p-profile-card.p-profile-mascot.is-looking .p-profile-mascot-inner{
+  --mouse-x:var(--mouse-x,0);
+  --mouse-y:var(--mouse-y,0);
 }
 .p-profile-card.p-profile-mascot .p-mascot-wave{
   animation:p-profile-wave 2.8s ease-in-out infinite;
@@ -2641,16 +2671,6 @@ body:has(.portfolio-splash-layer) {
   position:relative;
   z-index:5;
   animation:p-profile-badge-float 4s ease-in-out infinite;
-}
-.p-profile-card.p-profile-mascot .p-profile-badge::before{
-  content:"";
-  width:5px;
-  height:5px;
-  margin-right:6px;
-  border-radius:50%;
-  background:var(--p-accent);
-  box-shadow:0 0 10px var(--p-accent);
-  animation:p-profile-status 1.6s ease-in-out infinite;
 }
 .p-profile-card.p-profile-mascot::after{
   content:"";
@@ -2707,8 +2727,11 @@ body:has(.portfolio-splash-layer) {
   .p-profile-card.p-profile-mascot .p-profile-badge::before,
   .p-profile-card.p-profile-mascot::after,
   .p-profile-card.p-profile-mascot .p-profile-mascot-inner::before,
-  .p-profile-card.p-profile-mascot .p-profile-mascot-inner::after{
+  .p-profile-card.p-profile-mascot .p-profile-mascot-inner::after,
+  .p-profile-face-follow,
+  .p-profile-face-follow img{
     animation:none!important;
+    transition:none!important;
   }
 }
 
@@ -2730,4 +2753,30 @@ body:has(.portfolio-splash-layer) {
   gap:0;
   font-size:.68rem;
   line-height:1.1;
+}
+
+/* ===== Hero face tracking + role-synced entrance ===== */
+.p-hero-visual{
+  will-change:transform,opacity;
+}
+.p-profile-card.p-profile-mascot .p-profile-mascot-inner{
+  --mouse-x:0;
+  --mouse-y:0;
+}
+@media(max-width:650px){
+  .p-profile-face-follow{
+    clip-path:ellipse(30% 25% at 50% 34%);
+  }
+  .p-profile-face-follow img{
+    transform:translate3d(calc(var(--mouse-x, 0) * 10px),calc(var(--mouse-y, 0) * 7px),0) scale(1.012)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .p-hero-visual{
+    transform:none!important;
+    opacity:1!important;
+  }
+  .p-profile-face-follow{
+    opacity:0!important;
+  }
 }
