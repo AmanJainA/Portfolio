@@ -3014,3 +3014,46 @@ body:has(.portfolio-splash-layer) {
     padding-right: 20px !important;
   }
 }
+
+/* ===== Hero content layering ===== */
+.p-hero .p-container.p-hero-grid{
+  position:relative;
+  isolation:isolate;
+}
+.p-hero .p-container.p-hero-grid > div:first-child{
+  position:relative;
+  z-index:10;
+  min-width:0;
+}
+.p-hero .p-hero-rich-text{
+  position:relative;
+  z-index:11;
+}
+.p-hero .p-actions{
+  position:relative;
+  z-index:12;
+}
+.p-hero .p-hero-visual{
+  position:relative;
+  z-index:2;
+  min-width:0;
+}
+
+@media (max-width: 800px){
+  .p-hero .p-container.p-hero-grid{
+    position:relative;
+    z-index:1;
+  }
+  .p-hero .p-container.p-hero-grid > div:first-child{
+    z-index:10;
+  }
+  .p-hero .p-hero-rich-text{
+    z-index:11;
+  }
+  .p-hero .p-actions{
+    z-index:12;
+  }
+  .p-hero .p-hero-visual{
+    z-index:2;
+  }
+}
