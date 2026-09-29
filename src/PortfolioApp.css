@@ -3005,10 +3005,3 @@ body:has(.portfolio-splash-layer) {
     font-size: .7rem;
   }
 }
-
-@media (max-width: 800px) {
-  .portfolio-modern .p-hero .p-actions .p-primary-btn {
-    padding-left: 5px !important;
-    padding-right: 5px !important;
-  }
-}
