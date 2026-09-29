@@ -473,6 +473,23 @@ export default function PortfolioApp() {
               <div className="p-hero-node node-three" aria-hidden="true" />
               <div className="p-orbit p-orbit-one" />
               <div className="p-orbit p-orbit-two" />
+              <div className="p-hero-icon-cloud" aria-label="Portfolio capabilities">
+                {[
+                  ['fa-code', 'Coding', 'icon-coding'],
+                  ['fa-chart-line', 'Data & Analytics', 'icon-analytics'],
+                  ['fa-briefcase', 'Business', 'icon-business'],
+                  ['fa-user-tie', 'Consulting', 'icon-consulting'],
+                  ['fa-laptop-code', 'Developer', 'icon-developer'],
+                  ['fa-handshake', 'Stakeholders', 'icon-relations'],
+                  ['fa-train', 'Railway & Logistics', 'icon-railway'],
+                  ['fa-plug', 'Technology Integration', 'icon-integration'],
+                ].map(([icon, label, tone], i) => (
+                  <span className={`p-hero-float-icon ${tone}`} key={label} style={{ '--icon-index': i }}>
+                    <i className={`fa-solid ${icon}`} />
+                    <small>{label}</small>
+                  </span>
+                ))}
+              </div>
               {p.profile_image_url ? (
                 <div
                   className="p-profile-card p-profile-mascot"
