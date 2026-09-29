@@ -715,7 +715,7 @@ export default function PortfolioApp() {
               <div className="p-journey-head">
                 <motion.h3 initial={{ opacity: 0, x: -25 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: .3 }} transition={{ duration: .55 }}>Education</motion.h3>
-                <span className="p-journey-head-core" aria-hidden="true"><i className="fa-solid fa-code" /></span>
+                <span className="p-journey-head-core" aria-hidden="true" />
                 <motion.h3 initial={{ opacity: 0, x: 25 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: .3 }} transition={{ duration: .55 }}>Work Experience</motion.h3>
               </div>
