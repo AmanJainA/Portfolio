@@ -43,28 +43,16 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
   const displayName = String(name || 'Aman Jain').trim() || 'Aman Jain';
   const [firstName, ...rest] = displayName.split(/\s+/);
   const lastName = rest.join(' ') || firstName;
+  const photoRef = useRef(null);
 
-  const enterPortfolio = () => {
-    if (onScrollDown) {
-      onScrollDown();
-      return;
-    }
-    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  const scrollToProfilePhoto = () => {
+    photoRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
 
   return (
     <section
       className="portfolio-splash"
       aria-label="Portfolio introduction"
-      role="button"
-      tabIndex={0}
-      onClick={enterPortfolio}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          enterPortfolio();
-        }
-      }}
     >
       <div className="portfolio-splash-backdrop" aria-hidden="true">
         <div className="portfolio-splash-grid" />
@@ -105,7 +93,7 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
         </div>
 
         {imageUrl && (
-          <div className="portfolio-splash-photo-wrap">
+          <div ref={photoRef} className="portfolio-splash-photo-wrap">
             <div className="portfolio-splash-photo-frame">
               <img src={imageUrl} alt={displayName} className="portfolio-splash-photo" />
               <span className="portfolio-splash-photo-scan" aria-hidden="true" />
@@ -135,19 +123,16 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
         <button
           type="button"
           className="portfolio-splash-scroll"
-          aria-label="Enter portfolio"
-          onClick={(event) => {
-            event.stopPropagation();
-            enterPortfolio();
-          }}
+          aria-label="Scroll to profile photo"
+          onClick={scrollToProfilePhoto}
         >
-          <span>ENTER PORTFOLIO</span>
+          <span>VIEW PROFILE</span>
           <i><ChevronDown /></i>
         </button>
       </footer>
 
       <div className="portfolio-splash-corner portfolio-splash-corner-tl" aria-hidden="true">DIGITAL / 2026</div>
-      <div className="portfolio-splash-corner portfolio-splash-corner-br" aria-hidden="true">SCROLL / CLICK / ENTER</div>
+      <div className="portfolio-splash-corner portfolio-splash-corner-br" aria-hidden="true">SCROLL / VIEW PROFILE</div>
     </section>
   );
 }
