@@ -3102,7 +3102,7 @@ body:has(.portfolio-splash-layer) {
 
 @media (max-width: 650px) {
   .p-hero .p-profile-card .p-profile-badge {
-    left: -82px;
+    left: -77px;
     right: auto;
     bottom: 6px;
     width: max-content;
