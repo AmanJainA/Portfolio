@@ -1425,11 +1425,14 @@ body:has(.portfolio-splash-layer) {
   background: linear-gradient(180deg,transparent,var(--p-accent),var(--p-accent2),transparent);
   opacity: .75;
   box-shadow: 0 0 16px rgba(103,232,249,.18);
+  z-index: 1;
+  pointer-events: none;
 }
 .p-journey-row {
   position: relative;
   min-height: 185px;
   align-items: center;
+  z-index: 2;
 }
 .p-journey-side {
   position: relative;
@@ -1440,6 +1443,10 @@ body:has(.portfolio-splash-layer) {
 }
 .p-journey-experience {
   padding-left: 28px;
+}
+.p-journey-dot {
+  position: relative;
+  z-index: 6;
 }
 .p-journey-card {
   position: relative;
