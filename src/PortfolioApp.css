@@ -2780,3 +2780,44 @@ body:has(.portfolio-splash-layer) {
     opacity:0!important;
   }
 }
+
+/* Stagger the hero copy so the left side builds line by line. */
+.p-hero-grid>div:first-child{
+  animation:p-hero-copy-in .75s cubic-bezier(.22,1,.36,1) both;
+}
+.p-hero-grid>div:first-child .p-eyebrow,
+.p-hero-grid>div:first-child h1,
+.p-hero-grid>div:first-child .p-hero-role-typewriter,
+.p-hero-grid>div:first-child .p-hero-rich-text,
+.p-hero-grid>div:first-child .p-actions,
+.p-hero-grid>div:first-child .p-socials{
+  opacity:0;
+  animation:p-hero-copy-item .7s cubic-bezier(.22,1,.36,1) both;
+}
+.p-hero-grid>div:first-child .p-eyebrow{animation-delay:.08s}
+.p-hero-grid>div:first-child h1{animation-delay:.18s}
+.p-hero-grid>div:first-child .p-hero-role-typewriter{animation-delay:.3s}
+.p-hero-grid>div:first-child .p-hero-rich-text{animation-delay:.42s}
+.p-hero-grid>div:first-child .p-actions{animation-delay:.54s}
+.p-hero-grid>div:first-child .p-socials{animation-delay:.66s}
+@keyframes p-hero-copy-in{
+  from{opacity:0;transform:translate3d(-18px,0,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes p-hero-copy-item{
+  from{opacity:0;transform:translate3d(-22px,12px,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@media(prefers-reduced-motion:reduce){
+  .p-hero-grid>div:first-child,
+  .p-hero-grid>div:first-child .p-eyebrow,
+  .p-hero-grid>div:first-child h1,
+  .p-hero-grid>div:first-child .p-hero-role-typewriter,
+  .p-hero-grid>div:first-child .p-hero-rich-text,
+  .p-hero-grid>div:first-child .p-actions,
+  .p-hero-grid>div:first-child .p-socials{
+    animation:none!important;
+    opacity:1!important;
+    transform:none!important;
+  }
+}
