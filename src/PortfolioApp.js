@@ -738,21 +738,64 @@ export default function PortfolioApp() {
         </Section>
 
         <Section id="contact" title={p.contact_heading || 'Contact Form'} eyebrow="05 / CONNECT">
-          <div className="p-contact-grid">
-            <div className="p-contact-copy">
-              <h3>Let’s build something useful.</h3>
-              <p>{p.contact_description}</p>
-              <div className="p-contact-links">
-                {p.phone && <a className="p-contact-card" href={`tel:${p.phone}`}><span className="p-contact-card-icon"><i className="fa-solid fa-phone" /></span><span><small>Phone</small><strong>{p.phone}</strong></span></a>}
-                {p.email && <a className="p-contact-card" href={`mailto:${p.email}`}><span className="p-contact-card-icon"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span></a>}
-                {(p.address || p.location) && <div className="p-contact-card"><span className="p-contact-card-icon"><i className="fa-solid fa-location-dot" /></span><span><small>Address</small><strong>{p.address || p.location}</strong></span></div>}
-              </div>
+          <motion.div
+            className="p-contact-motion-scene"
+            initial={{ opacity: 0, y: 60, scale: .975 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: .12 }}
+            transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="p-about-scroll-progress" aria-hidden="true">
+              <motion.span
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, amount: .15 }}
+                transition={{ duration: 1.1, delay: .1, ease: [0.22, 1, 0.36, 1] }}
+              />
             </div>
-            <form className="p-glass p-contact-form" onSubmit={submitContact}>
-              <div className="p-form-grid"><input name="name" placeholder="Your name" required /><input name="email" type="email" placeholder="Email address" required /></div>
-              <input name="subject" placeholder="Subject" /><textarea name="message" rows="7" placeholder="Tell me about your project…" required /><button className="p-primary-btn" type="submit">Send Message <i className="fa-solid fa-paper-plane" /></button>
-            </form>
-          </div>
+            <div className="p-contact-hud" aria-hidden="true">
+              <span><i className="fa-solid fa-terminal" /> CONTACT://CHANNEL</span>
+              <span className="p-contact-status"><i /> READY_TO_CONNECT</span>
+            </div>
+            <div className="p-contact-grid p-contact-grid-motion">
+              <motion.div
+                className="p-contact-copy p-contact-copy-motion"
+                initial={{ opacity: 0, x: -55, rotateY: 6 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                viewport={{ once: true, amount: .2 }}
+                transition={{ duration: .75, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <span className="p-contact-kicker">OPEN FOR COLLABORATION</span>
+                <h3>Let’s build something useful.</h3>
+                <p>{p.contact_description}</p>
+                <div className="p-contact-links p-contact-links-motion">
+                  {p.phone && <motion.a className="p-contact-card p-contact-card-motion" href={`tel:${p.phone}`} whileHover={{ x: 5 }} transition={{ duration: .25 }}>
+                    <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-phone" /></span><span><small>Phone</small><strong>{p.phone}</strong></span>
+                  </motion.a>}
+                  {p.email && <motion.a className="p-contact-card p-contact-card-motion" href={`mailto:${p.email}`} whileHover={{ x: 5 }} transition={{ duration: .25 }}>
+                    <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span>
+                  </motion.a>}
+                  {(p.address || p.location) && <motion.div className="p-contact-card p-contact-card-motion" whileHover={{ x: 5 }} transition={{ duration: .25 }}>
+                    <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-location-dot" /></span><span><small>Address</small><strong>{p.address || p.location}</strong></span>
+                  </motion.div>}
+                </div>
+              </motion.div>
+              <motion.form
+                className="p-glass p-contact-form p-contact-form-motion"
+                onSubmit={submitContact}
+                initial={{ opacity: 0, x: 55, rotateY: -6 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                viewport={{ once: true, amount: .2 }}
+                transition={{ duration: .75, delay: .08, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className="p-form-grid"><input name="name" placeholder="Your name" required /><input name="email" type="email" placeholder="Email address" required /></div>
+                <input name="subject" placeholder="Subject" /><textarea name="message" rows="7" placeholder="Tell me about your project…" required />
+                <motion.button className="p-primary-btn p-contact-send" type="submit" whileHover={{ y: -3, scale: 1.015 }} whileTap={{ scale: .98 }}>
+                  Send Message <i className="fa-solid fa-paper-plane" />
+                </motion.button>
+              </motion.form>
+            </div>
+          </motion.div>
         </Section>
       </main>
       <footer className="p-footer"><div className="p-container"><span>© 2026 All rights reserved by {p.full_name || 'Aman Jain'}</span></div></footer>
