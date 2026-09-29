@@ -80,15 +80,6 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
       className="portfolio-splash"
       style={{ '--splash-scroll': scrollProgress }}
       aria-label="Portfolio introduction"
-      role="button"
-      tabIndex={0}
-      onClick={onScrollDown}
-      onKeyDown={(event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          onScrollDown?.();
-        }
-      }}
     >
       <div className="portfolio-splash-tech-layer" aria-hidden="true">
         <div className="portfolio-splash-grid" />
@@ -131,8 +122,28 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
           />
 
           {imageUrl && (
-            <div className="portfolio-splash-photo">
+            <div
+              className="portfolio-splash-photo"
+              role="button"
+              tabIndex={0}
+              aria-label="Enter portfolio"
+              onClick={(event) => {
+                event.stopPropagation();
+                onScrollDown?.();
+              }}
+              onKeyDown={(event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  onScrollDown?.();
+                }
+              }}
+            >
               <img src={imageUrl} alt={displayName} />
+              <span className="portfolio-splash-photo-scan portfolio-splash-photo-scan-one" aria-hidden="true" />
+              <span className="portfolio-splash-photo-scan portfolio-splash-photo-scan-two" aria-hidden="true" />
+              <span className="portfolio-splash-photo-scan portfolio-splash-photo-scan-three" aria-hidden="true" />
+              <span className="portfolio-splash-photo-frame" aria-hidden="true" />
             </div>
           )}
         </div>
