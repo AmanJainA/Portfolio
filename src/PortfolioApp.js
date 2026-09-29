@@ -251,15 +251,6 @@ function ProjectSection({ projects }) {
             viewport={{ once: true, amount: .15 }}
             transition={{ duration: 1.1, delay: .12, ease: [0.22, 1, 0.36, 1] }} />
         </div>
-        <motion.div className="p-projects-intro"
-          initial={{ opacity: 0, y: 35, filter: 'blur(5px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, amount: .3 }}
-          transition={{ duration: .7, delay: .08 }}>
-          <span className="p-projects-kicker"><i className="fa-solid fa-terminal" /> PROJECTS://WORKSPACE</span>
-          <p>Selected digital products, applications and practical solutions — built with a focus on clean development, useful experiences and real-world problem solving.</p>
-        </motion.div>
-
         <motion.div className="p-project-filters" role="tablist" aria-label="Project filters"
           initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: .3 }} transition={{ duration: .6, delay: .16 }}>
@@ -268,7 +259,7 @@ function ProjectSection({ projects }) {
               className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}
               whileHover={{ y: -3, scale: 1.03 }} whileTap={{ scale: .96 }}
               transition={{ duration: .2 }}>
-              <span>{String(i + 1).padStart(2,'0')}</span>{item}
+              {item}
             </motion.button>
           ))}
         </motion.div>
