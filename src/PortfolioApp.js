@@ -44,24 +44,13 @@ function setFavicon(url) {
   link.href = url;
 }
 
-function HeroRoleTypewriter({ onRoleStart }) {
+function HeroRoleTypewriter() {
   const roles = ['Full Stack Developer', 'Consultant & Data Analyst'];
   const [roleIndex, setRoleIndex] = useState(0);
   const [text, setText] = useState('');
   const [deleting, setDeleting] = useState(false);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const introTimer = setTimeout(() => setReady(true), 900);
-    return () => clearTimeout(introTimer);
-  }, []);
-
-  useEffect(() => {
-    if (ready && !deleting && text === '') onRoleStart?.(roleIndex);
-  }, [ready, roleIndex, deleting, text, onRoleStart]);
-
-  useEffect(() => {
-    if (!ready) return;
     const currentRole = roles[roleIndex];
     const typingSpeed = deleting ? 55 : 95;
     const pauseAfterTyping = 5000;
@@ -262,7 +251,6 @@ export default function PortfolioApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('portfolio_theme') || 'dark');
   const [activeSection, setActiveSection] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
-  const [heroRoleCycle, setHeroRoleCycle] = useState(-1);
 
   const enterPortfolio = () => {
     setShowSplash(false);
@@ -461,7 +449,7 @@ export default function PortfolioApp() {
             <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
               <span className="p-eyebrow">WELCOME TO MY PORTFOLIO</span>
               <h1>Hi, I’m <span>{p.full_name || 'Aman Jain'}</span></h1>
-              <HeroRoleTypewriter onRoleStart={setHeroRoleCycle} />
+              <HeroRoleTypewriter />
               <RichText html={p.hero_intro || p.about_text || 'I build useful digital experiences by combining technology, design and practical problem solving.'} className="p-hero-rich-text" />
               <div className="p-actions">
                 <a className="p-primary-btn" href="#projects">View Projects <i className="fa-solid fa-arrow-down" /></a>
@@ -476,7 +464,7 @@ export default function PortfolioApp() {
                 </a>
               </div>
             </motion.div>
-            <motion.div key={heroRoleCycle} className="p-hero-visual" initial={heroRoleCycle < 0 ? false : { opacity: 0, x: 90, scale: 0.96 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
+            <motion.div className="p-hero-visual" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.15 }}>
               <div className="p-hero-tech-grid" aria-hidden="true" />
               <div className="p-hero-code code-one" aria-hidden="true">&lt;code /&gt;</div>
               <div className="p-hero-code code-two" aria-hidden="true">01 / 10 / 01</div>
@@ -503,8 +491,7 @@ export default function PortfolioApp() {
                   }}
                 >
                   <div className="p-profile-mascot-inner">
-                    <img className="p-profile-base-image" src={p.profile_image_url} alt={p.full_name || 'Profile'} />
-                    <span className="p-profile-face-follow" aria-hidden="true"><img src={p.profile_image_url} alt="" /></span>
+                    <img src={p.profile_image_url} alt={p.full_name || 'Profile'} />
                     <span className="p-mascot-wave">Hello 👋</span>
                   </div>
                   <div className="p-profile-badge"><span />Available for opportunities</div>
