@@ -2725,3 +2725,19 @@ body:has(.portfolio-splash-layer) {
     animation:none!important;
   }
 }
+
+
+/* ===== Compact availability badge ===== */
+.p-profile-card.p-profile-mascot .p-profile-badge{
+  width:max-content;
+  max-width:fit-content;
+  white-space:nowrap;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-sizing:border-box;
+  padding:7px 11px;
+  gap:0;
+  font-size:.68rem;
+  line-height:1.1;
+}
