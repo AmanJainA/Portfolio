@@ -605,14 +605,18 @@ export default function PortfolioApp() {
         </Section>
 
         <Section id="skills" title="Skills" eyebrow="02 / CAPABILITIES">
-          <div className="p-skills-motion-scene">
+          <motion.div className="p-skills-motion-scene"
+              initial={{ opacity: 0, y: 70, scale: .97, rotateX: 4 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+              viewport={{ once: true, amount: .12 }}
+              transition={{ duration: .9, ease: [0.22, 1, 0.36, 1] }}>
             <div className="p-skills-grid-bg" aria-hidden="true" />
             <div className="p-skills-scanline" aria-hidden="true" />
             <div className="p-skills-hud" aria-hidden="true">
               <span><i className="fa-solid fa-terminal" /> SKILLS://STACK</span>
               <span><i /> SYSTEM_READY</span>
             </div>
-            <motion.div className="p-skills-intro" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: .7 }}>
+            <motion.div className="p-skills-intro" initial={{ opacity: 0, y: 45, filter: 'blur(6px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }} viewport={{ once: true, amount: .35 }} transition={{ duration: .75, delay: .08, ease: [0.22, 1, 0.36, 1] }}>
               <span className="p-skills-kicker">DEVELOPER PROFILE</span>
               <h3>Tools, technologies &amp; professional capabilities</h3>
               <p>Every skill below is kept from your current portfolio data and presented as a clear capability — technical depth on the left, professional strengths on the right.</p>
@@ -633,7 +637,7 @@ export default function PortfolioApp() {
               ))}
             </div>
             <div className="p-skill-columns p-skills-data-grid">
-              <motion.div className="p-glass p-skill-panel p-skills-terminal" initial={{ opacity: 0, x: -45 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .75, ease: [0.22, 1, 0.36, 1] }}>
+              <motion.div className="p-glass p-skill-panel p-skills-terminal" initial={{ opacity: 0, x: -70, rotateY: 7 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }}>
                 <div className="p-skills-panel-head">
                   <div><span className="p-terminal-dots"><i /><i /><i /></span><h3>Technical Skills</h3></div><code>skills.tech</code>
                 </div>
@@ -647,14 +651,14 @@ export default function PortfolioApp() {
                   ))}
                 </div>
               </motion.div>
-              <motion.div className="p-glass p-skill-panel p-skills-terminal p-skills-professional" initial={{ opacity: 0, x: 45 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .75, delay: .08, ease: [0.22, 1, 0.36, 1] }}>
+              <motion.div className="p-glass p-skill-panel p-skills-terminal p-skills-professional" initial={{ opacity: 0, x: 70, rotateY: -7 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, delay: .1, ease: [0.22, 1, 0.36, 1] }}>
                 <div className="p-skills-panel-head">
                   <div><span className="p-terminal-dots"><i /><i /><i /></span><h3>Professional Skills</h3></div><code>skills.pro</code>
                 </div>
                 <div className="p-ring-grid">{professional.map((skill) => <ProfessionalRing key={skill.id} skill={skill} />)}</div>
               </motion.div>
             </div>
-          </div>
+          </motion.div>
         </Section>
 
         <ProjectSection projects={data.projects} />
