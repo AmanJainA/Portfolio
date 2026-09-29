@@ -52,7 +52,7 @@ function HeroRoleTypewriter({ onRoleStart }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const introTimer = setTimeout(() => setReady(true), 900);
+    const introTimer = setTimeout(() => setReady(true), 1600);
     return () => clearTimeout(introTimer);
   }, []);
 
