@@ -2958,12 +2958,3 @@ body:has(.portfolio-splash-layer) {
     .p-hero-grid .p-hero-icon-cloud { animation: none; }
   }
 }
-
-/* ===== Mobile hero intro: keep full copy above orbit visuals ===== */
-@media (max-width: 650px) {
-  .p-hero-grid > div:first-child { position: relative; z-index: 6; }
-  .p-hero-grid .p-hero-rich-text { position: relative; z-index: 7; }
-  .p-hero-grid .p-hero-visual { z-index: 1; }
-  .p-hero-grid .p-hero-icon-cloud { z-index: 2; }
-  .p-hero-grid .p-hero-rich-text p { max-width: 100%; }
-}
