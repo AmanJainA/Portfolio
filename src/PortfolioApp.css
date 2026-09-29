@@ -3280,3 +3280,34 @@ body:has(.portfolio-splash-layer) {
     animation:none!important;
   }
 }
+
+
+/* About copy: justified animated reveal */
+.p-about-scrollscene .p-about-rich-text{
+  max-width:920px;
+  margin:0 auto;
+  text-align:justify;
+  text-justify:inter-word;
+  hyphens:auto;
+}
+.p-about-scrollscene .p-about-rich-text > *{
+  animation:p-about-text-rise .7s cubic-bezier(.22,1,.36,1) both;
+}
+.p-about-scrollscene .p-about-rich-text > *:nth-child(2){animation-delay:.08s}
+.p-about-scrollscene .p-about-rich-text > *:nth-child(3){animation-delay:.16s}
+.p-about-scrollscene .p-about-rich-text > *:nth-child(4){animation-delay:.24s}
+@keyframes p-about-text-rise{
+  from{opacity:0;transform:translateY(22px);filter:blur(5px)}
+  to{opacity:1;transform:translateY(0);filter:blur(0)}
+}
+@media(max-width:650px){
+  .p-about-scrollscene .p-about-rich-text{
+    text-align:justify;
+    text-justify:inter-word;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .p-about-scrollscene .p-about-rich-text > *{
+    animation:none;
+  }
+}
