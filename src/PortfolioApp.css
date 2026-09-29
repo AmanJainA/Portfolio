@@ -3099,3 +3099,16 @@ body:has(.portfolio-splash-layer) {
     z-index: 21;
   }
 }
+
+@media (max-width: 650px) {
+  .p-hero .p-profile-card .p-profile-badge {
+    left: 50%;
+    right: auto;
+    bottom: 6px;
+    width: max-content;
+    max-width: none;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    z-index: 30;
+  }
+}
