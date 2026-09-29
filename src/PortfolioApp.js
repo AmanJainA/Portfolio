@@ -610,6 +610,14 @@ export default function PortfolioApp() {
               whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
               viewport={{ once: true, amount: .12 }}
               transition={{ duration: .9, ease: [0.22, 1, 0.36, 1] }}>
+            <div className="p-about-scroll-progress p-skills-scroll-progress" aria-hidden="true">
+              <motion.span
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true, amount: .2 }}
+                transition={{ duration: 1.1, delay: .15, ease: [0.22, 1, 0.36, 1] }}
+              />
+            </div>
             <div className="p-skills-grid-bg" aria-hidden="true" />
             <div className="p-skills-scanline" aria-hidden="true" />
             <div className="p-skills-hud" aria-hidden="true">
