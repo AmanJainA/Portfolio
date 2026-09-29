@@ -152,6 +152,75 @@ function ProfessionalRing({ skill }) {
   );
 }
 
+function AboutScrollScene({ aboutText, techItems }) {
+  const sceneRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sceneRef,
+    offset: ['start end', 'end start'],
+  });
+  const sceneRotate = useTransform(scrollYProgress, [0, .5, 1], [4, 0, -3]);
+  const sceneY = useTransform(scrollYProgress, [0, .5, 1], [70, 0, -45]);
+  const sceneScale = useTransform(scrollYProgress, [0, .45, 1], [.94, 1, .97]);
+  const gridY = useTransform(scrollYProgress, [0, .5, 1], [55, 0, -55]);
+  const gridRotate = useTransform(scrollYProgress, [0, .5, 1], [-2, 0, 2]);
+  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  return (
+    <div ref={sceneRef} className="p-about-scrollscene">
+      <div className="p-about-scroll-progress" aria-hidden="true">
+        <span style={{ scaleX: progressWidth }} />
+      </div>
+      <div className="p-about-scroll-sticky">
+        <motion.div
+          className="p-glass p-about-immersive"
+          style={{ y: sceneY, rotateX: sceneRotate, scale: sceneScale }}
+          initial={{ opacity: 0, scale: .96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.12 }}
+          transition={{ duration: .7 }}
+        >
+          <div className="p-about-motion-hud" aria-hidden="true">
+            <span className="p-about-hud-chip"><i className="fa-solid fa-terminal" /> ABOUT://SYSTEM</span>
+            <span className="p-about-hud-status"><i /> SCROLL_ACTIVE</span>
+          </div>
+          <div className="p-about-motion-grid" aria-hidden="true" />
+          <div className="p-about-motion-orbit p-about-motion-orbit-one" aria-hidden="true" />
+          <div className="p-about-motion-orbit p-about-motion-orbit-two" aria-hidden="true" />
+          <div className="p-about-motion-node p-about-motion-node-one" aria-hidden="true" />
+          <div className="p-about-motion-node p-about-motion-node-two" aria-hidden="true" />
+          <div className="p-about-copy">
+            <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
+            <RichText html={aboutText} className="p-about-rich-text" />
+          </div>
+          <motion.div
+            className="p-about-tech-field"
+            aria-label="Technical skills"
+            style={{ y: gridY, rotateZ: gridRotate }}
+          >
+            <div className="p-about-tech-glow" />
+            {techItems.map(([name, level, icon, color], i) => (
+              <motion.div
+                className="p-about-tech-card"
+                key={name}
+                style={{ '--tech-color': color }}
+                initial={{ opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
+                viewport={{ once: true, amount: 0.18 }}
+                transition={{ delay: i * .11, duration: .8, type: 'spring', stiffness: 90, damping: 14 }}
+                whileHover={{ y: -16, scale: 1.08, rotateX: -8, rotateY: i % 2 ? 9 : -9, z: 45 }}
+              >
+                <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
+                <strong>{name}</strong>
+                <small>{level}</small>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
 function ProjectSection({ projects }) {
   const [filter, setFilter] = useState('All');
   const filters = ['All', 'PHP', 'Android', 'Flutter', 'React'];
@@ -517,53 +586,22 @@ export default function PortfolioApp() {
         </section>
 
         <Section id="about" title="About Me" eyebrow="01 / PROFILE">
-          <div className="p-about-scrollscene">
-            <div className="p-about-scroll-sticky">
-              <motion.div
-                className="p-glass p-about-immersive"
-                initial={{ opacity: 0, scale: .96, rotateX: 5 }}
-                whileInView={{ opacity: 1, scale: 1, rotateX: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{ duration: .7 }}
-              >
-                <div className="p-about-copy">
-                  <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
-                  <RichText html={p.about_text} className="p-about-rich-text" />
-                </div>
-                <div className="p-about-tech-field" aria-label="Technical skills">
-                  <div className="p-about-tech-glow" />
-                  {[
-                    ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg','#E55025'],
-                    ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg','#1572B6'],
-                    ['Bootstrap','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/bootstrap5.svg','#7952B3'],
-                    ['JavaScript','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/javascript.svg','#F7DF1E'],
-                    ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg','#0769AD'],
-                    ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg','#777BB4'],
-                    ['MySQL','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/mysql.svg','#4479A1'],
-                    ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg','#68A063'],
-                    ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg','#61DAFB'],
-                    ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg','#3DDC84'],
-                    ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg','#54C5F8'],
-                  ].map(([name, level, icon, color], i) => (
-                    <motion.div
-                      className="p-about-tech-card"
-                      key={name}
-                      style={{ '--tech-color': color }}
-                      initial={{ opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
-                      whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
-                      viewport={{ once: true, amount: 0.18 }}
-                      transition={{ delay: i * .11, duration: .8, type: 'spring', stiffness: 90, damping: 14 }}
-                      whileHover={{ y: -16, scale: 1.08, rotateX: -8, rotateY: i % 2 ? 9 : -9, z: 45 }}
-                    >
-                      <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
-                      <strong>{name}</strong>
-                      <small>{level}</small>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            </div>
-          </div>
+          <AboutScrollScene
+            aboutText={p.about_text}
+            techItems={[
+              ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg','#E55025'],
+              ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg','#1572B6'],
+              ['Bootstrap','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/bootstrap5.svg','#7952B3'],
+              ['JavaScript','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/javascript.svg','#F7DF1E'],
+              ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg','#0769AD'],
+              ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg','#777BB4'],
+              ['MySQL','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/mysql.svg','#4479A1'],
+              ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg','#68A063'],
+              ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg','#61DAFB'],
+              ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg','#3DDC84'],
+              ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg','#54C5F8'],
+            ]}
+          />
         </Section>
 
         <Section id="skills" title="Skills" eyebrow="02 / CAPABILITIES">
