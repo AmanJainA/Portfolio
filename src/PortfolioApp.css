@@ -3282,7 +3282,7 @@ body:has(.portfolio-splash-layer) {
 }
 
 
-/* About copy: justified animated reveal */
+/* About copy: justified, one-by-one scroll reveal */
 .p-about-scrollscene .p-about-rich-text{
   max-width:920px;
   margin:0 auto;
@@ -3290,24 +3290,29 @@ body:has(.portfolio-splash-layer) {
   text-justify:inter-word;
   hyphens:auto;
 }
-.p-about-scrollscene .p-about-rich-text > *{
-  animation:p-about-text-rise .7s cubic-bezier(.22,1,.36,1) both;
+.p-about-scrollscene .p-about-text-block{
+  width:100%;
+  margin:0 0 14px;
+  text-align:justify;
+  text-justify:inter-word;
+  will-change:transform,opacity,filter;
 }
-.p-about-scrollscene .p-about-rich-text > *:nth-child(2){animation-delay:.08s}
-.p-about-scrollscene .p-about-rich-text > *:nth-child(3){animation-delay:.16s}
-.p-about-scrollscene .p-about-rich-text > *:nth-child(4){animation-delay:.24s}
-@keyframes p-about-text-rise{
-  from{opacity:0;transform:translateY(22px);filter:blur(5px)}
-  to{opacity:1;transform:translateY(0);filter:blur(0)}
+.p-about-scrollscene .p-about-text-block:last-child{margin-bottom:0}
+.p-about-scrollscene .p-about-text-block > p{
+  margin:0;
+  text-align:justify;
+  text-justify:inter-word;
 }
 @media(max-width:650px){
-  .p-about-scrollscene .p-about-rich-text{
+  .p-about-scrollscene .p-about-rich-text,
+  .p-about-scrollscene .p-about-text-block,
+  .p-about-scrollscene .p-about-text-block > p{
     text-align:justify;
     text-justify:inter-word;
   }
 }
 @media(prefers-reduced-motion:reduce){
-  .p-about-scrollscene .p-about-rich-text > *{
-    animation:none;
+  .p-about-scrollscene .p-about-text-block{
+    will-change:auto;
   }
 }
