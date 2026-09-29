@@ -75,7 +75,7 @@ function HeroRoleTypewriter() {
   }, [text, deleting, roleIndex]);
 
   return (
-    <div className="p-hero-role-typewriter" aria-label={roles[roleIndex]} role="status">
+    <div className="p-hero-role-typewriter" aria-label={roles[roleIndex]}>
       <span className="p-hero-role-text">{text}</span><span className="p-hero-role-cursor" aria-hidden="true" />
     </div>
   );
