@@ -345,6 +345,7 @@ export default function PortfolioApp() {
   const [theme, setTheme] = useState(() => window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
   const [activeSection, setActiveSection] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
+  const [contactMapOpen, setContactMapOpen] = useState(false);
 
   const enterPortfolio = () => {
     setShowSplash(false);
@@ -776,19 +777,44 @@ export default function PortfolioApp() {
                     <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span>
                   </motion.a>}
                   {(p.address || p.location) && (
-                    <motion.a
+                    <motion.button
+                      type="button"
                       className="p-contact-card p-contact-card-motion p-contact-address-trigger"
-                      href="https://www.google.com/maps/search/?api=1&query=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624"
-                      target="_blank"
-                      rel="noreferrer"
+                      onClick={() => setContactMapOpen((open) => !open)}
                       whileHover={{ x: 5 }}
                       transition={{ duration: .25 }}
-                      aria-label="Open address in Google Maps"
+                      aria-expanded={contactMapOpen}
+                      aria-controls="contact-location-map"
                     >
                       <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-location-dot" /></span>
-                      <span><small>Address · Open in Google Maps</small><strong>{p.address || p.location}</strong></span>
-                      <i className="fa-solid fa-arrow-up-right-from-square p-contact-address-arrow" aria-hidden="true" />
-                    </motion.a>
+                      <span><small>Address · {contactMapOpen ? 'Hide Map' : 'View Map'}</small><strong>{p.address || p.location}</strong></span>
+                      <i className={`fa-solid fa-chevron-${contactMapOpen ? 'up' : 'down'} p-contact-address-arrow`} aria-hidden="true" />
+                    </motion.button>
+                    <motion.div
+                      id="contact-location-map"
+                      className="p-contact-map-panel"
+                      initial={false}
+                      animate={{ height: contactMapOpen ? '320px' : 0, opacity: contactMapOpen ? 1 : 0, y: contactMapOpen ? 0 : -10 }}
+                      transition={{ duration: .5, ease: [0.22, 1, 0.36, 1] }}
+                      aria-hidden={!contactMapOpen}
+                    >
+                      <div className="p-contact-map-frame">
+                        <iframe
+                          title="Bijainagar, Ajmer location map"
+                          src="https://www.google.com/maps?q=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624&output=embed"
+                          loading="lazy"
+                          referrerPolicy="no-referrer-when-downgrade"
+                        />
+                        <a
+                          className="p-contact-map-open"
+                          href="https://www.google.com/maps/search/?api=1&query=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Open in Google Maps <i className="fa-solid fa-arrow-up-right-from-square" />
+                        </a>
+                      </div>
+                    </motion.div>
                   )}
                 </div>
               </motion.div>
