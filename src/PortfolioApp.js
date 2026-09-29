@@ -605,24 +605,55 @@ export default function PortfolioApp() {
         </Section>
 
         <Section id="skills" title="Skills" eyebrow="02 / CAPABILITIES">
-          <div className="p-box-grid">
-            {boxes.map((s, i) => <motion.article className="p-glass p-skill-box" key={s.id} initial={{ opacity: 0, y: 22 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }} whileHover={{ y: -6 }}>
-              <i className={s.icon_class || 'fa-solid fa-code'} />
-              <h3>{s.name}</h3><p>{s.description}</p>
-            </motion.article>)}
-          </div>
-          <div className="p-skill-columns">
-            <motion.div className="p-glass p-skill-panel" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: .55 }}>
-              <h3>Technical Skills</h3>
-              {technical.map((s) => <div className="p-progress" key={s.id}>
-                <div><span>{s.name}</span><b><AnimatedNumber value={s.percent} />%</b></div>
-                <span className="p-track"><motion.span initial={{ width: 0 }} whileInView={{ width: s.percent + '%' }} viewport={{ once: true, amount: 0.45 }} transition={{ duration: .95, ease: [0.22, 1, 0.36, 1] }} /></span>
-              </div>)}
+          <div className="p-skills-motion-scene">
+            <div className="p-skills-grid-bg" aria-hidden="true" />
+            <div className="p-skills-scanline" aria-hidden="true" />
+            <div className="p-skills-hud" aria-hidden="true">
+              <span><i className="fa-solid fa-terminal" /> SKILLS://STACK</span>
+              <span><i /> SYSTEM_READY</span>
+            </div>
+            <motion.div className="p-skills-intro" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .25 }} transition={{ duration: .7 }}>
+              <span className="p-skills-kicker">DEVELOPER PROFILE</span>
+              <h3>Tools, technologies &amp; professional capabilities</h3>
+              <p>Every skill below is kept from your current portfolio data and presented as a clear capability — technical depth on the left, professional strengths on the right.</p>
             </motion.div>
-            <motion.div className="p-glass p-skill-panel" initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: .55, delay: .08 }}>
-              <h3>Professional Skills</h3>
-              <div className="p-ring-grid">{professional.map((s) => <ProfessionalRing key={s.id} skill={s} />)}</div>
-            </motion.div>
+            <div className="p-box-grid p-skills-capability-grid">
+              {boxes.map((skill, i) => (
+                <motion.article className="p-glass p-skill-box p-skill-capability-card" key={skill.id}
+                  initial={{ opacity: 0, y: 45, rotateX: 18, scale: .94 }}
+                  whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+                  viewport={{ once: true, amount: .2 }}
+                  transition={{ delay: i * .07, duration: .7, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -9, rotateX: -2, scale: 1.018 }}>
+                  <span className="p-skill-card-index">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="p-skill-card-icon"><i className={skill.icon_class || 'fa-solid fa-code'} /></span>
+                  <div className="p-skill-card-copy"><h3>{skill.name}</h3><p>{skill.description}</p></div>
+                  <span className="p-skill-card-corner" aria-hidden="true" />
+                </motion.article>
+              ))}
+            </div>
+            <div className="p-skill-columns p-skills-data-grid">
+              <motion.div className="p-glass p-skill-panel p-skills-terminal" initial={{ opacity: 0, x: -45 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .75, ease: [0.22, 1, 0.36, 1] }}>
+                <div className="p-skills-panel-head">
+                  <div><span className="p-terminal-dots"><i /><i /><i /></span><h3>Technical Skills</h3></div><code>skills.tech</code>
+                </div>
+                <div className="p-skills-tech-list">
+                  {technical.map((skill, i) => (
+                    <motion.div className="p-progress p-skills-progress" key={skill.id}
+                      initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ delay: i * .055, duration: .45 }}>
+                      <div><span><b className="p-skill-row-no">{String(i + 1).padStart(2, '0')}</b>{skill.name}</span><b><AnimatedNumber value={skill.percent} />%</b></div>
+                      <span className="p-track"><motion.span initial={{ width: 0 }} whileInView={{ width: skill.percent + '%' }} viewport={{ once: true, amount: .45 }} transition={{ duration: 1, delay: i * .035, ease: [0.22, 1, 0.36, 1] }} /></span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+              <motion.div className="p-glass p-skill-panel p-skills-terminal p-skills-professional" initial={{ opacity: 0, x: 45 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .75, delay: .08, ease: [0.22, 1, 0.36, 1] }}>
+                <div className="p-skills-panel-head">
+                  <div><span className="p-terminal-dots"><i /><i /><i /></span><h3>Professional Skills</h3></div><code>skills.pro</code>
+                </div>
+                <div className="p-ring-grid">{professional.map((skill) => <ProfessionalRing key={skill.id} skill={skill} />)}</div>
+              </motion.div>
+            </div>
           </div>
         </Section>
 
