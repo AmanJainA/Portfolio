@@ -208,11 +208,26 @@ function Section({ id, title, eyebrow, children }) {
   return (
     <section id={id} className="p-section">
       <div className="p-container">
-        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.55 }}>
+        <motion.div
+          className="p-section-heading-motion"
+          initial={{ opacity: 0, y: 28, scale: 0.985 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.18 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+        >
           <span className="p-eyebrow">{eyebrow}</span>
           <h2 className="p-title">{title}</h2>
         </motion.div>
-        {children}
+
+        <motion.div
+          className="p-section-scroll-motion"
+          initial={{ opacity: 0, y: 42, scale: 0.975 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: false, amount: 0.08 }}
+          transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {children}
+        </motion.div>
       </div>
     </section>
   );
