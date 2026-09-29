@@ -75,9 +75,9 @@ function HeroRoleTypewriter() {
   }, [text, deleting, roleIndex]);
 
   return (
-    <h3 className="p-hero-role-typewriter" aria-label={roles[roleIndex]}>
-      <span>{text}</span><span className="p-hero-role-cursor" aria-hidden="true" />
-    </h3>
+    <div className="p-hero-role-typewriter" aria-label={roles[roleIndex]} role="status">
+      <span className="p-hero-role-text">{text}</span><span className="p-hero-role-cursor" aria-hidden="true" />
+    </div>
   );
 }
 
