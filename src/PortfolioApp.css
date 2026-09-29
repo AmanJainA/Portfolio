@@ -1601,13 +1601,13 @@ body:has(.portfolio-splash-layer) {
     display: grid;
     grid-template-columns: 26px minmax(0, 1fr);
   }
+  /* On mobile, show each section title immediately before its own cards. */
   .p-journey-head {
-    grid-column: 1 / -1;
-    grid-row: 1;
+    display: none;
   }
   .p-journey-line {
     grid-column: 1;
-    grid-row: 2 / span 8;
+    grid-row: 1 / span 10;
   }
   .p-journey-row {
     display: contents;
@@ -1655,6 +1655,28 @@ body:has(.portfolio-splash-layer) {
   .p-journey-card,
   .p-journey-card::before {
     z-index: 10;
+  }
+
+  /* Section labels: Education heading -> all education cards ->
+     Work Experience heading -> all experience cards. */
+  .p-journey-row:nth-of-type(3) .p-journey-education::before {
+    content: "Education";
+    display: block;
+    margin: 2px 0 14px;
+    color: var(--p-text);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -.01em;
+  }
+
+  .p-journey-row:nth-of-type(3) .p-journey-experience::before {
+    content: "Work Experience";
+    display: block;
+    margin: 12px 0 14px;
+    color: var(--p-text);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -.01em;
   }
 
   /* Each education card is shown first, in database order. */
