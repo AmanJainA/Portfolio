@@ -2853,3 +2853,91 @@ body:has(.portfolio-splash-layer) {
 @media(prefers-reduced-motion:reduce){
   .p-hero-float-icon{animation:none}
 }
+
+
+/* ===== Mobile hero: compact profile beside the intro ===== */
+@media (max-width: 650px) {
+  .p-hero-grid {
+    grid-template-columns: minmax(0, 1fr) 112px;
+    align-items: start;
+    gap: 10px;
+  }
+
+  .p-hero-grid > div:first-child {
+    min-width: 0;
+  }
+
+  .p-hero-grid .p-hero-visual {
+    grid-column: 2;
+    grid-row: 1;
+    min-height: 150px;
+    height: 150px;
+    margin-top: 34px;
+    overflow: visible;
+  }
+
+  .p-hero-grid .p-profile-card {
+    width: 112px;
+    max-width: 112px;
+    aspect-ratio: 1;
+  }
+
+  .p-hero-grid .p-profile-card.p-profile-mascot .p-profile-mascot-inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  .p-hero-grid .p-profile-card.p-profile-mascot img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .p-hero-grid .p-profile-badge {
+    display: none;
+  }
+
+  .p-hero-grid .p-mascot-wave {
+    display: none;
+  }
+
+  .p-hero-grid .p-hero-icon-cloud {
+    inset: -28px -36px;
+    transform: scale(.58);
+    transform-origin: center;
+  }
+
+  .p-hero-grid .p-hero-tech-grid {
+    width: 170px;
+    height: 170px;
+    background-size: 16px 16px;
+  }
+
+  .p-hero-grid .p-orbit-one {
+    width: 190px;
+    height: 190px;
+  }
+
+  .p-hero-grid .p-orbit-two {
+    width: 145px;
+    height: 145px;
+  }
+
+  .p-hero-grid .p-hero-node {
+    transform: scale(.7);
+  }
+
+  .p-hero h1 {
+    font-size: clamp(2.55rem, 11vw, 3.35rem);
+    line-height: .98;
+    margin-top: 14px;
+  }
+
+  .p-hero-role-typewriter {
+    font-size: 1.05rem;
+  }
+
+  .p-hero-rich-text {
+    font-size: .92rem;
+    line-height: 1.65;
+  }
+}
