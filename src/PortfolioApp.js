@@ -38,24 +38,40 @@ function AnimatedAboutText({ html }) {
   const blocks = useMemo(() => {
     if (!safe) return [];
     const doc = new DOMParser().parseFromString(safe, 'text/html');
-    return Array.from(doc.body.childNodes).map((node, index) => {
-      if (node.nodeType === Node.TEXT_NODE) return { html: node.textContent || '', key: 'text-' + index };
-      return { html: node.outerHTML, key: 'block-' + index };
-    }).filter((block) => block.html.trim());
+    return Array.from(doc.body.childNodes)
+      .map((node, index) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          return { html: node.textContent || '', key: 'text-' + index };
+        }
+        return { html: node.outerHTML, key: 'block-' + index };
+      })
+      .filter((block) => block.html.trim());
   }, [safe]);
 
   return (
-    <div className="p-about-rich-text">
+    <div className="p-about-rich-text" aria-label="About Aman Jain">
+      <div className="p-about-story-line" aria-hidden="true" />
       {blocks.map((block, index) => (
-        <motion.div
+        <motion.article
           key={block.key}
           className="p-about-text-block"
-          initial={{ opacity: 0, y: 34, filter: 'blur(7px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.72, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-          dangerouslySetInnerHTML={{ __html: block.html }}
-        />
+          initial={{ opacity: 0, y: 48, x: index % 2 ? 18 : -18, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, x: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, amount: 0.38 }}
+          transition={{ duration: 0.78, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <span className="p-about-point-index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <span className="p-about-point-marker" aria-hidden="true">
+            <i className="fa-solid fa-code" />
+          </span>
+          <div
+            className="p-about-point-content"
+            dangerouslySetInnerHTML={{ __html: block.html }}
+          />
+          <span className="p-about-point-corner" aria-hidden="true" />
+        </motion.article>
       ))}
     </div>
   );
