@@ -2958,3 +2958,19 @@ body:has(.portfolio-splash-layer) {
     .p-hero-grid .p-hero-icon-cloud { animation: none; }
   }
 }
+
+/* ===== Mobile hero CTA buttons: keep both buttons in one row ===== */
+@media (max-width: 650px) {
+  .p-hero-grid .p-hero-actions {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .p-hero-grid .p-hero-actions > * {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: nowrap;
+  }
+}
