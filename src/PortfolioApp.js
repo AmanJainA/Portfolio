@@ -816,7 +816,6 @@ export default function PortfolioApp() {
                               <div className="p-contact-map-modal-head">
                                 <div>
                                   <small>LOCATION://MAP</small>
-                                  <strong>{p.address || p.location}</strong>
                                 </div>
                                 <button type="button" className="p-contact-map-close" onClick={() => setContactMapOpen(false)} aria-label="Close map">
                                   <i className="fa-solid fa-xmark" />
@@ -826,13 +825,13 @@ export default function PortfolioApp() {
                                 <div className="p-contact-map-scanline" aria-hidden="true" />
                                 <iframe
                                   title="Bijainagar, Ajmer location map"
-                                  src="https://www.google.com/maps?q=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624&output=embed"
+                                  src="https://www.google.com/maps?q=Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624&output=embed"
                                   loading="lazy"
                                   referrerPolicy="no-referrer-when-downgrade"
                                 />
                                 <a
                                   className="p-contact-map-open"
-                                  href="https://www.google.com/maps/search/?api=1&query=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624"
+                                  href="https://www.google.com/maps/search/?api=1&query=Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624"
                                   target="_blank"
                                   rel="noreferrer"
                                 >
