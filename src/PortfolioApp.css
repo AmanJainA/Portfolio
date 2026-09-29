@@ -3436,3 +3436,27 @@ body:has(.portfolio-splash-layer) {
  .p-journey-scanline,.p-journey-dot span{animation:none}
  .p-journey-card{transition:none}
 }
+
+/* Restore mobile timeline bullets above motion-card overlay styling. */
+@media (max-width: 800px) {
+  .p-journey-card::before {
+    content: "";
+    position: absolute;
+    inset: auto;
+    left: -38px;
+    top: 23px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--p-bg);
+    border: 2px solid var(--p-accent);
+    box-shadow:
+      0 0 0 4px color-mix(in srgb,var(--p-accent) 12%,transparent),
+      0 0 16px color-mix(in srgb,var(--p-accent) 45%,transparent);
+    z-index: 20;
+    pointer-events: none;
+  }
+  .p-journey-line {
+    z-index: 1;
+  }
+}
