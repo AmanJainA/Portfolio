@@ -2858,9 +2858,9 @@ body:has(.portfolio-splash-layer) {
 /* ===== Mobile hero: compact profile beside the intro ===== */
 @media (max-width: 650px) {
   .p-hero-grid {
-    grid-template-columns: minmax(0, 1fr) 112px;
+    grid-template-columns: 1fr;
     align-items: start;
-    gap: 10px;
+    gap: 18px;
   }
 
   .p-hero-grid > div:first-child {
@@ -2868,17 +2868,18 @@ body:has(.portfolio-splash-layer) {
   }
 
   .p-hero-grid .p-hero-visual {
-    grid-column: 2;
-    grid-row: 1;
-    min-height: 150px;
-    height: 150px;
-    margin-top: 34px;
+    grid-column: 1;
+    grid-row: 2;
+    min-height: 235px;
+    height: 235px;
+    margin-top: 0;
     overflow: visible;
+    order: 2;
   }
 
   .p-hero-grid .p-profile-card {
-    width: 112px;
-    max-width: 112px;
+    width: 150px;
+    max-width: 150px;
     aspect-ratio: 1;
   }
 
@@ -2901,9 +2902,34 @@ body:has(.portfolio-splash-layer) {
   }
 
   .p-hero-grid .p-hero-icon-cloud {
-    inset: -28px -36px;
-    transform: scale(.58);
+    inset: 0;
+    transform: none;
     transform-origin: center;
+    animation: p-mobile-icon-orbit 18s linear infinite;
+  }
+
+  .p-hero-grid .p-hero-float-icon {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+  }
+
+  .p-hero-grid .p-hero-float-icon i {
+    font-size: .7rem;
+  }
+
+  .p-hero-grid .p-hero-float-icon.icon-coding { --orbit-x: -105px; --orbit-y: -78px; }
+  .p-hero-grid .p-hero-float-icon.icon-analytics { --orbit-x: 105px; --orbit-y: -78px; }
+  .p-hero-grid .p-hero-float-icon.icon-business { --orbit-x: -125px; --orbit-y: 0; }
+  .p-hero-grid .p-hero-float-icon.icon-consulting { --orbit-x: 125px; --orbit-y: 0; }
+  .p-hero-grid .p-hero-float-icon.icon-developer { --orbit-x: -105px; --orbit-y: 78px; }
+  .p-hero-grid .p-hero-float-icon.icon-relations { --orbit-x: 105px; --orbit-y: 78px; }
+  .p-hero-grid .p-hero-float-icon.icon-railway { --orbit-x: -48px; --orbit-y: -112px; }
+  .p-hero-grid .p-hero-float-icon.icon-integration { --orbit-x: 48px; --orbit-y: 112px; }
+
+  @keyframes p-mobile-icon-orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
   .p-hero-grid .p-hero-tech-grid {
