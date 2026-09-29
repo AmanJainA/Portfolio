@@ -715,7 +715,6 @@ export default function PortfolioApp() {
               <div className="p-journey-head">
                 <motion.h3 initial={{ opacity: 0, x: -25 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: .3 }} transition={{ duration: .55 }}>Education</motion.h3>
-                <span className="p-journey-head-core" aria-hidden="true"><i className="fa-solid fa-code" /></span>
                 <motion.h3 initial={{ opacity: 0, x: 25 }} whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: .3 }} transition={{ duration: .55 }}>Work Experience</motion.h3>
               </div>
@@ -742,7 +741,7 @@ export default function PortfolioApp() {
                       <span />
                     </motion.div>
                     <div className="p-journey-side p-journey-experience">
-                      {experience && <motion.article className="p-journey-card p-journey-card-right"
+                      {experience && <motion.article className="p-journey-card p-journey-card-right mb-2"
                         initial={{ opacity: 0, x: 45, rotateY: -6, scale: .96 }}
                         whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
                         viewport={{ once: true, amount: .25 }}
