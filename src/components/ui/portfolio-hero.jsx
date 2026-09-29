@@ -49,10 +49,36 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
   const displayName = String(name || 'Aman Jain').trim() || 'Aman Jain';
   const [firstName, ...rest] = displayName.split(/\s+/);
   const lastName = rest.join(' ') || firstName;
+  const splashRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    let frame = 0;
+    const updateSplashMotion = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const element = splashRef.current;
+        if (!element) return;
+        const height = Math.max(element.offsetHeight, window.innerHeight);
+        const progress = Math.min(Math.max(-element.getBoundingClientRect().top / height, 0), 1);
+        setScrollProgress(progress);
+      });
+    };
+    updateSplashMotion();
+    window.addEventListener('scroll', updateSplashMotion, { passive: true });
+    window.addEventListener('resize', updateSplashMotion);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', updateSplashMotion);
+      window.removeEventListener('resize', updateSplashMotion);
+    };
+  }, []);
 
   return (
     <section
+      ref={splashRef}
       className="portfolio-splash"
+      style={{ '--splash-scroll': scrollProgress }}
       aria-label="Portfolio introduction"
       role="button"
       tabIndex={0}
