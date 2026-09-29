@@ -3057,3 +3057,30 @@ body:has(.portfolio-splash-layer) {
     z-index:2;
   }
 }
+
+/* ===== Mobile hero: intro text and actions above orbit/icons ===== */
+@media (max-width: 650px) {
+  .p-hero .p-container.p-hero-grid {
+    position: relative;
+    z-index: 1;
+  }
+
+  .p-hero .p-container.p-hero-grid > div:first-child {
+    position: relative;
+    z-index: 10;
+  }
+
+  .p-hero .p-container.p-hero-grid .p-hero-rich-text {
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .p-hero .p-container.p-hero-grid .p-actions {
+    position: relative;
+    z-index: 21;
+    width: 100%;
+    max-width: 100%;
+  }
+}
