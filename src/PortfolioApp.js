@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useInView } from 'motion/react';
+import { motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
 import PortfolioHero from './components/ui/portfolio-hero';
 import { db, supabase } from './supabase';
 import './PortfolioApp.css';
@@ -205,15 +205,29 @@ function ProjectSection({ projects }) {
 }
 
 function Section({ id, title, eyebrow, children }) {
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 90,
+    damping: 24,
+    mass: 0.45,
+  });
+  const headingY = useTransform(smoothProgress, [0, 0.5, 1], [42, 0, -24]);
+  const contentY = useTransform(smoothProgress, [0, 0.5, 1], [58, 0, -34]);
+  const headingScale = useTransform(smoothProgress, [0, 0.5, 1], [0.94, 1, 1.02]);
+  const contentScale = useTransform(smoothProgress, [0, 0.5, 1], [0.97, 1, 1.015]);
+  const headingOpacity = useTransform(smoothProgress, [0, 0.18, 0.82, 1], [0, 1, 1, 0.86]);
+  const contentOpacity = useTransform(smoothProgress, [0, 0.16, 0.84, 1], [0.15, 1, 1, 0.9]);
+
   return (
-    <section id={id} className="p-section">
+    <section id={id} ref={sectionRef} className="p-section">
       <div className="p-container">
         <motion.div
           className="p-section-heading-motion"
-          initial={{ opacity: 0, y: 28, scale: 0.985 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.18 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          style={{ y: headingY, scale: headingScale, opacity: headingOpacity }}
         >
           <span className="p-eyebrow">{eyebrow}</span>
           <h2 className="p-title">{title}</h2>
@@ -221,10 +235,7 @@ function Section({ id, title, eyebrow, children }) {
 
         <motion.div
           className="p-section-scroll-motion"
-          initial={{ opacity: 0, y: 42, scale: 0.975 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: false, amount: 0.08 }}
-          transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          style={{ y: contentY, scale: contentScale, opacity: contentOpacity }}
         >
           {children}
         </motion.div>
