@@ -262,7 +262,7 @@ export default function PortfolioApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('portfolio_theme') || 'dark');
   const [activeSection, setActiveSection] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
-  const [heroRoleCycle, setHeroRoleCycle] = useState(0);
+  const [heroRoleCycle, setHeroRoleCycle] = useState(-1);
 
   const enterPortfolio = () => {
     setShowSplash(false);
@@ -476,7 +476,7 @@ export default function PortfolioApp() {
                 </a>
               </div>
             </motion.div>
-            <motion.div key={heroRoleCycle} className="p-hero-visual" initial={{ opacity: 0, x: 90, scale: 0.96 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
+            <motion.div key={heroRoleCycle} className="p-hero-visual" initial={heroRoleCycle < 0 ? false : { opacity: 0, x: 90, scale: 0.96 }} animate={{ opacity: 1, x: 0, scale: 1 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
               <div className="p-hero-tech-grid" aria-hidden="true" />
               <div className="p-hero-code code-one" aria-hidden="true">&lt;code /&gt;</div>
               <div className="p-hero-code code-two" aria-hidden="true">01 / 10 / 01</div>
