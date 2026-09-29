@@ -2755,7 +2755,7 @@ body:has(.portfolio-splash-layer) {
   line-height:1.1;
 }
 
-/* ===== Hero face tracking + entrance choreography ===== */
+/* ===== Hero face tracking + role-synced entrance ===== */
 .p-hero-visual{
   will-change:transform,opacity;
 }
@@ -2763,43 +2763,28 @@ body:has(.portfolio-splash-layer) {
   --mouse-x:0;
   --mouse-y:0;
 }
-.p-profile-face-follow{
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  overflow:hidden;
-  clip-path:ellipse(26% 23% at 50% 34%);
-  opacity:0;
-  transition:opacity .3s ease;
-}
-.p-profile-face-follow img{
-  position:absolute!important;
-  inset:0;
-  width:100%!important;
-  height:100%!important;
-  object-fit:contain;
-  transform:translate3d(calc(var(--mouse-x,0) * 18px),calc(var(--mouse-y,0) * 12px),0) scale(1.02)!important;
-  transform-origin:50% 34%;
-  filter:drop-shadow(0 5px 12px rgba(0,0,0,.12))!important;
-  transition:transform .12s cubic-bezier(.2,.8,.2,1);
-}
-.p-profile-card.p-profile-mascot.is-looking .p-profile-face-follow{
-  opacity:.92;
-}
-.p-profile-card.p-profile-mascot.is-looking .p-profile-face-follow img{
-  transition-duration:.08s;
-}
 @media(max-width:650px){
   .p-profile-face-follow{
-    clip-path:ellipse(29% 24% at 50% 34%);
+    clip-path:ellipse(30% 25% at 50% 34%);
   }
   .p-profile-face-follow img{
-    transform:translate3d(calc(var(--mouse-x,0) * 11px),calc(var(--mouse-y,0) * 8px),0) scale(1.015)!important;
+    transform:translate3d(calc(var(--mouse-x, 0) * 10px),calc(var(--mouse-y, 0) * 7px),0) scale(1.012)!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .p-hero-visual{
+    transform:none!important;
+    opacity:1!important;
+  }
+  .p-profile-face-follow{
+    opacity:0!important;
   }
 }
 
-/* Left-side copy enters sequentially on first Hero/Home reveal. */
+/* Stagger the hero copy so the left side builds line by line. */
+.p-hero-grid>div:first-child{
+  animation:p-hero-copy-in .75s cubic-bezier(.22,1,.36,1) both;
+}
 .p-hero-grid>div:first-child .p-eyebrow,
 .p-hero-grid>div:first-child h1,
 .p-hero-grid>div:first-child .p-hero-role-typewriter,
@@ -2807,27 +2792,24 @@ body:has(.portfolio-splash-layer) {
 .p-hero-grid>div:first-child .p-actions,
 .p-hero-grid>div:first-child .p-socials{
   opacity:0;
-  animation:p-hero-copy-item .72s cubic-bezier(.22,1,.36,1) both;
+  animation:p-hero-copy-item .7s cubic-bezier(.22,1,.36,1) both;
 }
 .p-hero-grid>div:first-child .p-eyebrow{animation-delay:.08s}
-.p-hero-grid>div:first-child h1{animation-delay:.2s}
-.p-hero-grid>div:first-child .p-hero-role-typewriter{animation-delay:.32s}
-.p-hero-grid>div:first-child .p-hero-rich-text{animation-delay:.46s}
-.p-hero-grid>div:first-child .p-actions{animation-delay:.6s}
-.p-hero-grid>div:first-child .p-socials{animation-delay:.74s}
-@keyframes p-hero-copy-item{
-  from{opacity:0;transform:translate3d(-30px,10px,0)}
+.p-hero-grid>div:first-child h1{animation-delay:.18s}
+.p-hero-grid>div:first-child .p-hero-role-typewriter{animation-delay:.3s}
+.p-hero-grid>div:first-child .p-hero-rich-text{animation-delay:.42s}
+.p-hero-grid>div:first-child .p-actions{animation-delay:.54s}
+.p-hero-grid>div:first-child .p-socials{animation-delay:.66s}
+@keyframes p-hero-copy-in{
+  from{opacity:0;transform:translate3d(-18px,0,0)}
   to{opacity:1;transform:translate3d(0,0,0)}
 }
-
+@keyframes p-hero-copy-item{
+  from{opacity:0;transform:translate3d(-22px,12px,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
 @media(prefers-reduced-motion:reduce){
-  .p-profile-face-follow{
-    opacity:0!important;
-    transition:none!important;
-  }
-  .p-profile-face-follow img{
-    transition:none!important;
-  }
+  .p-hero-grid>div:first-child,
   .p-hero-grid>div:first-child .p-eyebrow,
   .p-hero-grid>div:first-child h1,
   .p-hero-grid>div:first-child .p-hero-role-typewriter,
