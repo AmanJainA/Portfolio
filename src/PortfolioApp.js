@@ -255,6 +255,7 @@ export default function PortfolioApp() {
   const [theme, setTheme] = useState(() => localStorage.getItem('portfolio_theme') || 'dark');
   const [activeSection, setActiveSection] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
+  const [heroRoleCycle, setHeroRoleCycle] = useState(0);
 
   const enterPortfolio = () => {
     setShowSplash(false);
