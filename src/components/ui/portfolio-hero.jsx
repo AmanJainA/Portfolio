@@ -99,32 +99,7 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
         <div className="portfolio-splash-node portfolio-splash-node-two" />
         <div className="portfolio-splash-node portfolio-splash-node-three" />
         <div className="portfolio-splash-scanlines" />
-        <div className="portfolio-splash-code-stream portfolio-splash-code-stream-one">
-          <span>01</span><span>10</span><span>&lt;/&gt;</span><span>JS</span><span>101</span><span>API</span>
         </div>
-        <div className="portfolio-splash-code-stream portfolio-splash-code-stream-two">
-          <span>PHP</span><span>SQL</span><span>&#123; &#125;</span><span>010</span><span>NODE</span>
-        </div>
-        <div className="portfolio-splash-architecture">
-          <span className="portfolio-splash-architecture-line" />
-          <span className="portfolio-splash-architecture-line" />
-          <span className="portfolio-splash-architecture-line" />
-        </div>
-      </div>
-
-      <div className="portfolio-splash-marquee portfolio-splash-marquee-top" aria-hidden="true">
-        <div className="portfolio-splash-marquee-track">
-          <span>FULL STACK</span><b>•</b><span>DATA</span><b>•</b><span>SYSTEMS</span><b>•</b><span>DIGITAL</span><b>•</b>
-          <span>FULL STACK</span><b>•</b><span>DATA</span><b>•</b><span>SYSTEMS</span><b>•</b><span>DIGITAL</span><b>•</b>
-        </div>
-      </div>
-
-      <div className="portfolio-splash-marquee portfolio-splash-marquee-bottom" aria-hidden="true">
-        <div className="portfolio-splash-marquee-track">
-          <span>INFORMATION TECHNOLOGY</span><b>•</b><span>CODE / BUILD / ANALYZE</span><b>•</b>
-          <span>INFORMATION TECHNOLOGY</span><b>•</b><span>CODE / BUILD / ANALYZE</span><b>•</b>
-        </div>
-      </div>
 
       <div className="portfolio-splash-system portfolio-splash-system-left" aria-hidden="true">
         <span>SYS://PORTFOLIO</span>
