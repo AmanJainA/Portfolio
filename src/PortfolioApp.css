@@ -2777,6 +2777,24 @@ body:has(.portfolio-splash-layer) {
   .p-profile-card.p-profile-mascot .p-profile-badge span{animation:none}
 }
 
+/* ===== Hero capability icons: theme-aware cards ===== */
+.p-hero-float-icon{
+  background:rgba(7,17,31,.72);
+  border-color:rgba(255,255,255,.14);
+  box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 20px rgba(103,232,249,.08);
+}
+.p-hero-float-icon small{
+  background:rgba(7,17,31,.78);
+}
+[data-portfolio-theme="light"] .p-hero-float-icon{
+  background:rgba(255,250,240,.94);
+  border-color:rgba(22,32,51,.13);
+  box-shadow:0 12px 28px rgba(22,32,51,.14),0 0 20px rgba(37,99,235,.08);
+}
+[data-portfolio-theme="light"] .p-hero-float-icon small{
+  background:rgba(255,250,240,.96);
+  color:#61708a;
+}
 /* ===== Hero portfolio capability icons ===== */
 .p-hero-icon-cloud{
   position:absolute;
