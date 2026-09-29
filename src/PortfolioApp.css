@@ -1672,7 +1672,7 @@ body:has(.portfolio-splash-layer) {
   .p-journey-row:nth-of-type(3) .p-journey-experience::before {
     content: "Work Experience";
     display: block;
-    margin: 8px 0 8px;
+    margin: 2px 0 8px;
     color: var(--p-text);
     font-size: 1.05rem;
     font-weight: 800;
