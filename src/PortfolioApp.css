@@ -3057,39 +3057,3 @@ body:has(.portfolio-splash-layer) {
     z-index:2;
   }
 }
-
-/* ===== Mobile hero: full-width content layer above visual ===== */
-@media (max-width: 650px) {
-  .p-hero .p-container.p-hero-grid {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    z-index: 1;
-  }
-
-  .p-hero .p-container.p-hero-grid > div:first-child {
-    position: relative;
-    width: 100%;
-    min-width: 0;
-    z-index: 10;
-  }
-
-  .p-hero .p-hero-rich-text {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    z-index: 11;
-  }
-
-  .p-hero .p-actions {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    z-index: 12;
-  }
-
-  .p-hero .p-hero-visual {
-    position: relative;
-    z-index: 2;
-  }
-}
