@@ -1,47 +1,41 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import './portfolio-splash.css';
 
-function BlurText({ text, delay = 100, animateBy = 'letters', direction = 'top', className = '', style }) {
-  const [inView, setInView] = useState(false);
+function RevealText({ text, delay = 80, className = '', direction = 'top' }) {
+  const [visible, setVisible] = useState(false);
   const ref = useRef(null);
+  const letters = useMemo(() => text.split(''), [text]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) setInView(true);
-      },
-      { threshold: 0.1 }
-    );
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setVisible(true);
+    }, { threshold: 0.1 });
 
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
-  const segments = useMemo(
-    () => (animateBy === 'words' ? text.split(' ') : text.split('')),
-    [text, animateBy]
-  );
-
   return (
-    <p ref={ref} className={className} style={style}>
-      {segments.map((segment, index) => (
+    <span ref={ref} className={className} aria-label={text}>
+      {letters.map((letter, index) => (
         <span
-          key={`${segment}-${index}`}
+          key={`${letter}-${index}`}
+          aria-hidden="true"
+          className="portfolio-splash-letter"
           style={{
-            display: 'inline-block',
-            filter: inView ? 'blur(0px)' : 'blur(10px)',
-            opacity: inView ? 1 : 0,
-            transform: inView
-              ? 'translateY(0)'
-              : `translateY(${direction === 'top' ? '-20px' : '20px'})`,
-            transition: `all .5s ease-out ${index * delay}ms`,
+            transitionDelay: `${index * delay}ms`,
+            opacity: visible ? 1 : 0,
+            filter: visible ? 'blur(0px)' : 'blur(14px)',
+            transform: visible
+              ? 'translate3d(0,0,0) scale(1)'
+              : `translate3d(0,${direction === 'top' ? '-28px' : '28px'},0) scale(.96)`,
           }}
         >
-          {segment}
-          {animateBy === 'words' && index < segments.length - 1 ? '\u00A0' : ''}
+          {letter === ' ' ? '\u00A0' : letter}
         </span>
       ))}
-    </p>
+    </span>
   );
 }
 
@@ -50,72 +44,110 @@ export default function PortfolioHero({ name = 'Aman Jain', imageUrl = '', onScr
   const [firstName, ...rest] = displayName.split(/\s+/);
   const lastName = rest.join(' ') || firstName;
 
+  const enterPortfolio = () => {
+    if (onScrollDown) {
+      onScrollDown();
+      return;
+    }
+    document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section
       className="portfolio-splash"
       aria-label="Portfolio introduction"
       role="button"
       tabIndex={0}
-      onClick={onScrollDown}
+      onClick={enterPortfolio}
       onKeyDown={(event) => {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
-          onScrollDown?.();
+          enterPortfolio();
         }
       }}
     >
-      <div className="portfolio-splash-signature" aria-hidden="true">A</div>
+      <div className="portfolio-splash-backdrop" aria-hidden="true">
+        <div className="portfolio-splash-grid" />
+        <div className="portfolio-splash-scan" />
+        <div className="portfolio-splash-glow portfolio-splash-glow-one" />
+        <div className="portfolio-splash-glow portfolio-splash-glow-two" />
+        <div className="portfolio-splash-circuit portfolio-splash-circuit-one" />
+        <div className="portfolio-splash-circuit portfolio-splash-circuit-two" />
+        <div className="portfolio-splash-orbit portfolio-splash-orbit-one" />
+        <div className="portfolio-splash-orbit portfolio-splash-orbit-two" />
+        <span className="portfolio-splash-node portfolio-splash-node-one" />
+        <span className="portfolio-splash-node portfolio-splash-node-two" />
+        <span className="portfolio-splash-node portfolio-splash-node-three" />
+      </div>
 
-      <div className="portfolio-splash-center">
-        <div className="portfolio-splash-name">
-          <BlurText
-            text={firstName || 'Aman'}
-            delay={90}
-            animateBy="letters"
-            direction="top"
-            className="portfolio-splash-word"
-          />
-          <BlurText
-            text={lastName || ''}
-            delay={90}
-            animateBy="letters"
-            direction="top"
-            className="portfolio-splash-word portfolio-splash-word-outline"
-          />
+      <header className="portfolio-splash-topbar" aria-hidden="true">
+        <span className="portfolio-splash-brand">AJ / DIGITAL SYSTEMS</span>
+        <span className="portfolio-splash-status"><i /> SYSTEM ONLINE</span>
+        <span className="portfolio-splash-index">01 / 01</span>
+      </header>
 
-          {imageUrl && (
-            <div className="portfolio-splash-photo">
-              <img src={imageUrl} alt={displayName} />
-            </div>
-          )}
+      <div className="portfolio-splash-side portfolio-splash-side-left" aria-hidden="true">
+        <span>SOFTWARE</span>
+        <span>DATA</span>
+        <span>CONSULTING</span>
+      </div>
+
+      <main className="portfolio-splash-content">
+        <div className="portfolio-splash-kicker">
+          <span className="portfolio-splash-kicker-line" />
+          <span>INFORMATION TECHNOLOGY / PORTFOLIO</span>
+          <span className="portfolio-splash-kicker-line" />
         </div>
-      </div>
 
-      <div className="portfolio-splash-tagline">
-        <BlurText
-          text="Designing human experiences in code."
-          delay={120}
-          animateBy="words"
-          direction="top"
-          className="portfolio-splash-tagline-text"
-        />
-      </div>
+        <div className="portfolio-splash-name">
+          <RevealText text={firstName || 'Aman'} delay={82} className="portfolio-splash-word portfolio-splash-word-primary" />
+          <RevealText text={lastName || ''} delay={82} className="portfolio-splash-word portfolio-splash-word-outline" />
+        </div>
 
-      <button
-        type="button"
-        className="portfolio-splash-scroll"
-        aria-label="Scroll to portfolio"
-        onClick={(event) => {
-          event.stopPropagation();
-          if (onScrollDown) {
-            onScrollDown();
-            return;
-          }
-          document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-        }}
-      >
-        <ChevronDown />
-      </button>
+        {imageUrl && (
+          <div className="portfolio-splash-photo-wrap">
+            <div className="portfolio-splash-photo-frame">
+              <img src={imageUrl} alt={displayName} className="portfolio-splash-photo" />
+              <span className="portfolio-splash-photo-scan" aria-hidden="true" />
+              <span className="portfolio-splash-photo-corner portfolio-splash-photo-corner-tl">IMG_01</span>
+              <span className="portfolio-splash-photo-corner portfolio-splash-photo-corner-br">AJ</span>
+            </div>
+          </div>
+        )}
+
+        <div className="portfolio-splash-role">
+          <span>&lt;/&gt;</span>
+          <strong>FULL STACK DEVELOPER</strong>
+          <b>×</b>
+          <strong>CONSULTANT &amp; DATA ANALYST</strong>
+        </div>
+
+        <div className="portfolio-splash-system">
+          <span>01</span>
+          <span className="portfolio-splash-system-bar"><i /></span>
+          <span>SOFTWARE / DATA / BUSINESS</span>
+        </div>
+      </main>
+
+      <footer className="portfolio-splash-footer">
+        <p>Building digital systems where technology meets practical problem solving.</p>
+
+        <button
+          type="button"
+          className="portfolio-splash-scroll"
+          aria-label="Enter portfolio"
+          onClick={(event) => {
+            event.stopPropagation();
+            enterPortfolio();
+          }}
+        >
+          <span>ENTER PORTFOLIO</span>
+          <i><ChevronDown /></i>
+        </button>
+      </footer>
+
+      <div className="portfolio-splash-corner portfolio-splash-corner-tl" aria-hidden="true">DIGITAL / 2026</div>
+      <div className="portfolio-splash-corner portfolio-splash-corner-br" aria-hidden="true">SCROLL / CLICK / ENTER</div>
     </section>
   );
 }
