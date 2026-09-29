@@ -2776,3 +2776,80 @@ body:has(.portfolio-splash-layer) {
 @media(prefers-reduced-motion:reduce){
   .p-profile-card.p-profile-mascot .p-profile-badge span{animation:none}
 }
+
+/* ===== Hero portfolio capability icons ===== */
+.p-hero-icon-cloud{
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  perspective:900px;
+}
+.p-hero-float-icon{
+  --orbit-x:0px;
+  --orbit-y:0px;
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:13px;
+  background:rgba(7,17,31,.72);
+  color:var(--p-accent);
+  box-shadow:0 12px 28px rgba(0,0,0,.22),0 0 20px rgba(103,232,249,.08);
+  backdrop-filter:blur(10px);
+  transform:translate3d(calc(-50% + var(--orbit-x)),calc(-50% + var(--orbit-y)),0) rotate(var(--icon-rotate,0deg));
+  animation:p-hero-icon-float 5s ease-in-out infinite;
+  animation-delay:calc(var(--icon-index) * -.45s);
+}
+.p-hero-float-icon i{font-size:.92rem;text-shadow:0 0 12px currentColor}
+.p-hero-float-icon small{
+  position:absolute;
+  top:calc(100% + 7px);
+  left:50%;
+  transform:translateX(-50%);
+  width:max-content;
+  max-width:120px;
+  padding:4px 7px;
+  border-radius:6px;
+  background:rgba(7,17,31,.78);
+  color:var(--p-muted);
+  font-size:.55rem;
+  line-height:1.15;
+  white-space:nowrap;
+  opacity:0;
+  transition:opacity .2s ease;
+}
+.p-hero-float-icon:hover small{opacity:1}
+.p-hero-float-icon.icon-coding{--orbit-x:-225px;--orbit-y:-135px;--icon-rotate:-8deg;color:#67e8f9}
+.p-hero-float-icon.icon-analytics{--orbit-x:225px;--orbit-y:-135px;--icon-rotate:8deg;color:#a78bfa}
+.p-hero-float-icon.icon-business{--orbit-x:-245px;--orbit-y:15px;--icon-rotate:-6deg;color:#fbbf24}
+.p-hero-float-icon.icon-consulting{--orbit-x:245px;--orbit-y:15px;--icon-rotate:6deg;color:#fb7185}
+.p-hero-float-icon.icon-developer{--orbit-x:-205px;--orbit-y:165px;--icon-rotate:-7deg;color:#60a5fa}
+.p-hero-float-icon.icon-relations{--orbit-x:205px;--orbit-y:165px;--icon-rotate:7deg;color:#34d399}
+.p-hero-float-icon.icon-railway{--orbit-x:-65px;--orbit-y:-245px;--icon-rotate:-5deg;color:#22d3ee}
+.p-hero-float-icon.icon-integration{--orbit-x:65px;--orbit-y:245px;--icon-rotate:5deg;color:#c084fc}
+@keyframes p-hero-icon-float{
+  0%,100%{margin-top:0;filter:brightness(.95)}
+  50%{margin-top:-7px;filter:brightness(1.12)}
+}
+@media(max-width:650px){
+  .p-hero-icon-cloud{inset:4% -2%}
+  .p-hero-float-icon{width:34px;height:34px;border-radius:10px}
+  .p-hero-float-icon i{font-size:.76rem}
+  .p-hero-float-icon small{display:none}
+  .p-hero-float-icon.icon-coding{--orbit-x:-135px;--orbit-y:-105px}
+  .p-hero-float-icon.icon-analytics{--orbit-x:135px;--orbit-y:-105px}
+  .p-hero-float-icon.icon-business{--orbit-x:-150px;--orbit-y:5px}
+  .p-hero-float-icon.icon-consulting{--orbit-x:150px;--orbit-y:5px}
+  .p-hero-float-icon.icon-developer{--orbit-x:-125px;--orbit-y:115px}
+  .p-hero-float-icon.icon-relations{--orbit-x:125px;--orbit-y:115px}
+  .p-hero-float-icon.icon-railway{--orbit-x:-45px;--orbit-y:-155px}
+  .p-hero-float-icon.icon-integration{--orbit-x:45px;--orbit-y:155px}
+}
+@media(prefers-reduced-motion:reduce){
+  .p-hero-float-icon{animation:none}
+}
