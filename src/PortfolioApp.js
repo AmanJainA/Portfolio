@@ -33,50 +33,6 @@ function RichText({html,className=''}) {
   return <div className={className} dangerouslySetInnerHTML={{__html:safe || ''}} />;
 }
 
-function AnimatedAboutText({ html }) {
-  const safe = sanitizeRichText(html);
-  const blocks = useMemo(() => {
-    if (!safe) return [];
-    const doc = new DOMParser().parseFromString(safe, 'text/html');
-    return Array.from(doc.body.childNodes)
-      .map((node, index) => {
-        if (node.nodeType === Node.TEXT_NODE) {
-          return { html: node.textContent || '', key: 'text-' + index };
-        }
-        return { html: node.outerHTML, key: 'block-' + index };
-      })
-      .filter((block) => block.html.trim());
-  }, [safe]);
-
-  return (
-    <div className="p-about-rich-text" aria-label="About Aman Jain">
-      <div className="p-about-story-line" aria-hidden="true" />
-      {blocks.map((block, index) => (
-        <motion.article
-          key={block.key}
-          className="p-about-text-block"
-          initial={{ opacity: 0, y: 48, x: index % 2 ? 18 : -18, filter: 'blur(8px)' }}
-          whileInView={{ opacity: 1, y: 0, x: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true, amount: 0.38 }}
-          transition={{ duration: 0.78, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <span className="p-about-point-index" aria-hidden="true">
-            {String(index + 1).padStart(2, '0')}
-          </span>
-          <span className="p-about-point-marker" aria-hidden="true">
-            <i className="fa-solid fa-code" />
-          </span>
-          <div
-            className="p-about-point-content"
-            dangerouslySetInnerHTML={{ __html: block.html }}
-          />
-          <span className="p-about-point-corner" aria-hidden="true" />
-        </motion.article>
-      ))}
-    </div>
-  );
-}
-
 function setFavicon(url) {
   if (!url) return;
   let link = document.querySelector('link[rel="icon"]');
@@ -234,7 +190,7 @@ function AboutScrollScene({ aboutText, techItems }) {
           <div className="p-about-motion-node p-about-motion-node-two" aria-hidden="true" />
           <div className="p-about-copy">
             <span className="p-about-scroll-label">SCROLL TO EXPLORE</span>
-            <AnimatedAboutText html={aboutText} />
+            <RichText html={aboutText} className="p-about-rich-text" />
           </div>
           <motion.div
             className="p-about-tech-field"
