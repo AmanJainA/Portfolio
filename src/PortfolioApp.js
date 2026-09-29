@@ -777,6 +777,7 @@ export default function PortfolioApp() {
                     <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span>
                   </motion.a>}
                   {(p.address || p.location) && (
+                    <>
                     <motion.button
                       type="button"
                       className="p-contact-card p-contact-card-motion p-contact-address-trigger"
@@ -815,6 +816,7 @@ export default function PortfolioApp() {
                         </a>
                       </div>
                     </motion.div>
+                    </>
                   )}
                 </div>
               </motion.div>
