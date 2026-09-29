@@ -3112,3 +3112,171 @@ body:has(.portfolio-splash-layer) {
     z-index: 30;
   }
 }
+
+
+/* ===== About motion-graphics layer ===== */
+.p-about-scrollscene{
+  position:relative;
+}
+.p-about-scroll-progress{
+  position:absolute;
+  top:-18px;
+  left:0;
+  width:100%;
+  height:2px;
+  overflow:hidden;
+  border-radius:999px;
+  background:color-mix(in srgb,var(--p-border) 70%,transparent);
+  z-index:8;
+}
+.p-about-scroll-progress span{
+  display:block;
+  width:100%;
+  height:100%;
+  transform-origin:left center;
+  background:linear-gradient(90deg,var(--p-accent2),var(--p-accent));
+  box-shadow:0 0 14px color-mix(in srgb,var(--p-accent) 45%,transparent);
+}
+.p-about-immersive{
+  isolation:isolate;
+  will-change:transform;
+}
+.p-about-motion-grid{
+  position:absolute;
+  inset:-18%;
+  z-index:0;
+  opacity:.24;
+  pointer-events:none;
+  background:
+    linear-gradient(color-mix(in srgb,var(--p-accent) 13%,transparent) 1px,transparent 1px),
+    linear-gradient(90deg,color-mix(in srgb,var(--p-accent) 13%,transparent) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(circle at center,black 0 35%,transparent 76%);
+  transform:perspective(800px) rotateX(64deg) translateY(20%);
+  animation:p-about-grid-drift 18s linear infinite;
+}
+@keyframes p-about-grid-drift{
+  from{transform:perspective(800px) rotateX(64deg) translateY(20%) translateX(0)}
+  to{transform:perspective(800px) rotateX(64deg) translateY(24%) translateX(-42px)}
+}
+.p-about-motion-orbit{
+  position:absolute;
+  left:50%;
+  top:54%;
+  border:1px solid color-mix(in srgb,var(--p-accent) 25%,transparent);
+  border-radius:50%;
+  pointer-events:none;
+  z-index:1;
+}
+.p-about-motion-orbit-one{
+  width:min(760px,92%);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%) rotate(16deg) scaleY(.34);
+  animation:p-about-orbit-one 14s linear infinite;
+}
+.p-about-motion-orbit-two{
+  width:min(610px,76%);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%) rotate(-20deg) scaleY(.25);
+  border-color:color-mix(in srgb,var(--p-accent2) 24%,transparent);
+  animation:p-about-orbit-two 11s linear infinite reverse;
+}
+@keyframes p-about-orbit-one{
+  to{transform:translate(-50%,-50%) rotate(376deg) scaleY(.34)}
+}
+@keyframes p-about-orbit-two{
+  to{transform:translate(-50%,-50%) rotate(340deg) scaleY(.25)}
+}
+.p-about-motion-node{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--p-accent);
+  box-shadow:0 0 18px var(--p-accent);
+  z-index:2;
+  pointer-events:none;
+  animation:p-about-node-pulse 2.8s ease-in-out infinite;
+}
+.p-about-motion-node-one{left:9%;top:23%}
+.p-about-motion-node-two{right:11%;bottom:20%;animation-delay:-1.3s;background:var(--p-accent2);box-shadow:0 0 18px var(--p-accent2)}
+@keyframes p-about-node-pulse{
+  0%,100%{opacity:.25;transform:scale(.65)}
+  50%{opacity:1;transform:scale(1.35)}
+}
+.p-about-motion-hud{
+  position:absolute;
+  left:clamp(18px,3vw,42px);
+  right:clamp(18px,3vw,42px);
+  top:18px;
+  z-index:6;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  pointer-events:none;
+  font:700 .58rem/1 "SFMono-Regular","Roboto Mono",monospace;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+}
+.p-about-hud-chip,
+.p-about-hud-status{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:7px 9px;
+  border:1px solid var(--p-border);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--p-bg) 72%,transparent);
+  backdrop-filter:blur(10px);
+  color:var(--p-muted);
+}
+.p-about-hud-chip i{color:var(--p-accent)}
+.p-about-hud-status i{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 9px rgba(34,197,94,.65);
+  animation:p-about-online 1.8s ease-in-out infinite;
+}
+@keyframes p-about-online{
+  0%,100%{opacity:.45;transform:scale(.8)}
+  50%{opacity:1;transform:scale(1.15)}
+}
+.p-about-scrollscene .p-about-copy{
+  position:relative;
+  z-index:5;
+  padding-top:34px;
+}
+.p-about-scrollscene .p-about-tech-field{
+  position:relative;
+  z-index:5;
+}
+.p-about-tech-card{
+  will-change:transform;
+}
+.p-about-tech-card:hover .p-about-tech-icon{
+  box-shadow:0 0 28px color-mix(in srgb,var(--tech-color) 32%,transparent);
+}
+@media(max-width:650px){
+  .p-about-scroll-progress{top:-12px}
+  .p-about-motion-grid{background-size:28px 28px;opacity:.16}
+  .p-about-motion-orbit-one{width:125%;transform:translate(-50%,-50%) rotate(16deg) scaleY(.25)}
+  .p-about-motion-orbit-two{width:105%;transform:translate(-50%,-50%) rotate(-20deg) scaleY(.18)}
+  .p-about-motion-hud{
+    top:12px;
+    font-size:.48rem;
+  }
+  .p-about-hud-chip,.p-about-hud-status{padding:6px 7px}
+  .p-about-scrollscene .p-about-copy{padding-top:38px}
+}
+@media(prefers-reduced-motion:reduce){
+  .p-about-motion-grid,
+  .p-about-motion-orbit-one,
+  .p-about-motion-orbit-two,
+  .p-about-motion-node,
+  .p-about-hud-status i{
+    animation:none!important;
+  }
+}
