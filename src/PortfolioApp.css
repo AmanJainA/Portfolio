@@ -2283,3 +2283,231 @@ body:has(.portfolio-splash-layer) {
   .p-ring-wrap::after { animation: none; }
 }
 
+
+/* ===== Home / Developer Motion Graphics ===== */
+.p-hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+}
+.p-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 72% 45%,rgba(103,232,249,.11),transparent 25%),
+    radial-gradient(circle at 30% 20%,rgba(139,92,246,.09),transparent 30%);
+}
+.p-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  pointer-events:none;
+  opacity:.18;
+  background-image:
+    linear-gradient(rgba(103,232,249,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(103,232,249,.12) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,transparent,black 22%,black 78%,transparent);
+  animation:p-hero-grid-drift 16s linear infinite;
+}
+@keyframes p-hero-grid-drift{
+  from{background-position:0 0,0 0}
+  to{background-position:0 42px,42px 0}
+}
+.p-hero-grid{position:relative;z-index:1}
+.p-hero-grid>div:first-child{position:relative;z-index:4}
+.p-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  position:relative;
+}
+.p-eyebrow::before{
+  content:"";
+  width:24px;
+  height:1px;
+  background:var(--p-accent);
+  box-shadow:0 0 10px color-mix(in srgb,var(--p-accent) 60%,transparent);
+}
+.p-hero h1{
+  position:relative;
+  text-wrap:balance;
+}
+.p-hero h1::after{
+  content:"";
+  display:block;
+  width:74px;
+  height:3px;
+  margin-top:18px;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--p-accent),var(--p-accent2),transparent);
+  transform-origin:left;
+  animation:p-hero-title-line 1.2s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes p-hero-title-line{
+  from{transform:scaleX(0);opacity:0}
+  to{transform:scaleX(1);opacity:1}
+}
+.p-hero-role-typewriter{
+  position:relative;
+  width:max-content;
+  max-width:100%;
+  color:var(--p-text);
+  text-shadow:0 0 18px color-mix(in srgb,var(--p-accent) 10%,transparent);
+}
+.p-hero-role-typewriter::before{
+  content:"";
+  position:absolute;
+  left:-14px;
+  top:50%;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:var(--p-accent);
+  box-shadow:0 0 12px var(--p-accent);
+  animation:p-hero-status 1.8s ease-in-out infinite;
+}
+@keyframes p-hero-status{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
+
+.p-hero-rich-text{
+  position:relative;
+  max-width:650px;
+}
+.p-actions{position:relative;z-index:5}
+.p-socials a{
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s ease,color .25s ease,box-shadow .25s ease;
+}
+.p-socials a:hover{
+  transform:translateY(-5px) rotate(-4deg);
+  box-shadow:0 8px 24px color-mix(in srgb,var(--p-accent) 12%,transparent);
+}
+
+.p-hero-visual{
+  isolation:isolate;
+  overflow:visible;
+  min-height:560px;
+}
+.p-hero-tech-grid{
+  position:absolute;
+  width:430px;
+  height:430px;
+  border-radius:50%;
+  background:
+    linear-gradient(rgba(103,232,249,.12) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(103,232,249,.12) 1px,transparent 1px);
+  background-size:28px 28px;
+  mask-image:radial-gradient(circle,black 0 52%,transparent 72%);
+  animation:p-hero-tech-spin 24s linear infinite;
+  z-index:0;
+}
+@keyframes p-hero-tech-spin{
+  from{transform:rotate(0deg) scale(1)}
+  to{transform:rotate(360deg) scale(1.04)}
+}
+.p-orbit{
+  z-index:1;
+  animation:p-hero-orbit-breathe 5s ease-in-out infinite;
+}
+.p-orbit-two{animation-delay:-2.2s}
+@keyframes p-hero-orbit-breathe{
+  0%,100%{transform:scale(1);opacity:.45}
+  50%{transform:scale(1.035);opacity:.8}
+}
+.p-hero-code{
+  position:absolute;
+  z-index:1;
+  padding:7px 10px;
+  border:1px solid var(--p-border);
+  border-radius:8px;
+  background:color-mix(in srgb,var(--p-bg) 72%,transparent);
+  color:var(--p-accent);
+  font:700 .62rem/1 "SFMono-Regular","Roboto Mono",monospace;
+  letter-spacing:.12em;
+  box-shadow:0 10px 30px rgba(0,0,0,.14);
+  backdrop-filter:blur(10px);
+  pointer-events:none;
+}
+.code-one{
+  left:5%;
+  top:16%;
+  animation:p-hero-float-one 4.5s ease-in-out infinite;
+}
+.code-two{
+  right:2%;
+  bottom:15%;
+  color:var(--p-accent2);
+  animation:p-hero-float-two 5.5s ease-in-out infinite;
+}
+@keyframes p-hero-float-one{
+  0%,100%{transform:translate3d(0,0,0) rotate(-4deg)}
+  50%{transform:translate3d(7px,-12px,0) rotate(0deg)}
+}
+@keyframes p-hero-float-two{
+  0%,100%{transform:translate3d(0,0,0) rotate(4deg)}
+  50%{transform:translate3d(-8px,10px,0) rotate(0deg)}
+}
+.p-hero-node{
+  position:absolute;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--p-accent);
+  box-shadow:0 0 16px var(--p-accent);
+  z-index:1;
+  pointer-events:none;
+}
+.node-one{left:17%;top:31%;animation:p-hero-node-pulse 2.4s ease-in-out infinite}
+.node-two{right:12%;top:29%;animation:p-hero-node-pulse 2.8s ease-in-out -.8s infinite}
+.node-three{right:23%;bottom:24%;animation:p-hero-node-pulse 3.1s ease-in-out -1.4s infinite}
+@keyframes p-hero-node-pulse{
+  0%,100%{opacity:.25;transform:scale(.65)}
+  50%{opacity:1;transform:scale(1.35)}
+}
+.p-profile-card{
+  z-index:3;
+  box-shadow:0 35px 100px rgba(0,0,0,.35),0 0 70px rgba(103,232,249,.08);
+}
+.p-profile-card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  padding:1px;
+  background:conic-gradient(from 0deg,transparent 0 68%,rgba(103,232,249,.9) 74%,rgba(139,92,246,.85) 82%,transparent 90%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  animation:p-hero-card-ring 6s linear infinite;
+  pointer-events:none;
+}
+@keyframes p-hero-card-ring{to{transform:rotate(360deg)}}
+.p-profile-badge{
+  border:1px solid var(--p-border);
+  box-shadow:0 8px 25px rgba(0,0,0,.18);
+}
+@media(max-width:650px){
+  .p-hero{padding-top:38px}
+  .p-hero-visual{min-height:390px}
+  .p-hero-tech-grid{width:330px;height:330px;background-size:22px 22px}
+  .p-hero-code{font-size:.54rem}
+  .code-one{left:0;top:13%}
+  .code-two{right:0;bottom:10%}
+  .node-one{left:5%}
+  .node-two{right:4%}
+}
+@media(prefers-reduced-motion:reduce){
+  .p-hero::after,
+  .p-hero h1::after,
+  .p-hero-role-typewriter::before,
+  .p-hero-tech-grid,
+  .p-orbit,
+  .p-hero-code,
+  .p-hero-node,
+  .p-profile-card::before{
+    animation:none!important;
+  }
+}
