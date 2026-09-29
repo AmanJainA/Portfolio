@@ -13864,3 +13864,49 @@ body {
     animation: none !important;
   }
 }
+
+/* ===== Minimal scroll-linked IT motion ===== */
+.portfolio-splash-tech-layer {
+  transform: translate3d(0, calc(var(--splash-scroll, 0) * -18px), 0) scale(calc(1 + var(--splash-scroll, 0) * 0.045));
+  transition: transform 80ms linear;
+}
+
+.portfolio-splash-grid {
+  transform: perspective(520px) rotateX(62deg) translate3d(0, calc(var(--splash-scroll, 0) * 28px), 0);
+  opacity: calc(0.28 - var(--splash-scroll, 0) * 0.12);
+}
+
+.portfolio-splash-orbit-one {
+  transform: translate(-50%, calc(-50% + var(--splash-scroll, 0) * -14px)) rotate(calc(var(--splash-scroll, 0) * 8deg));
+}
+
+.portfolio-splash-orbit-two {
+  transform: translate(-50%, calc(-50% + var(--splash-scroll, 0) * 10px)) rotate(calc(28deg + var(--splash-scroll, 0) * -12deg));
+}
+
+.portfolio-splash-orbit-three {
+  transform: translate(-50%, calc(-50% + var(--splash-scroll, 0) * 18px)) rotate(calc(-38deg + var(--splash-scroll, 0) * 16deg));
+}
+
+.portfolio-splash-system-left,
+.portfolio-splash-system-right {
+  transform: translateY(calc(var(--splash-scroll, 0) * -10px));
+  opacity: calc(0.52 - var(--splash-scroll, 0) * 0.24);
+}
+
+.portfolio-splash-signature {
+  transform: translate3d(calc(var(--splash-scroll, 0) * -8px), calc(var(--splash-scroll, 0) * -12px), 0);
+  opacity: calc(1 - var(--splash-scroll, 0) * 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-splash-tech-layer,
+  .portfolio-splash-grid,
+  .portfolio-splash-orbit,
+  .portfolio-splash-system-left,
+  .portfolio-splash-system-right,
+  .portfolio-splash-signature {
+    transform: none !important;
+    transition: none !important;
+  }
+}
