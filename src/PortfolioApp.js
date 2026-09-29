@@ -775,9 +775,21 @@ export default function PortfolioApp() {
                   {p.email && <motion.a className="p-contact-card p-contact-card-motion" href={`mailto:${p.email}`} whileHover={{ x: 5 }} transition={{ duration: .25 }}>
                     <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span>
                   </motion.a>}
-                  {(p.address || p.location) && <motion.div className="p-contact-card p-contact-card-motion" whileHover={{ x: 5 }} transition={{ duration: .25 }}>
-                    <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-location-dot" /></span><span><small>Address</small><strong>{p.address || p.location}</strong></span>
-                  </motion.div>}
+                  {(p.address || p.location) && (
+                    <motion.a
+                      className="p-contact-card p-contact-card-motion p-contact-address-trigger"
+                      href="https://www.google.com/maps/search/?api=1&query=Address2B%2C%20Parasnath%20Colony%2C%20Baral%20Road%2C%20Bijainagar%2C%20Ajmer%20-%20305624"
+                      target="_blank"
+                      rel="noreferrer"
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: .25 }}
+                      aria-label="Open address in Google Maps"
+                    >
+                      <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-location-dot" /></span>
+                      <span><small>Address · Open in Google Maps</small><strong>{p.address || p.location}</strong></span>
+                      <i className="fa-solid fa-arrow-up-right-from-square p-contact-address-arrow" aria-hidden="true" />
+                    </motion.a>
+                  )}
                 </div>
               </motion.div>
               <motion.form
