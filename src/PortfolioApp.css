@@ -2359,19 +2359,6 @@ body:has(.portfolio-splash-layer) {
   color:var(--p-text);
   text-shadow:0 0 18px color-mix(in srgb,var(--p-accent) 10%,transparent);
 }
-.p-hero-role-typewriter::before{
-  content:"";
-  position:absolute;
-  left:-14px;
-  top:50%;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:var(--p-accent);
-  box-shadow:0 0 12px var(--p-accent);
-  animation:p-hero-status 1.8s ease-in-out infinite;
-}
-@keyframes p-hero-status{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.25)}}
 
 .p-hero-rich-text{
   position:relative;
@@ -2502,7 +2489,6 @@ body:has(.portfolio-splash-layer) {
 @media(prefers-reduced-motion:reduce){
   .p-hero::after,
   .p-hero h1::after,
-  .p-hero-role-typewriter::before,
   .p-hero-tech-grid,
   .p-orbit,
   .p-hero-code,
@@ -2728,6 +2714,10 @@ body:has(.portfolio-splash-layer) {
 
 
 /* ===== Compact availability badge ===== */
+.p-profile-card.p-profile-mascot .p-profile-badge span{
+  display:none;
+}
+
 .p-profile-card.p-profile-mascot .p-profile-badge{
   width:max-content;
   max-width:fit-content;
