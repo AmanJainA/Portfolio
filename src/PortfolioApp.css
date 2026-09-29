@@ -2974,3 +2974,34 @@ body:has(.portfolio-splash-layer) {
     white-space: nowrap;
   }
 }
+
+/* ===== Mobile hero CTA: force both actions into one row ===== */
+@media (max-width: 800px) {
+  .portfolio-modern .p-hero .p-actions {
+    display: flex !important;
+    flex-flow: row nowrap !important;
+    align-items: stretch;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .portfolio-modern .p-hero .p-actions .p-primary-btn,
+  .portfolio-modern .p-hero .p-actions .p-secondary-btn {
+    flex: 1 1 0 !important;
+    width: 0;
+    min-width: 0 !important;
+    margin: 0;
+    padding: 11px 8px !important;
+    min-height: 44px;
+    justify-content: center;
+    gap: 6px;
+    font-size: .78rem;
+    white-space: nowrap;
+  }
+
+  .portfolio-modern .p-hero .p-actions .p-primary-btn i,
+  .portfolio-modern .p-hero .p-actions .p-secondary-btn i {
+    flex: 0 0 auto;
+    font-size: .7rem;
+  }
+}
