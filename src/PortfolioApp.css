@@ -2755,3 +2755,24 @@ body:has(.portfolio-splash-layer) {
   line-height:1.1;
 }
 
+
+
+/* Available for opportunities: green online indicator */
+.p-profile-card.p-profile-mascot .p-profile-badge span{
+  display:inline-block;
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  margin-right:7px;
+  border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 0 3px rgba(34,197,94,.12),0 0 10px rgba(34,197,94,.45);
+  animation:p-profile-online-pulse 1.8s ease-in-out infinite;
+}
+@keyframes p-profile-online-pulse{
+  0%,100%{opacity:.75;transform:scale(.9)}
+  50%{opacity:1;transform:scale(1.08)}
+}
+@media(prefers-reduced-motion:reduce){
+  .p-profile-card.p-profile-mascot .p-profile-badge span{animation:none}
+}
