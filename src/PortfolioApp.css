@@ -2941,3 +2941,20 @@ body:has(.portfolio-splash-layer) {
     line-height: 1.65;
   }
 }
+
+/* ===== Mobile hero: rotate capability icons along the orbit ===== */
+@media (max-width: 650px) {
+  .p-hero-grid .p-hero-icon-cloud {
+    animation: p-mobile-icon-orbit 18s linear infinite;
+    transform-origin: center;
+  }
+
+  @keyframes p-mobile-icon-orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .p-hero-grid .p-hero-icon-cloud { animation: none; }
+  }
+}
