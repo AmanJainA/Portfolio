@@ -342,7 +342,7 @@ export default function PortfolioApp() {
   const [data, setData] = useState(emptyData);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [theme, setTheme] = useState(() => localStorage.getItem('portfolio_theme') || 'dark');
+  const [theme, setTheme] = useState(() => window.matchMedia?.('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
   const [activeSection, setActiveSection] = useState('home');
   const [showSplash, setShowSplash] = useState(true);
 
@@ -363,17 +363,24 @@ export default function PortfolioApp() {
   ];
 
   const toggleTheme = () => {
-    setTheme((current) => {
-      const next = current === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('portfolio_theme', next);
-      return next;
-    });
+    setTheme((current) => (current === 'dark' ? 'light' : 'dark'));
   };
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia?.('(prefers-color-scheme: light)');
+    if (!mediaQuery) return undefined;
+
+    const handleSystemThemeChange = (event) => {
+      setTheme(event.matches ? 'light' : 'dark');
+    };
+
+    mediaQuery.addEventListener?.('change', handleSystemThemeChange);
+    return () => mediaQuery.removeEventListener?.('change', handleSystemThemeChange);
+  }, []);
 
   useEffect(() => {
     document.documentElement.dataset.portfolioTheme = theme;
     document.body.classList.toggle('portfolio-light-mode', theme === 'light');
-    return () => document.body.classList.remove('portfolio-light-mode');
   }, [theme]);
 
   useEffect(() => {
