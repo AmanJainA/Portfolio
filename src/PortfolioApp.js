@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
 import PortfolioHero from './components/ui/portfolio-hero';
 import { db, supabase } from './supabase';
 import './PortfolioApp.css';
