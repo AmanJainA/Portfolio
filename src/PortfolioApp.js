@@ -53,7 +53,7 @@ function HeroRoleTypewriter() {
   useEffect(() => {
     const currentRole = roles[roleIndex];
     const typingSpeed = deleting ? 55 : 95;
-    const pauseAfterTyping = 2000;
+    const pauseAfterTyping = 5000;
     const pauseAfterDeleting = 450;
 
     const timer = setTimeout(() => {
