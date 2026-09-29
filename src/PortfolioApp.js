@@ -237,38 +237,72 @@ function ProjectSection({ projects }) {
 
   return (
     <Section id="projects" title="My Projects" eyebrow="03 / SELECTED WORK">
-      <div className="p-project-filters" role="tablist" aria-label="Project filters">
-        {filters.map((item) => (
-          <button key={item} type="button" role="tab" aria-selected={filter === item}
-            className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}>
-            {item}
-          </button>
-        ))}
-      </div>
-      <motion.div layout className="p-project-grid">
-        {filteredProjects.map((project, i) => (
-          <motion.article layout className="p-project" key={project.id}
-            initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }} transition={{ delay: i * 0.035 }} whileHover={{ y: -8 }}>
-            <div className="p-project-image">
-              {project.image_url ? <img src={project.image_url} alt={project.title} /> : <div className="p-project-placeholder"><i className="fa-solid fa-code" /></div>}
-              {project.link && project.link !== '#' && (
-                <a className="p-project-link" href={project.link} target="_blank" rel="noreferrer"
-                  aria-label={'Open ' + project.title} title="Open project">
-                  <i className="fa-solid fa-arrow-up-right-from-square" />
-                </a>
-              )}
-            </div>
-            <div className="p-project-body">
-              <span className="p-project-no">{String(project.sort_order || i + 1).padStart(2,'0')}</span>
-              <h3>{project.title}</h3>
-              <p>{project.summary}</p>
-              <div className="p-tech-row">{(project.tech_stack || []).map((t) => <span key={t}>{t}</span>)}</div>
-            </div>
-          </motion.article>
-        ))}
+      <motion.div
+        className="p-projects-motion-scene"
+        initial={{ opacity: 0, y: 55, scale: .975 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: .12 }}
+        transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <div className="p-projects-grid-bg" aria-hidden="true" />
+        <div className="p-projects-scanline" aria-hidden="true" />
+        <div className="p-about-scroll-progress p-projects-scroll-progress" aria-hidden="true">
+          <motion.span initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }}
+            viewport={{ once: true, amount: .15 }}
+            transition={{ duration: 1.1, delay: .12, ease: [0.22, 1, 0.36, 1] }} />
+        </div>
+        <motion.div className="p-projects-intro"
+          initial={{ opacity: 0, y: 35, filter: 'blur(5px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, amount: .3 }}
+          transition={{ duration: .7, delay: .08 }}>
+          <span className="p-projects-kicker"><i className="fa-solid fa-terminal" /> PROJECTS://WORKSPACE</span>
+          <p>Selected digital products, applications and practical solutions — built with a focus on clean development, useful experiences and real-world problem solving.</p>
+        </motion.div>
+
+        <motion.div className="p-project-filters" role="tablist" aria-label="Project filters"
+          initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: .3 }} transition={{ duration: .6, delay: .16 }}>
+          {filters.map((item, i) => (
+            <motion.button key={item} type="button" role="tab" aria-selected={filter === item}
+              className={filter === item ? 'active' : ''} onClick={() => setFilter(item)}
+              whileHover={{ y: -3, scale: 1.03 }} whileTap={{ scale: .96 }}
+              transition={{ duration: .2 }}>
+              <span>{String(i + 1).padStart(2,'0')}</span>{item}
+            </motion.button>
+          ))}
+        </motion.div>
+
+        <motion.div layout className="p-project-grid">
+          {filteredProjects.map((project, i) => (
+            <motion.article layout className="p-project p-project-motion-card" key={project.id}
+              initial={{ opacity: 0, y: 55, rotateX: 12, scale: .95 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              viewport={{ once: true, amount: .16 }}
+              transition={{ delay: i * .075, duration: .65, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -10, rotateX: -1.5, scale: 1.012 }}>
+              <div className="p-project-image">
+                <div className="p-project-image-shine" aria-hidden="true" />
+                {project.image_url ? <img src={project.image_url} alt={project.title} /> : <div className="p-project-placeholder"><i className="fa-solid fa-code" /></div>}
+                <span className="p-project-live"><i /> BUILD_READY</span>
+                {project.link && project.link !== '#' && (
+                  <a className="p-project-link" href={project.link} target="_blank" rel="noreferrer"
+                    aria-label={'Open ' + project.title} title="Open project">
+                    <i className="fa-solid fa-arrow-up-right-from-square" />
+                  </a>
+                )}
+              </div>
+              <div className="p-project-body">
+                <span className="p-project-no">{String(project.sort_order || i + 1).padStart(2,'0')}</span>
+                <h3>{project.title}</h3>
+                <p>{project.summary}</p>
+                <div className="p-tech-row">{(project.tech_stack || []).map((t) => <span key={t}>{t}</span>)}</div>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+        {!filteredProjects.length && <div className="p-project-empty">No projects found for {filter}.</div>}
       </motion.div>
-      {!filteredProjects.length && <div className="p-project-empty">No projects found for {filter}.</div>}
     </Section>
   );
 }
