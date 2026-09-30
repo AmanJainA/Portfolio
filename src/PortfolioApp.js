@@ -223,7 +223,16 @@ function AboutScrollScene({ aboutText, techItems }) {
 
 function ProjectSection({ projects }) {
   const [filter, setFilter] = useState('All');
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia?.('(max-width: 650px)').matches ?? false);
   const filters = ['All', 'PHP', 'Android', 'Flutter', 'React'];
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia?.('(max-width: 650px)');
+    if (!mediaQuery) return undefined;
+    const handleViewportChange = (event) => setIsMobile(event.matches);
+    mediaQuery.addEventListener?.('change', handleViewportChange);
+    return () => mediaQuery.removeEventListener?.('change', handleViewportChange);
+  }, []);
   const filteredProjects = useMemo(() => {
     if (filter === 'All') return projects;
     return projects.filter((project) =>
@@ -239,20 +248,20 @@ function ProjectSection({ projects }) {
     <Section id="projects" title="My Projects" eyebrow="03 / SELECTED WORK">
       <motion.div
         className="p-projects-motion-scene"
-        initial={{ opacity: 0, y: 55, scale: .975 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        initial={isMobile ? false : { opacity: 0, y: 55, scale: .975 }}
+        whileInView={isMobile ? undefined : { opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: .12 }}
         transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="p-projects-grid-bg" aria-hidden="true" />
         <div className="p-projects-scanline" aria-hidden="true" />
         <div className="p-about-scroll-progress p-projects-scroll-progress" aria-hidden="true">
-          <motion.span initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }}
+          <motion.span initial={isMobile ? false : { scaleX: 0 }} whileInView={isMobile ? undefined : { scaleX: 1 }}
             viewport={{ once: true, amount: .15 }}
             transition={{ duration: 1.1, delay: .12, ease: [0.22, 1, 0.36, 1] }} />
         </div>
         <motion.div className="p-project-filters" role="tablist" aria-label="Project filters"
-          initial={{ opacity: 0, y: 25 }} whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? false : { opacity: 0, y: 25 }} whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: .3 }} transition={{ duration: .6, delay: .16 }}>
           {filters.map((item, i) => (
             <motion.button key={item} type="button" role="tab" aria-selected={filter === item}
@@ -267,11 +276,11 @@ function ProjectSection({ projects }) {
         <motion.div layout className="p-project-grid">
           {filteredProjects.map((project, i) => (
             <motion.article layout className="p-project p-project-motion-card" key={project.id}
-              initial={{ opacity: 0, y: 55, rotateX: 12, scale: .95 }}
-              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              initial={isMobile ? false : { opacity: 0, y: 55, rotateX: 12, scale: .95 }}
+              whileInView={isMobile ? undefined : { opacity: 1, y: 0, rotateX: 0, scale: 1 }}
               viewport={{ once: true, amount: .16 }}
               transition={{ delay: i * .075, duration: .65, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -10, rotateX: -1.5, scale: 1.012 }}>
+              whileHover={isMobile ? undefined : { y: -10, rotateX: -1.5, scale: 1.012 }}>
               <div className="p-project-image">
                 <div className="p-project-image-shine" aria-hidden="true" />
                 {project.image_url ? <img src={project.image_url} alt={project.title} /> : <div className="p-project-placeholder"><span className="p-project-icon-code" aria-hidden="true">&lt;/&gt;</span></div>}
