@@ -274,12 +274,12 @@ function ProjectSection({ projects }) {
               whileHover={{ y: -10, rotateX: -1.5, scale: 1.012 }}>
               <div className="p-project-image">
                 <div className="p-project-image-shine" aria-hidden="true" />
-                {project.image_url ? <img src={project.image_url} alt={project.title} /> : <div className="p-project-placeholder"><i className="fa-solid fa-code" /></div>}
+                {project.image_url ? <img src={project.image_url} alt={project.title} /> : <div className="p-project-placeholder"><span className="p-project-icon-code" aria-hidden="true">&lt;/&gt;</span></div>}
                 <span className="p-project-live"><i /> BUILD_READY</span>
                 {project.link && project.link !== '#' && (
                   <a className="p-project-link" href={project.link} target="_blank" rel="noreferrer"
                     aria-label={'Open ' + project.title} title="Open project">
-                    <i className="fa-solid fa-arrow-up-right-from-square" />
+                    <span className="p-project-link-icon" aria-hidden="true">↗</span>
                   </a>
                 )}
               </div>
