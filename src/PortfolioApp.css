@@ -3752,7 +3752,7 @@ body:has(.portfolio-splash-layer) {
 }
 
 [data-portfolio-theme="light"] #projects .p-title {
-  color: #000;
+  color: var(--p-text);
 }
 
 [data-portfolio-theme="light"] #projects .p-project-body p {
@@ -3780,7 +3780,7 @@ body:has(.portfolio-splash-layer) {
 }
 
 [data-portfolio-theme="light"] #projects .p-title {
-  color: #000;
+  color: var(--p-text);
 }
 
 [data-portfolio-theme="light"] #projects .p-project-body p {
