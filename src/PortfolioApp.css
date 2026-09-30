@@ -1440,7 +1440,11 @@ body:has(.portfolio-splash-layer) {
 }
 .p-journey-head h3:last-child {
   text-align: left;
-  padding-left: 28px;
+  padding-left: 0;
+}
+
+.p-journey-experience {
+  padding-left: 0;
 }
 .p-journey-head span {
   display: block;
