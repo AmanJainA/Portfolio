@@ -1360,6 +1360,56 @@ body:has(.portfolio-splash-layer) {
 }
 
 /* Single centered timeline: education left, experience right. */
+.p-journey-motion-scene {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.p-journey-motion-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--p-border);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--p-card) 78%, transparent);
+  color: var(--p-muted);
+  font: 600 .62rem/1.2 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.p-journey-motion-hud span:first-child {
+  color: var(--p-accent);
+}
+.p-journey-motion-hud i {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 7px;
+  border-radius: 50%;
+  background: var(--p-accent);
+  box-shadow: 0 0 10px color-mix(in srgb, var(--p-accent) 70%, transparent);
+}
+.p-journey-motion-hud b {
+  color: var(--p-accent);
+}
+.p-journey-motion-scene .p-journey-line {
+  transform-origin: top center;
+  will-change: transform;
+}
+@media (max-width: 650px) {
+  .p-journey-motion-hud {
+    margin-bottom: 8px;
+    padding: 7px 10px;
+    font-size: .56rem;
+  }
+  .p-journey-motion-hud span:last-child {
+    display: none;
+  }
+}
+
 .p-journey-timeline {
   position: relative;
   width: min(1100px,100%);
