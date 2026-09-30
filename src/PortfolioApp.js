@@ -176,9 +176,6 @@ function AboutScrollScene({ aboutText, techItems }) {
 
   return (
     <div ref={sceneRef} className="p-about-scrollscene">
-      <div className="p-about-scroll-progress" aria-hidden="true">
-        <span style={{ scaleX: progressWidth }} />
-      </div>
       <div className="p-about-scroll-sticky">
         <motion.div
           className="p-glass p-about-immersive"
