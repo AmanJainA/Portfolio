@@ -1093,27 +1093,6 @@ body:has(.portfolio-splash-layer) {
   color: #fff;
 }
 
-[data-portfolio-theme="light"] .portfolio-modern h1,
-[data-portfolio-theme="light"] .portfolio-modern h2,
-[data-portfolio-theme="light"] .portfolio-modern h3,
-[data-portfolio-theme="light"] .portfolio-modern h4,
-[data-portfolio-theme="light"] .portfolio-modern h5,
-[data-portfolio-theme="light"] .portfolio-modern h6,
-[data-portfolio-theme="light"] .portfolio-modern strong,
-[data-portfolio-theme="light"] .portfolio-modern b,
-[data-portfolio-theme="light"] .portfolio-modern p,
-[data-portfolio-theme="light"] .portfolio-modern span,
-[data-portfolio-theme="light"] .portfolio-modern label,
-[data-portfolio-theme="light"] .portfolio-modern .p-title,
-[data-portfolio-theme="light"] .portfolio-modern .p-project-body,
-[data-portfolio-theme="light"] .portfolio-modern .p-skill-box,
-[data-portfolio-theme="light"] .portfolio-modern .p-skill-panel,
-[data-portfolio-theme="light"] .portfolio-modern .p-column-title,
-[data-portfolio-theme="light"] .portfolio-modern .p-contact-copy h3,
-[data-portfolio-theme="light"] .portfolio-modern .p-contact-copy p,
-[data-portfolio-theme="light"] .portfolio-modern .p-about-tech-card strong {
-  color: #111827;
-}
 [data-portfolio-theme="light"] .portfolio-modern .p-muted,
 [data-portfolio-theme="light"] .portfolio-modern small,
 [data-portfolio-theme="light"] .portfolio-modern .p-hero p,
