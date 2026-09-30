@@ -232,30 +232,44 @@ function AboutScrollScene({ aboutText, techItems }) {
 
 function JourneyMotionScene({ data }) {
   const sceneRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia?.('(max-width: 650px)').matches ?? false);
   const { scrollYProgress } = useScroll({
     target: sceneRef,
-    offset: ['start 90%', 'end 25%'],
+    offset: ['start 92%', 'end 18%'],
   });
-  const sceneY = useTransform(scrollYProgress, [0, .22, .7, 1], [28, 0, 0, -18]);
-  const sceneScale = useTransform(scrollYProgress, [0, .2, .7, 1], [.985, 1, 1, .995]);
-  const lineScale = useTransform(scrollYProgress, [0, .2, 1], [.08, .58, 1]);
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 26,
+    mass: 0.45,
+  });
+  const sceneY = useTransform(smoothProgress, [0, .2, .7, 1], [18, 0, 0, -10]);
+  const sceneScale = useTransform(smoothProgress, [0, .2, .75, 1], [.992, 1, 1, .998]);
+  const lineScale = useTransform(smoothProgress, [0, .16, .72, 1], [.05, .55, .9, 1]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia?.('(max-width: 650px)');
+    if (!mediaQuery) return undefined;
+    const handleViewportChange = (event) => setIsMobile(event.matches);
+    mediaQuery.addEventListener?.('change', handleViewportChange);
+    return () => mediaQuery.removeEventListener?.('change', handleViewportChange);
+  }, []);
 
   return (
     <motion.div
       ref={sceneRef}
       className="p-journey-motion-scene"
-      style={{ y: sceneY, scale: sceneScale }}
+      style={{ y: isMobile ? 0 : sceneY, scale: isMobile ? 1 : sceneScale }}
     >
       <div className="p-journey-motion-hud" aria-hidden="true">
         <span><i /> JOURNEY://TIMELINE</span>
         <span>DATA_FLOW <b>●</b></span>
       </div>
       <div className="p-journey-timeline">
-        <motion.div className="p-journey-line" aria-hidden="true" style={{ scaleY: lineScale }} />
+        <motion.div className="p-journey-line" aria-hidden="true" style={{ scaleY: isMobile ? 1 : lineScale }} />
         <motion.div
           className="p-journey-head"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={isMobile ? false : { opacity: 0, y: 10 }}
+          whileInView={isMobile ? undefined : { opacity: 1, y: 0 }}
           viewport={{ once: true, amount: .12 }}
           transition={{ duration: .5, ease: [0.22, 1, 0.36, 1] }}
         >
@@ -268,11 +282,11 @@ function JourneyMotionScene({ data }) {
             <div className="p-journey-row" key={education?.id || experience?.id || i}>
               <div className="p-journey-side p-journey-education">
                 {education && <motion.article className="p-journey-card p-journey-card-left"
-                  initial={{ opacity: 0, x: -42, rotateY: 5, scale: .97 }}
-                  whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-                  viewport={{ once: true, amount: .12 }}
-                  transition={{ duration: .65, delay: i * .07, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -6, x: 4, scale: 1.012 }}
+                  initial={isMobile ? false : { opacity: 0, x: -48, rotateY: 5, scale: .96 }}
+                  whileInView={isMobile ? undefined : { opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                  viewport={{ once: true, amount: .2 }}
+                  transition={{ duration: .7, delay: i * .08, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={isMobile ? undefined : { y: -6, x: 4, scale: 1.012 }}
                 >
                   <span>{education.period}</span><h3>{education.title}</h3><b>{education.location}</b>
                   {(education.details || []).map(d => <p key={d}>{d}</p>)}
@@ -288,11 +302,11 @@ function JourneyMotionScene({ data }) {
               />
               <div className="p-journey-side p-journey-experience">
                 {experience && <motion.article className="p-journey-card p-journey-card-right mb-2"
-                  initial={{ opacity: 0, x: 42, rotateY: -5, scale: .97 }}
-                  whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-                  viewport={{ once: true, amount: .12 }}
-                  transition={{ duration: .65, delay: i * .07 + .04, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -6, x: -4, scale: 1.012 }}
+                  initial={isMobile ? false : { opacity: 0, x: 48, rotateY: -5, scale: .96 }}
+                  whileInView={isMobile ? undefined : { opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                  viewport={{ once: true, amount: .2 }}
+                  transition={{ duration: .7, delay: i * .08 + .04, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={isMobile ? undefined : { y: -6, x: -4, scale: 1.012 }}
                 >
                   <span>{experience.period}</span><h3>{experience.title}</h3><b>{experience.company}</b>
                   {(experience.details || []).map(d => <p key={d}>{d}</p>)}
