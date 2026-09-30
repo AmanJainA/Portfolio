@@ -432,7 +432,7 @@ function Section({ id, title, eyebrow, children }) {
   const contentY = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [34, 0, 0] : [58, 0, -34]);
   const headingScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.97, 1, 1] : [0.94, 1, 1.02]);
   const contentScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.98, 1, 1] : [0.97, 1, 1.015]);
-  const headingOpacity = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.18, 0.82, 1], isProjects ? [0, 1, 1] : [0, 1, 1, 0.86]);
+  const headingOpacity = useTransform(smoothProgress, isProjects ? [0, 1] : [0, 0.18, 0.82, 1], isProjects ? [1, 1] : [0, 1, 1, 0.86]);
   const contentOpacity = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.16, 0.84, 1], isProjects ? [0, 1, 1] : [0.15, 1, 1, 0.9]);
   const sectionLineProgress = useTransform(smoothProgress, [0, 1], [0, 1]);
 
