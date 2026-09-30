@@ -434,7 +434,6 @@ function Section({ id, title, eyebrow, children }) {
   const contentScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.98, 1, 1] : [0.97, 1, 1.015]);
   const headingOpacity = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.18, 0.82, 1], isProjects ? [0, 1, 1] : [0, 1, 1, 0.86]);
   const contentOpacity = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.16, 0.84, 1], isProjects ? [0, 1, 1] : [0.15, 1, 1, 0.9]);
-  const sectionDividerProgress = useTransform(smoothProgress, [0, 1], [0, 1]);
 
   return (
     <section id={id} ref={sectionRef} className="p-section">
@@ -445,11 +444,6 @@ function Section({ id, title, eyebrow, children }) {
         >
           <span className="p-eyebrow">{eyebrow}</span>
           <h2 className="p-title">{title}</h2>
-          {['skills', 'resume', 'contact'].includes(id) && (
-            <div className="p-section-title-divider" aria-hidden="true">
-              <motion.span style={{ scaleX: sectionDividerProgress }} />
-            </div>
-          )}
         </motion.div>
 
         <motion.div
