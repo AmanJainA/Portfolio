@@ -282,11 +282,11 @@ function JourneyMotionScene({ data }) {
             <div className="p-journey-row" key={education?.id || experience?.id || i}>
               <div className="p-journey-side p-journey-education">
                 {education && <motion.article className="p-journey-card p-journey-card-left"
-                  initial={isMobile ? false : { opacity: 0, x: -48, rotateY: 5, scale: .96 }}
-                  whileInView={isMobile ? undefined : { opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                  initial={isMobile ? false : { opacity: 0, y: 28, rotateY: 5, scale: .96 }}
+                  whileInView={isMobile ? undefined : { opacity: 1, y: 0, rotateY: 0, scale: 1 }}
                   viewport={{ once: true, amount: .2 }}
                   transition={{ duration: .7, delay: i * .08, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={isMobile ? undefined : { y: -6, x: 4, scale: 1.012 }}
+                  whileHover={isMobile ? undefined : { y: -6, scale: 1.012 }}
                 >
                   <span>{education.period}</span><h3>{education.title}</h3><b>{education.location}</b>
                   {(education.details || []).map(d => <p key={d}>{d}</p>)}
@@ -302,11 +302,11 @@ function JourneyMotionScene({ data }) {
               />
               <div className="p-journey-side p-journey-experience">
                 {experience && <motion.article className="p-journey-card p-journey-card-right mb-2"
-                  initial={isMobile ? false : { opacity: 0, x: 48, rotateY: -5, scale: .96 }}
-                  whileInView={isMobile ? undefined : { opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                  initial={isMobile ? false : { opacity: 0, y: 28, rotateY: -5, scale: .96 }}
+                  whileInView={isMobile ? undefined : { opacity: 1, y: 0, rotateY: 0, scale: 1 }}
                   viewport={{ once: true, amount: .2 }}
                   transition={{ duration: .7, delay: i * .08 + .04, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={isMobile ? undefined : { y: -6, x: -4, scale: 1.012 }}
+                  whileHover={isMobile ? undefined : { y: -6, scale: 1.012 }}
                 >
                   <span>{experience.period}</span><h3>{experience.title}</h3><b>{experience.company}</b>
                   {(experience.details || []).map(d => <p key={d}>{d}</p>)}
@@ -805,21 +805,21 @@ export default function PortfolioApp() {
               ))}
             </div>
             <div className="p-skill-columns p-skills-data-grid">
-              <motion.div className="p-glass p-skill-panel p-skills-terminal" initial={{ opacity: 0, x: -70, rotateY: 7 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }}>
+              <motion.div className="p-glass p-skill-panel p-skills-terminal" initial={{ opacity: 0, y: 35, rotateY: 7 }} whileInView={{ opacity: 1, y: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }}>
                 <div className="p-skills-panel-head">
                   <div><span className="p-terminal-dots"><i /><i /><i /></span><h3>Technical Skills</h3></div><code>skills.tech</code>
                 </div>
                 <div className="p-skills-tech-list">
                   {technical.map((skill, i) => (
                     <motion.div className="p-progress p-skills-progress" key={skill.id}
-                      initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, amount: .4 }} transition={{ delay: i * .055, duration: .45 }}>
+                      initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: .4 }} transition={{ delay: i * .055, duration: .45 }}>
                       <div><span>{skill.name}</span><b><AnimatedNumber value={skill.percent} />%</b></div>
                       <span className="p-track"><motion.span initial={{ width: 0 }} whileInView={{ width: skill.percent + '%' }} viewport={{ once: true, amount: .45 }} transition={{ duration: 1, delay: i * .035, ease: [0.22, 1, 0.36, 1] }} /></span>
                     </motion.div>
                   ))}
                 </div>
               </motion.div>
-              <motion.div className="p-glass p-skill-panel p-skills-terminal p-skills-professional" initial={{ opacity: 0, x: 70, rotateY: -7 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, delay: .1, ease: [0.22, 1, 0.36, 1] }}>
+              <motion.div className="p-glass p-skill-panel p-skills-terminal p-skills-professional" initial={{ opacity: 0, y: 35, rotateY: -7 }} whileInView={{ opacity: 1, y: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, delay: .1, ease: [0.22, 1, 0.36, 1] }}>
                 <div className="p-skills-panel-head">
                   <div><span className="p-terminal-dots"><i /><i /><i /></span><h3>Professional Skills</h3></div><code>skills.pro</code>
                 </div>
@@ -858,7 +858,7 @@ export default function PortfolioApp() {
             <div className="p-contact-grid p-contact-grid-motion">
               <motion.div
                 className="p-contact-copy p-contact-copy-motion"
-                initial={{ opacity: 0, x: -55, rotateY: 6 }}
+                initial={{ opacity: 0, y: 35, rotateY: 6 }}
                 whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
                 viewport={{ once: true, amount: .2 }}
                 transition={{ duration: .75, ease: [0.22, 1, 0.36, 1] }}
@@ -867,10 +867,10 @@ export default function PortfolioApp() {
                 <h3>Let’s build something useful.</h3>
                 <p>{p.contact_description}</p>
                 <div className="p-contact-links p-contact-links-motion">
-                  {p.phone && <motion.a className="p-contact-card p-contact-card-motion" href={`tel:${p.phone}`} whileHover={{ x: 5 }} transition={{ duration: .25 }}>
+                  {p.phone && <motion.a className="p-contact-card p-contact-card-motion" href={`tel:${p.phone}`} whileHover={{ y: -3 }} transition={{ duration: .25 }}>
                     <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-phone" /></span><span><small>Phone</small><strong>{p.phone}</strong></span>
                   </motion.a>}
-                  {p.email && <motion.a className="p-contact-card p-contact-card-motion" href={`mailto:${p.email}`} whileHover={{ x: 5 }} transition={{ duration: .25 }}>
+                  {p.email && <motion.a className="p-contact-card p-contact-card-motion" href={`mailto:${p.email}`} whileHover={{ y: -3 }} transition={{ duration: .25 }}>
                     <span className="p-contact-card-icon p-contact-card-icon-motion"><i className="fa-solid fa-envelope" /></span><span><small>Email</small><strong>{p.email}</strong></span>
                   </motion.a>}
                   {(p.address || p.location) && (
@@ -879,7 +879,7 @@ export default function PortfolioApp() {
                         type="button"
                         className="p-contact-card p-contact-card-motion p-contact-address-trigger"
                         onClick={() => setContactMapOpen(true)}
-                        whileHover={{ x: 5, rotateY: 2 }}
+                        whileHover={{ y: -3, rotateY: 2 }}
                         whileTap={{ scale: .985 }}
                         transition={{ duration: .25 }}
                         aria-haspopup="dialog"
@@ -947,7 +947,7 @@ export default function PortfolioApp() {
               <motion.form
                 className="p-glass p-contact-form p-contact-form-motion"
                 onSubmit={submitContact}
-                initial={{ opacity: 0, x: 55, rotateY: -6 }}
+                initial={{ opacity: 0, y: 35, rotateY: -6 }}
                 whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
                 viewport={{ once: true, amount: .2 }}
                 transition={{ duration: .75, delay: .08, ease: [0.22, 1, 0.36, 1] }}
