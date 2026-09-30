@@ -2886,14 +2886,14 @@ body:has(.portfolio-splash-layer) {
   .p-hero-float-icon{width:34px;height:34px;border-radius:10px}
   .p-hero-float-icon i{font-size:.76rem}
   .p-hero-float-icon small{display:none}
-  .p-hero-float-icon.icon-coding{--orbit-x:-135px;--orbit-y:-105px}
-  .p-hero-float-icon.icon-analytics{--orbit-x:135px;--orbit-y:-105px}
-  .p-hero-float-icon.icon-business{--orbit-x:-150px;--orbit-y:5px}
-  .p-hero-float-icon.icon-consulting{--orbit-x:150px;--orbit-y:5px}
-  .p-hero-float-icon.icon-developer{--orbit-x:-125px;--orbit-y:115px}
-  .p-hero-float-icon.icon-relations{--orbit-x:125px;--orbit-y:115px}
-  .p-hero-float-icon.icon-railway{--orbit-x:-45px;--orbit-y:-155px}
-  .p-hero-float-icon.icon-integration{--orbit-x:45px;--orbit-y:155px}
+  .p-hero-float-icon.icon-coding{--orbit-x:-105px;--orbit-y:-82px}
+  .p-hero-float-icon.icon-analytics{--orbit-x:105px;--orbit-y:-82px}
+  .p-hero-float-icon.icon-business{--orbit-x:-110px;--orbit-y:0px}
+  .p-hero-float-icon.icon-consulting{--orbit-x:110px;--orbit-y:0px}
+  .p-hero-float-icon.icon-developer{--orbit-x:-105px;--orbit-y:82px}
+  .p-hero-float-icon.icon-relations{--orbit-x:105px;--orbit-y:82px}
+  .p-hero-float-icon.icon-railway{--orbit-x:0px;--orbit-y:-110px}
+  .p-hero-float-icon.icon-integration{--orbit-x:0px;--orbit-y:110px}
 }
 @media(prefers-reduced-motion:reduce){
   .p-hero-float-icon{animation:none}
@@ -3144,7 +3144,7 @@ body:has(.portfolio-splash-layer) {
 
 @media (max-width: 650px) {
   .p-hero .p-profile-card .p-profile-badge {
-    left: -77px;
+    left: -67px;
     right: auto;
     bottom: 6px;
     width: max-content;
