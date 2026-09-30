@@ -754,6 +754,7 @@ export default function PortfolioApp() {
               ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg','#0769AD'],
               ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg','#777BB4'],
               ['SQL','Advanced',sqlIcon,'#00758F'],
+              ['MySQL','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/mysql.svg','#4479A1'],
               ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg','#68A063'],
               ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg','#61DAFB'],
               ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg','#3DDC84'],
