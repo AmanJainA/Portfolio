@@ -2830,6 +2830,8 @@ body:has(.portfolio-splash-layer) {
   z-index:3;
   pointer-events:none;
   perspective:900px;
+  animation:p-hero-icon-orbit 24s linear infinite;
+  transform-origin:center;
 }
 .p-hero-float-icon{
   --orbit-x:0px;
@@ -2988,21 +2990,9 @@ body:has(.portfolio-splash-layer) {
   }
 }
 
-/* ===== Mobile hero: rotate capability icons along the orbit ===== */
-@media (max-width: 650px) {
-  .p-hero-grid .p-hero-icon-cloud {
-    animation: p-mobile-icon-orbit 18s linear infinite;
-    transform-origin: center;
-  }
-
-  @keyframes p-mobile-icon-orbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .p-hero-grid .p-hero-icon-cloud { animation: none; }
-  }
+@keyframes p-hero-icon-orbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* ===== Mobile hero CTA buttons: keep both buttons in one row ===== */
