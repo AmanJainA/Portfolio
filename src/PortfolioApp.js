@@ -4,16 +4,6 @@ import PortfolioHero from './components/ui/portfolio-hero';
 import { db, supabase } from './supabase';
 import './PortfolioApp.css';
 import sqlIcon from './images/tech-icons/sql.svg';
-import htmlIcon from './images/tech-icons/html5.svg';
-import cssIcon from './images/tech-icons/css3.svg';
-import bootstrapIcon from './images/tech-icons/bootstrap5.svg';
-import javascriptIcon from './images/tech-icons/javascript.svg';
-import jqueryIcon from './images/tech-icons/jQuery.svg';
-import phpIcon from './images/tech-icons/php.svg';
-import nodeIcon from './images/tech-icons/nodejs.svg';
-import reactIcon from './images/tech-icons/react.svg';
-import androidIcon from './images/tech-icons/android.svg';
-import flutterIcon from './images/tech-icons/flutter.svg';
 
 const emptyData = { profile: null, languages: [], skills: [], projects: [], education: [], experience: [], social_links: [] };
 
@@ -162,20 +152,6 @@ function ProfessionalRing({ skill }) {
     </motion.div>
   );
 }
-
-const aboutTechIconMap = {
-  HTML5: [htmlIcon, '#E55025'],
-  CSS3: [cssIcon, '#1572B6'],
-  Bootstrap: [bootstrapIcon, '#7952B3'],
-  JavaScript: [javascriptIcon, '#F7DF1E'],
-  jQuery: [jqueryIcon, '#0769AD'],
-  PHP: [phpIcon, '#777BB4'],
-  SQL: [sqlIcon, '#00758F'],
-  'Node.js': [nodeIcon, '#68A063'],
-  'React.js': [reactIcon, '#61DAFB'],
-  Android: [androidIcon, '#3DDC84'],
-  Flutter: [flutterIcon, '#54C5F8'],
-};
 
 function AboutScrollScene({ aboutText, techItems }) {
   const [isMobile, setIsMobile] = useState(() => window.matchMedia?.('(max-width: 650px)').matches ?? false);
@@ -770,18 +746,19 @@ export default function PortfolioApp() {
         <Section id="about" title="About Me" eyebrow="01 / PROFILE">
           <AboutScrollScene
             aboutText={p.about_text}
-            techItems={data.languages
-              .filter((language) => language.is_visible !== false)
-              .slice(0, 11)
-              .map((language) => {
-                const fallback = aboutTechIconMap[language.name];
-                return [
-                  language.name,
-                  language.level || 'Skill',
-                  language.icon_url || fallback?.[0] || sqlIcon,
-                  fallback?.[1] || '#8FA600',
-                ];
-              })}
+            techItems={[
+              ['HTML5','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/html5.svg','#E55025'],
+              ['CSS3','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/css3.svg','#1572B6'],
+              ['Bootstrap','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/bootstrap5.svg','#7952B3'],
+              ['JavaScript','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/javascript.svg','#F7DF1E'],
+              ['jQuery','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/jQuery.svg','#0769AD'],
+              ['PHP','Advanced','https://raw.githubusercontent.com/AmanJainA/AmanJainA/Portfolio/main/src/images/tech-icons/php.svg','#777BB4'],
+              ['SQL','Advanced',sqlIcon,'#00758F'],
+              ['Node.js','Intermediate','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/nodejs.svg','#68A063'],
+              ['React.js','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/react.svg','#61DAFB'],
+              ['Android','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/android.svg','#3DDC84'],
+              ['Flutter','Advanced','https://raw.githubusercontent.com/AmanJainA/Portfolio/main/src/images/tech-icons/flutter.svg','#54C5F8'],
+            ]}
           />
         </Section>
 
