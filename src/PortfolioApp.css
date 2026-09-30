@@ -89,51 +89,30 @@
   transform-origin:left center;
   overflow:hidden;
   border-radius:999px;
-  background:color-mix(in srgb,var(--p-border) 72%,transparent);
-  box-shadow:0 0 16px color-mix(in srgb,var(--p-accent) 10%,transparent);
+  background:color-mix(in srgb,var(--p-border) 70%,transparent);
   will-change:transform;
 }
-.p-section-title-divider::before,
-.p-section-title-divider::after{
-  content:"";
-  position:absolute;
-  top:0;
+.p-section-title-divider span{
+  display:block;
+  width:100%;
   height:100%;
-  pointer-events:none;
-}
-.p-section-title-divider::before{
-  left:0;
-  width:42%;
+  transform-origin:left center;
   background:linear-gradient(90deg,var(--p-accent2),var(--p-accent));
   box-shadow:0 0 14px color-mix(in srgb,var(--p-accent) 45%,transparent);
-  animation:p-section-divider-flow 3.8s ease-in-out infinite;
+  position:relative;
 }
-.p-section-title-divider::after{
-  right:0;
-  width:18%;
-  background:linear-gradient(90deg,transparent,var(--p-accent2));
-  opacity:.45;
-  animation:p-section-divider-pulse 2.6s ease-in-out infinite;
-}
-.p-section-title-divider span{
+.p-section-title-divider span::after{
+  content:"";
   position:absolute;
+  right:0;
   top:50%;
-  left:42%;
   width:6px;
   height:6px;
   border-radius:50%;
-  transform:translate(-50%,-50%);
+  transform:translate(50%,-50%);
   background:var(--p-accent);
   box-shadow:0 0 10px var(--p-accent),0 0 22px color-mix(in srgb,var(--p-accent) 45%,transparent);
   animation:p-section-divider-node 2s ease-in-out infinite;
-}
-@keyframes p-section-divider-flow{
-  0%,100%{transform:translateX(-18%);opacity:.65}
-  50%{transform:translateX(135%);opacity:1}
-}
-@keyframes p-section-divider-pulse{
-  0%,100%{transform:translateX(18%);opacity:.2}
-  50%{transform:translateX(-12%);opacity:.7}
 }
 @keyframes p-section-divider-node{
   0%,100%{opacity:.5;box-shadow:0 0 7px var(--p-accent)}
