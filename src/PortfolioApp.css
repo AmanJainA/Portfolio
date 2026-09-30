@@ -3734,7 +3734,3 @@ body:has(.portfolio-splash-layer) {
   }
 }
 
-/* Final section heading spacing: keep the title-to-divider gap tight and consistent. */
-.p-section-heading-motion .p-title {
-  margin-bottom: 10px;
-}
