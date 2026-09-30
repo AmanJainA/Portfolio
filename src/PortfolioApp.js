@@ -832,6 +832,11 @@ export default function PortfolioApp() {
         <ProjectSection projects={data.projects} />
 
         <Section id="resume" title="Education & Work Experience" eyebrow="04 / JOURNEY">
+          <div className="p-resume-line-wrap" aria-hidden="true">
+            <div className="p-about-scroll-progress p-resume-scroll-progress">
+              <span />
+            </div>
+          </div>
           <JourneyMotionScene data={data} />
         </Section>
 
