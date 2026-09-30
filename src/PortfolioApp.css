@@ -3026,10 +3026,7 @@ body:has(.portfolio-splash-layer) {
 
 /* Mobile View Projects button spacing */
 @media (max-width: 800px) {
-  .portfolio-modern .p-hero .p-actions .p-primary-btn {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
+  
 }
 
 /* ===== Hero content layering ===== */
