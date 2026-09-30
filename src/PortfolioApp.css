@@ -1471,9 +1471,7 @@ body:has(.portfolio-splash-layer) {
 .p-journey-education {
   padding-right: 28px;
 }
-.p-journey-experience {
-  padding-left: 28px;
-}
+
 .p-journey-dot {
   position: relative;
   z-index: 6;
