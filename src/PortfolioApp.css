@@ -3742,7 +3742,7 @@ body:has(.portfolio-splash-layer) {
   padding: 20px 0;
 }
 
-[data-portfolio-theme="light"] #projects .p-title {
+#projects .p-title {
   color: var(--p-text);
 }
 
@@ -3768,13 +3768,5 @@ body:has(.portfolio-splash-layer) {
     margin-top: 0 !important;
     min-width: 0;
   }
-}
-
-[data-portfolio-theme="light"] #projects .p-title {
-  color: var(--p-text);
-}
-
-[data-portfolio-theme="light"] #projects .p-project-body p {
-  color: #17181a;
 }
 
