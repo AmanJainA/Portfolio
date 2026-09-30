@@ -446,9 +446,7 @@ function Section({ id, title, eyebrow, children }) {
           <span className="p-eyebrow">{eyebrow}</span>
           <h2 className="p-title">{title}</h2>
           {['skills', 'resume', 'contact'].includes(id) && (
-            <div className="p-section-about-line" aria-hidden="true">
-              <motion.span style={{ scaleX: sectionLineProgress }} />
-            </div>
+            <div className="p-section-about-line" aria-hidden="true"></div>
           )}
         </motion.div>
 
