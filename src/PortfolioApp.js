@@ -692,7 +692,6 @@ export default function PortfolioApp() {
             <motion.div className="p-skills-intro" initial={{ opacity: 0, y: 45, filter: 'blur(6px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }} viewport={{ once: true, amount: .35 }} transition={{ duration: .75, delay: .08, ease: [0.22, 1, 0.36, 1] }}>
               <span className="p-skills-kicker">DEVELOPER PROFILE</span>
               <h3>Tools, technologies &amp; professional capabilities</h3>
-              <p>Every skill below is kept from your current portfolio data and presented as a clear capability — technical depth on the left, professional strengths on the right.</p>
             </motion.div>
             <div className="p-box-grid p-skills-capability-grid">
               {boxes.map((skill, i) => (
