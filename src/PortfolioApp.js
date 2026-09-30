@@ -230,6 +230,82 @@ function AboutScrollScene({ aboutText, techItems }) {
   );
 }
 
+function JourneyMotionScene({ data }) {
+  const sceneRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: sceneRef,
+    offset: ['start 90%', 'end 25%'],
+  });
+  const sceneY = useTransform(scrollYProgress, [0, .22, .7, 1], [28, 0, 0, -18]);
+  const sceneScale = useTransform(scrollYProgress, [0, .2, .7, 1], [.985, 1, 1, .995]);
+  const lineScale = useTransform(scrollYProgress, [0, .2, 1], [.08, .58, 1]);
+
+  return (
+    <motion.div
+      ref={sceneRef}
+      className="p-journey-motion-scene"
+      style={{ y: sceneY, scale: sceneScale }}
+    >
+      <div className="p-journey-motion-hud" aria-hidden="true">
+        <span><i /> JOURNEY://TIMELINE</span>
+        <span>DATA_FLOW <b>●</b></span>
+      </div>
+      <div className="p-journey-timeline">
+        <motion.div className="p-journey-line" aria-hidden="true" style={{ scaleY: lineScale }} />
+        <motion.div
+          className="p-journey-head"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: .12 }}
+          transition={{ duration: .5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <h3>Education</h3><span /><h3>Work Experience</h3>
+        </motion.div>
+        {Array.from({ length: Math.max(data.education.length, data.experience.length) }).map((_, i) => {
+          const education = data.education[i];
+          const experience = data.experience[i];
+          return (
+            <div className="p-journey-row" key={education?.id || experience?.id || i}>
+              <div className="p-journey-side p-journey-education">
+                {education && <motion.article className="p-journey-card p-journey-card-left"
+                  initial={{ opacity: 0, x: -42, rotateY: 5, scale: .97 }}
+                  whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                  viewport={{ once: true, amount: .12 }}
+                  transition={{ duration: .65, delay: i * .07, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -6, x: 4, scale: 1.012 }}
+                >
+                  <span>{education.period}</span><h3>{education.title}</h3><b>{education.location}</b>
+                  {(education.details || []).map(d => <p key={d}>{d}</p>)}
+                </motion.article>}
+              </div>
+              <motion.div
+                className="p-journey-dot"
+                aria-hidden="true"
+                initial={{ opacity: 0, scale: .25 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: .12 }}
+                transition={{ duration: .4, delay: i * .07 + .08, type: 'spring', stiffness: 180, damping: 14 }}
+              />
+              <div className="p-journey-side p-journey-experience">
+                {experience && <motion.article className="p-journey-card p-journey-card-right mb-2"
+                  initial={{ opacity: 0, x: 42, rotateY: -5, scale: .97 }}
+                  whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
+                  viewport={{ once: true, amount: .12 }}
+                  transition={{ duration: .65, delay: i * .07 + .04, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -6, x: -4, scale: 1.012 }}
+                >
+                  <span>{experience.period}</span><h3>{experience.title}</h3><b>{experience.company}</b>
+                  {(experience.details || []).map(d => <p key={d}>{d}</p>)}
+                </motion.article>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </motion.div>
+  );
+}
+
 function ProjectSection({ projects }) {
   const [filter, setFilter] = useState('All');
   const [isMobile, setIsMobile] = useState(() => window.matchMedia?.('(max-width: 650px)').matches ?? false);
@@ -736,73 +812,7 @@ export default function PortfolioApp() {
         <ProjectSection projects={data.projects} />
 
         <Section id="resume" title="Education & Work Experience" eyebrow="04 / JOURNEY">
-          <motion.div
-            className="p-journey-motion-scene"
-            initial={{ opacity: 0, y: 34 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: .08 }}
-            transition={{ duration: .75, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="p-journey-timeline">
-              <motion.div
-                className="p-journey-head"
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: .2 }}
-                transition={{ duration: .55, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <h3>Education</h3><span /><h3>Work Experience</h3>
-              </motion.div>
-              <motion.div
-                className="p-journey-line"
-                aria-hidden="true"
-                initial={{ scaleY: 0, transformOrigin: 'top' }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true, amount: .08 }}
-                transition={{ duration: 1.15, ease: [0.22, 1, 0.36, 1] }}
-              />
-              {Array.from({ length: Math.max(data.education.length, data.experience.length) }).map((_, i) => {
-                const education = data.education[i];
-                const experience = data.experience[i];
-                return (
-                  <div className="p-journey-row" key={education?.id || experience?.id || i}>
-                    <div className="p-journey-side p-journey-education">
-                      {education && <motion.article className="p-journey-card p-journey-card-left"
-                        initial={{ opacity: 0, x: -42, rotateY: 5, scale: .97 }}
-                        whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-                        viewport={{ once: true, amount: .18 }}
-                        transition={{ duration: .7, delay: i * .09, ease: [0.22, 1, 0.36, 1] }}
-                        whileHover={{ y: -6, x: 4, scale: 1.012 }}
-                      >
-                        <span>{education.period}</span><h3>{education.title}</h3><b>{education.location}</b>
-                        {(education.details || []).map(d => <p key={d}>{d}</p>)}
-                      </motion.article>}
-                    </div>
-                    <motion.div
-                      className="p-journey-dot"
-                      aria-hidden="true"
-                      initial={{ opacity: 0, scale: .25 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true, amount: .18 }}
-                      transition={{ duration: .45, delay: i * .09 + .12, type: 'spring', stiffness: 180, damping: 14 }}
-                    />
-                    <div className="p-journey-side p-journey-experience">
-                      {experience && <motion.article className="p-journey-card p-journey-card-right mb-2"
-                        initial={{ opacity: 0, x: 42, rotateY: -5, scale: .97 }}
-                        whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
-                        viewport={{ once: true, amount: .18 }}
-                        transition={{ duration: .7, delay: i * .09 + .05, ease: [0.22, 1, 0.36, 1] }}
-                        whileHover={{ y: -6, x: -4, scale: 1.012 }}
-                      >
-                        <span>{experience.period}</span><h3>{experience.title}</h3><b>{experience.company}</b>
-                        {(experience.details || []).map(d => <p key={d}>{d}</p>)}
-                      </motion.article>}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </motion.div>
+          <JourneyMotionScene data={data} />
         </Section>
 
         <Section id="contact" title={p.contact_heading || 'Contact Form'} eyebrow="05 / CONNECT">
