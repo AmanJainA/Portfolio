@@ -880,14 +880,14 @@ body:has(.portfolio-splash-layer) {
   height: 65%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(103,232,249,.16), rgba(139,92,246,.08) 38%, transparent 72%);
-  filter: blur(30px);
+  background: radial-gradient(circle, rgba(103,232,249,.10), rgba(139,92,246,.045) 38%, transparent 72%);
+  filter: blur(34px);
   pointer-events: none;
   animation: about-tech-pulse 4s ease-in-out infinite;
 }
 @keyframes about-tech-pulse {
-  0%,100% { transform: translate(-50%,-50%) scale(.88); opacity: .55; }
-  50% { transform: translate(-50%,-50%) scale(1.12); opacity: 1; }
+  0%,100% { transform: translate(-50%,-50%) scale(.92); opacity: .38; }
+  50% { transform: translate(-50%,-50%) scale(1.06); opacity: .68; }
 }
 .p-about-tech-card {
   min-height: 145px;
@@ -916,7 +916,7 @@ body:has(.portfolio-splash-layer) {
   content: "";
   position: absolute;
   inset: -60%;
-  background: conic-gradient(from 180deg, transparent 0 32%, rgba(103,232,249,.20), transparent 45% 70%, rgba(139,92,246,.18), transparent 82%);
+  background: conic-gradient(from 180deg, transparent 0 32%, rgba(103,232,249,.11), transparent 45% 70%, rgba(139,92,246,.09), transparent 82%);
   animation: about-tech-shine 7s linear infinite;
   pointer-events: none;
 }
@@ -1253,15 +1253,15 @@ body:has(.portfolio-splash-layer) {
 .p-about-tech-card {
   --tech-color: #67e8f9;
   border-color: color-mix(in srgb, var(--tech-color) 24%, var(--p-border));
-  box-shadow: 0 18px 55px rgba(0,0,0,.14), 0 0 28px color-mix(in srgb, var(--tech-color) 13%, transparent);
+  box-shadow: 0 14px 38px rgba(0,0,0,.12), 0 0 20px color-mix(in srgb, var(--tech-color) 8%, transparent);
 }
 .p-about-tech-icon {
   border: 1px solid color-mix(in srgb, var(--tech-color) 35%, transparent);
   background: color-mix(in srgb, var(--tech-color) 10%, transparent);
-  box-shadow: 0 0 22px color-mix(in srgb, var(--tech-color) 18%, transparent);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--tech-color) 11%, transparent);
 }
 .p-about-tech-icon img {
-  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--tech-color) 42%, transparent));
+  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--tech-color) 30%, transparent));
 }
 .p-about-tech-card strong {
   color: var(--tech-color);
