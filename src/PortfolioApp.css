@@ -132,7 +132,6 @@
   color:var(--p-text);
 }
 [data-portfolio-theme="light"] .p-header {
-  background:rgba(255,255,255,.82);
   border-bottom-color:rgba(22,32,51,.10);
 }
 [data-portfolio-theme="light"] .p-brand,
