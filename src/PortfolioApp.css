@@ -3711,7 +3711,7 @@ body:has(.portfolio-splash-layer) {
 .p-section,
 .p-section:first-of-type,
 .p-section:last-of-type {
-  padding: 40px 0;
+  padding: 20px 0;
 }
 
 [data-portfolio-theme="light"] #projects .p-title {
@@ -3726,7 +3726,7 @@ body:has(.portfolio-splash-layer) {
   .p-section,
   .p-section:first-of-type,
   .p-section:last-of-type {
-    padding: 40px 0;
+    padding: 20px 0;
   }
 
   .p-about-scrollscene .p-about-tech-field {
