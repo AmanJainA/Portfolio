@@ -444,6 +444,15 @@ function Section({ id, title, eyebrow, children }) {
         >
           <span className="p-eyebrow">{eyebrow}</span>
           <h2 className="p-title">{title}</h2>
+          {['skills', 'resume', 'contact'].includes(id) && (
+            <motion.div
+              className="p-section-title-divider"
+              aria-hidden="true"
+              style={{ scaleX: useTransform(smoothProgress, [0, 0.32, 0.7, 1], [0.08, 1, 1, 0.72]) }}
+            >
+              <span />
+            </motion.div>
+          )}
         </motion.div>
 
         <motion.div
