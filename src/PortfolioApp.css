@@ -3311,6 +3311,7 @@ body:has(.portfolio-splash-layer) {
   box-shadow:0 0 28px color-mix(in srgb,var(--tech-color) 32%,transparent);
 }
 @media(max-width:650px){
+  .p-about-scrollscene > .p-about-scroll-progress{display:none}
   .p-about-scroll-progress{top:-12px}
   .p-about-motion-grid{background-size:28px 28px;opacity:.16}
   .p-about-motion-orbit-one{width:125%;transform:translate(-50%,-50%) rotate(16deg) scaleY(.25)}
