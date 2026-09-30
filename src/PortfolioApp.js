@@ -153,7 +153,16 @@ function ProfessionalRing({ skill }) {
 }
 
 function AboutScrollScene({ aboutText, techItems }) {
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia?.('(max-width: 650px)').matches ?? false);
   const sceneRef = useRef(null);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia?.('(max-width: 650px)');
+    if (!mediaQuery) return undefined;
+    const handleViewportChange = (event) => setIsMobile(event.matches);
+    mediaQuery.addEventListener?.('change', handleViewportChange);
+    return () => mediaQuery.removeEventListener?.('change', handleViewportChange);
+  }, []);
   const { scrollYProgress } = useScroll({
     target: sceneRef,
     offset: ['start end', 'end start'],
@@ -173,9 +182,9 @@ function AboutScrollScene({ aboutText, techItems }) {
       <div className="p-about-scroll-sticky">
         <motion.div
           className="p-glass p-about-immersive"
-          style={{ y: sceneY, rotateX: sceneRotate, scale: sceneScale }}
-          initial={{ opacity: 0, scale: .96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          style={{ y: isMobile ? 0 : sceneY, rotateX: isMobile ? 0 : sceneRotate, scale: isMobile ? 1 : sceneScale }}
+          initial={isMobile ? false : { opacity: 0, scale: .96 }}
+          whileInView={isMobile ? undefined : { opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.12 }}
           transition={{ duration: .7 }}
         >
@@ -195,7 +204,7 @@ function AboutScrollScene({ aboutText, techItems }) {
           <motion.div
             className="p-about-tech-field"
             aria-label="Technical skills"
-            style={{ y: gridY, rotateZ: gridRotate }}
+            style={{ y: isMobile ? 0 : gridY, rotateZ: isMobile ? 0 : gridRotate }}
           >
             <div className="p-about-tech-glow" />
             {techItems.map(([name, level, icon, color], i) => (
@@ -203,11 +212,11 @@ function AboutScrollScene({ aboutText, techItems }) {
                 className="p-about-tech-card"
                 key={name}
                 style={{ '--tech-color': color }}
-                initial={{ opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
+                initial={isMobile ? false : { opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
+                whileInView={isMobile ? undefined : { opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
                 viewport={{ once: true, amount: 0.18 }}
                 transition={{ delay: i * .11, duration: .8, type: 'spring', stiffness: 90, damping: 14 }}
-                whileHover={{ y: -16, scale: 1.08, rotateX: -8, rotateY: i % 2 ? 9 : -9, z: 45 }}
+                whileHover={isMobile ? undefined : { y: -16, scale: 1.08, rotateX: -8, rotateY: i % 2 ? 9 : -9, z: 45 }}
               >
                 <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
                 <strong>{name}</strong>
