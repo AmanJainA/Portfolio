@@ -334,7 +334,7 @@ function ProjectSection({ projects }) {
     return projects.filter((project) =>
       (project.tech_stack || []).some((tech) => {
         const value = String(tech).toLowerCase();
-        if (filter === 'Android') return value.includes('android') || value.includes('flutter');
+        if (filter === 'Android') return value.includes('android');
         return value.includes(filter.toLowerCase());
       })
     );
