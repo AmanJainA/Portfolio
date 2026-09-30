@@ -3768,23 +3768,3 @@ body:has(.portfolio-splash-layer) {
   color: #17181a;
 }
 
-@media (max-width: 650px) {
-  .p-section,
-  .p-section:first-of-type,
-  .p-section:last-of-type {
-    padding: 20px 0;
-  }
-
-  .p-about-scrollscene .p-about-tech-field {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 11px;
-    margin-top: 32px;
-    padding: 12px 0 0;
-  }
-
-  .p-about-scrollscene .p-about-tech-card {
-    margin-top: 0 !important;
-    min-width: 0;
-  }
-}
-

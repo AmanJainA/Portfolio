@@ -676,7 +676,7 @@ export default function PortfolioApp() {
               <h1>Hi, I’m <span>{p.full_name || 'Aman Jain'}</span></h1>
               <HeroRoleTypewriter />
               <RichText html={p.hero_intro || p.about_text || 'I build useful digital experiences by combining technology, design and practical problem solving.'} className="p-hero-rich-text" />
-              <div className="p-actions">
+              <div className="p-actions mt-2">
                 <a className="p-primary-btn" href="#projects">View Projects <i className="fa-solid fa-arrow-down" /></a>
                 <a className="p-secondary-btn" href="#contact">Let’s Talk <i className="fa-solid fa-arrow-up-right-from-square" /></a>
               </div>
