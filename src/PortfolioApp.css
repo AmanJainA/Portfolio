@@ -3705,3 +3705,39 @@ body:has(.portfolio-splash-layer) {
 @keyframes pContactMapScan{0%,100%{top:0;opacity:.35}50%{top:100%;opacity:1}}
 @media(max-width:650px){.p-contact-map-modal{padding:12px}.p-contact-map-modal-card{width:96vw;border-radius:18px}.p-contact-map-modal-head{padding:14px}.p-contact-map-modal-head strong{font-size:.78rem}.p-contact-map-modal-frame{height:62vh}.p-contact-map-modal .p-contact-map-open{left:12px;right:12px;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.p-contact-map-scanline{animation:none;display:none}}
+
+
+/* Final spacing, Projects light-theme colors, and mobile About tech-grid fix */
+.p-section,
+.p-section:first-of-type,
+.p-section:last-of-type {
+  padding: 40px 0;
+}
+
+[data-portfolio-theme="light"] #projects .p-title {
+  color: #000;
+}
+
+[data-portfolio-theme="light"] #projects .p-project-body p {
+  color: #17181a;
+}
+
+@media (max-width: 650px) {
+  .p-section,
+  .p-section:first-of-type,
+  .p-section:last-of-type {
+    padding: 40px 0;
+  }
+
+  .p-about-scrollscene .p-about-tech-field {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 11px;
+    margin-top: 32px;
+    padding: 12px 0 0;
+  }
+
+  .p-about-scrollscene .p-about-tech-card {
+    margin-top: 0 !important;
+    min-width: 0;
+  }
+}
