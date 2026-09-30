@@ -426,7 +426,7 @@ function Section({ id, title, eyebrow, children }) {
       <div className="p-container">
         <motion.div
           className="p-section-heading-motion"
-          style={{ y: headingY, scale: headingScale, opacity: headingOpacity }}
+          style={id === 'resume' ? { y: 0, scale: 1, opacity: 1 } : { y: headingY, scale: headingScale, opacity: headingOpacity }}
         >
           <span className="p-eyebrow">{eyebrow}</span>
           <h2 className="p-title">{title}</h2>
@@ -435,9 +435,9 @@ function Section({ id, title, eyebrow, children }) {
         <motion.div
           className="p-section-scroll-motion"
           style={{
-            y: id === 'projects' && isMobile ? 0 : contentY,
-            scale: id === 'projects' && isMobile ? 1 : contentScale,
-            opacity: id === 'projects' && isMobile ? 1 : contentOpacity,
+            y: (id === 'projects' || id === 'resume') && isMobile ? 0 : contentY,
+            scale: id === 'projects' || id === 'resume' ? 1 : contentScale,
+            opacity: id === 'projects' || id === 'resume' ? 1 : contentOpacity,
           }}
         >
           {children}
