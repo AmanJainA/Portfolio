@@ -428,12 +428,12 @@ function Section({ id, title, eyebrow, children }) {
     mass: 0.45,
   });
   const isProjects = id === 'projects';
-  const headingY = useTransform(smoothProgress, isProjects ? [0, 0.4, 0.52, 1] : [0, 0.5, 1], isProjects ? [30, 18, 0, 0] : [42, 0, -24]);
-  const contentY = useTransform(smoothProgress, isProjects ? [0, 0.42, 0.58, 0.78, 1] : [0, 0.5, 1], isProjects ? [32, 20, 8, 0, 0] : [58, 0, -34]);
-  const headingScale = useTransform(smoothProgress, isProjects ? [0, 0.4, 0.52, 1] : [0, 0.5, 1], isProjects ? [0.96, 0.98, 1, 1] : [0.94, 1, 1.02]);
-  const contentScale = useTransform(smoothProgress, isProjects ? [0, 0.5, 0.72, 1] : [0, 0.5, 1], isProjects ? [0.98, 0.99, 1, 1] : [0.97, 1, 1.015]);
-  const headingOpacity = useTransform(smoothProgress, isProjects ? [0, 0.4, 0.52, 1] : [0, 0.18, 0.82, 1], isProjects ? [0, 0.08, 1, 1] : [0, 1, 1, 0.86]);
-  const contentOpacity = useTransform(smoothProgress, isProjects ? [0, 0.42, 0.58, 0.78, 1] : [0, 0.16, 0.84, 1], isProjects ? [0, 0.12, 0.5, 0.88, 1] : [0.15, 1, 1, 0.9]);
+  const headingY = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [24, 0, 0] : [42, 0, -24]);
+  const contentY = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [34, 0, 0] : [58, 0, -34]);
+  const headingScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.97, 1, 1] : [0.94, 1, 1.02]);
+  const contentScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.98, 1, 1] : [0.97, 1, 1.015]);
+  const headingOpacity = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.18, 0.82, 1], isProjects ? [0, 1, 1] : [0, 1, 1, 0.86]);
+  const contentOpacity = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.16, 0.84, 1], isProjects ? [0, 1, 1] : [0.15, 1, 1, 0.9]);
   const sectionLineProgress = useTransform(smoothProgress, [0, 1], [0, 1]);
 
   return (
