@@ -318,6 +318,16 @@ function ProjectSection({ projects }) {
 
 function Section({ id, title, eyebrow, children }) {
   const sectionRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia?.('(max-width: 650px)').matches ?? false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia?.('(max-width: 650px)');
+    if (!mediaQuery) return undefined;
+    const handleViewportChange = (event) => setIsMobile(event.matches);
+    mediaQuery.addEventListener?.('change', handleViewportChange);
+    return () => mediaQuery.removeEventListener?.('change', handleViewportChange);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ['start end', 'end start'],
@@ -347,7 +357,11 @@ function Section({ id, title, eyebrow, children }) {
 
         <motion.div
           className="p-section-scroll-motion"
-          style={{ y: contentY, scale: contentScale, opacity: contentOpacity }}
+          style={{
+            y: id === 'projects' && isMobile ? 0 : contentY,
+            scale: id === 'projects' && isMobile ? 1 : contentScale,
+            opacity: id === 'projects' && isMobile ? 1 : contentOpacity,
+          }}
         >
           {children}
         </motion.div>
