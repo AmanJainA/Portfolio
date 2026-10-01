@@ -1649,59 +1649,44 @@ body:has(.portfolio-splash-layer) {
     margin-bottom: 14px;
   }
   /*
-    Mobile timeline markers stay on the timeline column independently
-    from the animated cards. The cards can slide left/right without
-    carrying their marker away from the line.
+    Mobile timeline marker:
+    keep the real .p-journey-dot in the timeline column instead of
+    attaching the marker to the animated card. This keeps the dot
+    locked to the vertical line while the card slides left/right.
   */
   .p-journey-row .p-journey-dot {
-    display: none;
+    display: block;
+    grid-column: 1;
+    justify-self: center;
+    align-self: center;
+    width: 14px;
+    height: 14px;
+    margin: 0;
+    z-index: 12;
+    transform-origin: center;
   }
 
+  /*
+    Match each dot to the same visual row/order as its card.
+    The cards animate with x transforms, but these dots never move
+    horizontally, so they remain exactly on the timeline.
+  */
+  .p-journey-row:nth-of-type(3) .p-journey-dot { order: 3; }
+  .p-journey-row:nth-of-type(4) .p-journey-dot { order: 4; }
+  .p-journey-row:nth-of-type(5) .p-journey-dot { order: 5; }
+  .p-journey-row:nth-of-type(6) .p-journey-dot { order: 6; }
+
+  /* Do not create a second marker on the animated card. */
   .p-journey-card::before {
     content: none;
   }
 
-  .p-journey-row .p-journey-education,
-  .p-journey-row .p-journey-experience {
-    position: relative;
-  }
-
-  .p-journey-row .p-journey-education::after,
-  .p-journey-row .p-journey-experience::after {
-    content: "";
-    position: absolute;
-    left: -20px;
-    top: 23px;
-    width: 14px;
-    height: 14px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    background: var(--p-bg);
-    border: 3px solid var(--p-accent);
-    box-shadow:
-      0 0 0 5px color-mix(in srgb,var(--p-accent) 12%,transparent),
-      0 0 22px color-mix(in srgb,var(--p-accent) 38%,transparent);
-    z-index: 12;
-    pointer-events: none;
-  }
-
-  /* One marker per card, in the same order as the mobile card stack. */
-  .p-journey-row:nth-of-type(3) .p-journey-education { order: 3; }
-  .p-journey-row:nth-of-type(4) .p-journey-education { order: 4; }
-  .p-journey-row:nth-of-type(5) .p-journey-education { order: 5; }
-  .p-journey-row:nth-of-type(6) .p-journey-education { order: 6; }
-
-  .p-journey-row:nth-of-type(3) .p-journey-experience { order: 7; }
-  .p-journey-row:nth-of-type(4) .p-journey-experience { order: 8; }
-  .p-journey-row:nth-of-type(5) .p-journey-experience { order: 9; }
-  .p-journey-row:nth-of-type(6) .p-journey-experience { order: 10; }
-
-  /* Keep the timeline behind every independent marker. */
+  /* Timeline stays behind the real marker. */
   .p-journey-line {
     z-index: 1;
   }
-  .p-journey-row .p-journey-education,
-  .p-journey-row .p-journey-experience {
+  .p-journey-dot,
+  .p-journey-card {
     z-index: 10;
   }
 
