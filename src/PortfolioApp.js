@@ -397,10 +397,10 @@ function ProjectSection({ projects }) {
         <motion.div layout className="p-project-grid">
           {filteredProjects.map((project, i) => (
             <motion.article layout className="p-project p-project-motion-card" key={project.id}
-              initial={isMobile ? false : { opacity: 0, y: 55, rotateX: 12, scale: .95 }}
-              whileInView={isMobile ? undefined : { opacity: 1, y: 0, rotateX: 0, scale: 1 }}
-              viewport={{ once: true, amount: .16 }}
-              transition={{ delay: i * .075, duration: .65, ease: [0.22, 1, 0.36, 1] }}
+              initial={{ opacity: 0, y: 55, rotateX: 12, scale: .95 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
+              viewport={{ once: true, amount: .2 }}
+              transition={{ delay: i * .14, duration: .65, ease: [0.22, 1, 0.36, 1] }}
               whileHover={isMobile ? undefined : { y: -10, rotateX: -1.5, scale: 1.012 }}>
               <div className="p-project-image">
                 <div className="p-project-image-shine" aria-hidden="true" />
