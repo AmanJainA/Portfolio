@@ -320,6 +320,7 @@ function JourneyMotionScene({ data }) {
 
 function ProjectSection({ projects }) {
   const [filter, setFilter] = useState('All');
+  const sceneRef = useRef(null);
   const [isMobile, setIsMobile] = useState(() => window.matchMedia?.('(max-width: 650px)').matches ?? false);
   const filters = ['All', 'PHP', 'Android', 'Flutter', 'React'];
 
@@ -330,6 +331,19 @@ function ProjectSection({ projects }) {
     mediaQuery.addEventListener?.('change', handleViewportChange);
     return () => mediaQuery.removeEventListener?.('change', handleViewportChange);
   }, []);
+  const { scrollYProgress } = useScroll({
+    target: sceneRef,
+    offset: ['start 90%', 'end 15%'],
+  });
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 95,
+    damping: 25,
+    mass: 0.45,
+  });
+  const gridY = useTransform(smoothProgress, [0, .5, 1], [55, 0, -45]);
+  const gridRotate = useTransform(smoothProgress, [0, .5, 1], [-1.5, 0, 1.5]);
+  const scanY = useTransform(smoothProgress, [0, 1], ['0%', '92%']);
+
   const filteredProjects = useMemo(() => {
     if (filter === 'All') return projects;
     return projects.filter((project) =>
@@ -344,14 +358,23 @@ function ProjectSection({ projects }) {
   return (
     <Section id="projects" title="My Projects" eyebrow="03 / SELECTED WORK">
       <motion.div
+        ref={sceneRef}
         className="p-projects-motion-scene"
         initial={isMobile ? false : { opacity: 0, y: 55, scale: .975 }}
         whileInView={isMobile ? undefined : { opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: .12 }}
         transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="p-projects-grid-bg" aria-hidden="true" />
-        <div className="p-projects-scanline" aria-hidden="true" />
+        <motion.div
+          className="p-projects-grid-bg"
+          aria-hidden="true"
+          style={{ y: isMobile ? 0 : gridY, rotateZ: isMobile ? 0 : gridRotate }}
+        />
+        <motion.div
+          className="p-projects-scanline"
+          aria-hidden="true"
+          style={{ y: isMobile ? '0%' : scanY }}
+        />
         <div className="p-about-scroll-progress p-projects-scroll-progress" aria-hidden="true">
           <motion.span initial={isMobile ? false : { scaleX: 0 }} whileInView={isMobile ? undefined : { scaleX: 1 }}
             viewport={{ once: true, amount: .15 }}
