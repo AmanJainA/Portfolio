@@ -291,8 +291,8 @@ function JourneyMotionScene({ data }) {
               />
               <div className="p-journey-side p-journey-experience">
                 {experience && <motion.article className="p-journey-card p-journey-card-right mb-2"
-                  initial={{ opacity: 0, x: 48, rotateY: -5, scale: .96 }}
-                  whileInView={{ opacity: 1, x: 28, y: 0, rotateY: 0, scale: 1 }}
+                  initial={{ x: 48, rotateY: -5, scale: .96 }}
+                  whileInView={{ x: 0, y: 0, rotateY: 0, scale: 1 }}
                   viewport={{ once: true, amount: .2 }}
                   transition={{ duration: .7, delay: i * .08 + .04, ease: [0.22, 1, 0.36, 1] }}
                   whileHover={{ y: -6, scale: 1.012 }}
