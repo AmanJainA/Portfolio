@@ -3847,3 +3847,55 @@ body:has(.portfolio-splash-layer) {
     scroll-behavior: auto !important; transition-duration: .01ms !important;
   }
 }
+
+
+/* Intro splash: quiet editorial styling, retaining its scroll-led entrance. */
+.portfolio-splash,
+.portfolio-splash-layer {
+  background: #101411;
+  color: #eef2ed;
+}
+.portfolio-splash-word {
+  color: #d7dfd5;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-weight: 720;
+  text-shadow: none;
+}
+.portfolio-splash-word-outline {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(183, 200, 186, .62);
+  text-shadow: none;
+}
+.portfolio-splash-name::before,
+.portfolio-splash-name::after {
+  background: linear-gradient(to bottom, transparent, rgba(183,200,186,.55), transparent);
+  box-shadow: none;
+  animation: none;
+  opacity: .24;
+}
+.portfolio-splash-grid { opacity: .14; }
+.portfolio-splash-orbit,
+.portfolio-splash-node { opacity: .24; box-shadow: none; }
+.portfolio-splash-scanlines { opacity: .035; }
+.portfolio-splash-system { color: #8f9b91; }
+.portfolio-splash-signature { color: #d7dfd5; opacity: .82; }
+.portfolio-splash-photo {
+  border: 1px solid rgba(183,200,186,.28);
+  box-shadow: 0 22px 58px rgba(0,0,0,.30);
+}
+.portfolio-splash-photo-scan { opacity: .12; }
+.portfolio-splash-tagline-text {
+  color: #a0aaa2;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.portfolio-splash-tagline-text:hover { color: #eef2ed; }
+.portfolio-splash-scroll { color: #a9bcae; }
+.portfolio-splash-scroll:hover { color: #eef2ed; }
+@media (prefers-reduced-motion: reduce) {
+  .portfolio-splash *,
+  .portfolio-splash *::before,
+  .portfolio-splash *::after {
+    animation: none !important;
+    transition-duration: .01ms !important;
+  }
+}
