@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { AnimatePresence, motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion, useInView, useScroll, useSpring, useTransform } from 'motion/react';
 import PortfolioHero from './components/ui/portfolio-hero';
 import { db, supabase } from './supabase';
 import './PortfolioApp.css';
@@ -168,11 +168,11 @@ function AboutScrollScene({ aboutText, techItems }) {
     target: sceneRef,
     offset: ['start end', 'end start'],
   });
-  const sceneRotate = useTransform(scrollYProgress, [0, .5, 1], [4, 0, -3]);
-  const sceneY = useTransform(scrollYProgress, [0, .5, 1], [70, 0, -45]);
-  const sceneScale = useTransform(scrollYProgress, [0, .45, 1], [.94, 1, .97]);
-  const gridY = useTransform(scrollYProgress, [0, .5, 1], [55, 0, -55]);
-  const gridRotate = useTransform(scrollYProgress, [0, .5, 1], [-2, 0, 2]);
+  const sceneRotate = useTransform(scrollYProgress, [0, .5, 1], [1.5, 0, -1]);
+  const sceneY = useTransform(scrollYProgress, [0, .5, 1], [28, 0, -18]);
+  const sceneScale = useTransform(scrollYProgress, [0, .45, 1], [.985, 1, .99]);
+  const gridY = useTransform(scrollYProgress, [0, .5, 1], [18, 0, -18]);
+  const gridRotate = useTransform(scrollYProgress, [0, .5, 1], [-.5, 0, .5]);
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   return (
@@ -210,11 +210,11 @@ function AboutScrollScene({ aboutText, techItems }) {
                 className="p-about-tech-card"
                 key={name}
                 style={{ '--tech-color': color }}
-                initial={isMobile ? false : { opacity: 0, scale: .25, y: 100, rotateX: 80, rotateY: i % 2 ? -55 : 55, z: -220 }}
+                initial={isMobile ? false : { opacity: 0, scale: .96, y: 24 }}
                 whileInView={isMobile ? undefined : { opacity: 1, scale: 1, y: 0, rotateX: 0, rotateY: 0, z: 0 }}
                 viewport={{ once: true, amount: 0.18 }}
-                transition={{ delay: i * .11, duration: .8, type: 'spring', stiffness: 90, damping: 14 }}
-                whileHover={isMobile ? undefined : { y: -16, scale: 1.08, rotateX: -8, rotateY: i % 2 ? 9 : -9, z: 45 }}
+                transition={{ delay: i * .07, duration: .55, ease: [0.22, 1, 0.36, 1] }}
+                whileHover={isMobile ? undefined : { y: -4, scale: 1.015 }}
               >
                 <span className="p-about-tech-icon"><img src={icon} alt={name} /></span>
                 <strong>{name}</strong>
@@ -249,8 +249,8 @@ function JourneyMotionScene({ data }) {
     damping: 26,
     mass: 0.45,
   });
-  const sceneY = useTransform(smoothProgress, [0, .2, .7, 1], [18, 0, 0, -10]);
-  const sceneScale = useTransform(smoothProgress, [0, .2, .75, 1], [.992, 1, 1, .998]);
+  const sceneY = useTransform(smoothProgress, [0, .2, .7, 1], [10, 0, 0, -6]);
+  const sceneScale = useTransform(smoothProgress, [0, .2, .75, 1], [.998, 1, 1, .999]);
   const lineScale = useTransform(smoothProgress, [0, .16, .72, 1], [.05, .55, .9, 1]);
 
   return (
@@ -281,11 +281,11 @@ function JourneyMotionScene({ data }) {
             <div className="p-journey-row" key={education?.id || experience?.id || i}>
               <div className="p-journey-side p-journey-education">
                 {education && <motion.article className="p-journey-card p-journey-card-left"
-                  initial={isMobile ? { opacity: 0, x: -48, rotateY: 5, scale: .96 } : { opacity: 0, x: -48, rotateY: 5, scale: .96 }}
+                  initial={{ opacity: 0, x: -20, scale: .985 }}
                   whileInView={{ opacity: 1, x: 0, rotateY: 0, scale: 1 }}
                   viewport={{ once: true, amount: .2 }}
                   transition={{ duration: .7, delay: i * .08, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -6, x: -4, scale: 1.012 }}
+                  whileHover={{ y: -3, x: -1, scale: 1.005 }}
                 >
                   <span>{education.period}</span><h3>{education.title}</h3><b>{education.location}</b>
                   {(education.details || []).map(d => <p key={d}>{d}</p>)}
@@ -301,11 +301,11 @@ function JourneyMotionScene({ data }) {
               />
               <div className="p-journey-side p-journey-experience">
                 {experience && <motion.article className="p-journey-card p-journey-card-right mb-2"
-                  initial={isMobile ? { opacity: 0, x: -48, rotateY: 5, scale: .96 } : { opacity: 0, x: 48, rotateY: -5, scale: .96 }}
-                  whileInView={isMobile ? { opacity: 1, x: 0, y: 0, rotateY: 0, scale: 1 } : { opacity: 1, x: 28, y: 0, rotateY: 0, scale: 1 }}
+                  initial={isMobile ? { opacity: 0, y: 16, scale: .985 } : { opacity: 0, x: 20, scale: .985 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0, scale: 1 }}
                   viewport={{ once: true, amount: .2 }}
                   transition={{ duration: .7, delay: i * .08 + .04, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -6, scale: 1.012 }}
+                  whileHover={{ y: -3, scale: 1.005 }}
                 >
                   <span>{experience.period}</span><h3>{experience.title}</h3><b>{experience.company}</b>
                   {(experience.details || []).map(d => <p key={d}>{d}</p>)}
@@ -341,8 +341,8 @@ function ProjectSection({ projects }) {
     damping: 25,
     mass: 0.45,
   });
-  const gridY = useTransform(smoothProgress, [0, .5, 1], [55, 0, -45]);
-  const gridRotate = useTransform(smoothProgress, [0, .5, 1], [-1.5, 0, 1.5]);
+  const gridY = useTransform(smoothProgress, [0, .5, 1], [20, 0, -18]);
+  const gridRotate = useTransform(smoothProgress, [0, .5, 1], [-.4, 0, .4]);
   const scanY = useTransform(smoothProgress, [0, 1], ['0%', '92%']);
 
   const filteredProjects = useMemo(() => {
@@ -361,7 +361,7 @@ function ProjectSection({ projects }) {
       <motion.div
         ref={sceneRef}
         className="p-projects-motion-scene"
-        initial={isMobile ? false : { opacity: 0, y: 55, scale: .975 }}
+        initial={isMobile ? false : { opacity: 0, y: 24, scale: .99 }}
         whileInView={isMobile ? undefined : { opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: .12 }}
         transition={{ duration: .85, ease: [0.22, 1, 0.36, 1] }}
@@ -397,11 +397,11 @@ function ProjectSection({ projects }) {
         <motion.div layout className="p-project-grid">
           {filteredProjects.map((project, i) => (
             <motion.article layout className="p-project p-project-motion-card" key={project.id}
-              initial={{ opacity: 0, y: 55, rotateX: 12, scale: .95 }}
+              initial={{ opacity: 0, y: 24, scale: .985 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
               viewport={{ once: true, amount: .2 }}
-              transition={{ delay: i * .14, duration: .65, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={isMobile ? undefined : { y: -10, rotateX: -1.5, scale: 1.012 }}>
+              transition={{ delay: i * .08, duration: .5, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={isMobile ? undefined : { y: -4, scale: 1.005 }}>
               <div className="p-project-image">
                 <div className="p-project-image-shine" aria-hidden="true" />
                 {project.image_url ? <img src={project.image_url} alt={project.title} /> : <div className="p-project-placeholder"><span className="p-project-icon-code" aria-hidden="true">&lt;/&gt;</span></div>}
@@ -450,10 +450,10 @@ function Section({ id, title, eyebrow, children }) {
     mass: 0.45,
   });
   const isProjects = id === 'projects';
-  const headingY = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [24, 0, 0] : [42, 0, -24]);
-  const contentY = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [34, 0, 0] : [58, 0, -34]);
-  const headingScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.97, 1, 1] : [0.94, 1, 1.02]);
-  const contentScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.98, 1, 1] : [0.97, 1, 1.015]);
+  const headingY = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [18, 0, 0] : [18, 0, -8]);
+  const contentY = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [24, 0, 0] : [24, 0, -12]);
+  const headingScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.99, 1, 1] : [0.99, 1, 1]);
+  const contentScale = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.5, 1], isProjects ? [0.995, 1, 1] : [0.995, 1, 1]);
   const headingOpacity = useTransform(smoothProgress, isProjects ? [0, 1] : [0, 0.18, 0.82, 1], isProjects ? [1, 1] : [0, 1, 1, 0.86]);
   const contentOpacity = useTransform(smoothProgress, isProjects ? [0, 0.22, 1] : [0, 0.16, 0.84, 1], isProjects ? [0, 1, 1] : [0.15, 1, 1, 0.9]);
   const sectionLineProgress = useTransform(smoothProgress, [0, 1], [0, 1]);
@@ -665,6 +665,7 @@ export default function PortfolioApp() {
   const p = data.profile || {};
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="portfolio-modern">
       {showSplash && (
         <div className="portfolio-splash-layer">
@@ -789,7 +790,7 @@ export default function PortfolioApp() {
 
         <Section id="skills" title="Skills" eyebrow="02 / CAPABILITIES">
           <motion.div className="p-skills-motion-scene"
-              initial={{ opacity: 0, y: 70, scale: .97, rotateX: 4 }}
+              initial={{ opacity: 0, y: 24, scale: .99 }}
               whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
               viewport={{ once: true, amount: .12 }}
               transition={{ duration: .9, ease: [0.22, 1, 0.36, 1] }}>
@@ -813,11 +814,11 @@ export default function PortfolioApp() {
             <div className="p-box-grid p-skills-capability-grid">
               {boxes.map((skill, i) => (
                 <motion.article className="p-glass p-skill-box p-skill-capability-card" key={skill.id}
-                  initial={{ opacity: 0, y: 45, rotateX: 18, scale: .94 }}
+                  initial={{ opacity: 0, y: 22, scale: .985 }}
                   whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }}
                   viewport={{ once: true, amount: .2 }}
                   transition={{ delay: i * .07, duration: .7, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ y: -9, rotateX: -2, scale: 1.018 }}>
+                  whileHover={{ y: -4, scale: 1.01 }}>
                   <span className="p-skill-card-index">{String(i + 1).padStart(2, '0')}</span>
                   <span className="p-skill-card-icon"><i className={skill.icon_class || 'fa-solid fa-code'} /></span>
                   <div className="p-skill-card-copy"><h3>{skill.name}</h3><p>{skill.description}</p></div>
@@ -826,7 +827,7 @@ export default function PortfolioApp() {
               ))}
             </div>
             <div className="p-skill-columns p-skills-data-grid">
-              <motion.div className="p-glass p-skill-panel p-skills-terminal" initial={{ opacity: 0, x: -70, rotateY: 7 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }}>
+              <motion.div className="p-glass p-skill-panel p-skills-terminal" initial={{ opacity: 0, x: -18 }} whileInView={{ opacity: 1, x: 0, rotateY: 0 }} viewport={{ once: true, amount: .18 }} transition={{ duration: .8, ease: [0.22, 1, 0.36, 1] }}>
                 <div className="p-skills-panel-head">
                   <div><span className="p-terminal-dots"><i /><i /><i /></span><h3>Technical Skills</h3></div><code>skills.tech</code>
                 </div>
@@ -900,7 +901,7 @@ export default function PortfolioApp() {
                         type="button"
                         className="p-contact-card p-contact-card-motion p-contact-address-trigger"
                         onClick={() => setContactMapOpen(true)}
-                        whileHover={{ x: 5, rotateY: 2 }}
+                        whileHover={{ x: 2 }}
                         whileTap={{ scale: .985 }}
                         transition={{ duration: .25 }}
                         aria-haspopup="dialog"
@@ -925,9 +926,9 @@ export default function PortfolioApp() {
                           >
                             <motion.div
                               className="p-contact-map-modal-card"
-                              initial={{ opacity: 0, y: 70, scale: .82, rotateX: 12, rotateY: -4 }}
+                              initial={{ opacity: 0, y: 18, scale: .985 }}
                               animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0, rotateY: 0 }}
-                              exit={{ opacity: 0, y: 40, scale: .9, rotateX: -8 }}
+                              exit={{ opacity: 0, y: 10, scale: .99 }}
                               transition={{ type: 'spring', stiffness: 150, damping: 18 }}
                               onClick={(event) => event.stopPropagation()}
                             >
@@ -968,7 +969,7 @@ export default function PortfolioApp() {
               <motion.form
                 className="p-glass p-contact-form p-contact-form-motion"
                 onSubmit={submitContact}
-                initial={{ opacity: 0, x: 55, rotateY: -6 }}
+                initial={{ opacity: 0, x: 18 }}
                 whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
                 viewport={{ once: true, amount: .2 }}
                 transition={{ duration: .75, delay: .08, ease: [0.22, 1, 0.36, 1] }}
@@ -987,6 +988,6 @@ export default function PortfolioApp() {
         </>
       )}
     </div>
+    </MotionConfig>
   );
 }
-
